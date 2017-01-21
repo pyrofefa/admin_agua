@@ -24,8 +24,9 @@ class TiketsController extends Controller
     {
         $tiket = new Tiket($request->all());
         $tiket->save();
-        $request -> session()->flash('nuevo', "Agregado con exito");
-        return redirect()->route('home.index');  
+        return "tiket agregado con exito";
+        //$request -> session()->flash('nuevo', "Agregado con exito");
+        //return redirect()->route('home.index');  
     }
     public function show($id)
     {
@@ -39,8 +40,9 @@ class TiketsController extends Controller
     {
         $tiket = Tiket::find($id);
         $tiket -> update($request->all());
-        $request -> session()->flash('nuevo', "Agregado con exito");
-        return redirect()->route('home.index');  
+        //$request -> session()->flash('nuevo', "Agregado con exito");
+        //return redirect()->route('home.index');  
+        return "agregado con exito";
     }
     public function actualizar(Request $request, $id)
     {

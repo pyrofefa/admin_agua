@@ -11,7 +11,7 @@ class CreateComercialesTable extends Migration
             $table->increments('id');
             $table->string('ruta');
             $table->string('tipo');
-            $table->string('duracion');
+            //$table->string('duracion');
             $table->timestamps();
         });
     }

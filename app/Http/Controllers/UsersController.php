@@ -61,13 +61,13 @@ class UsersController extends Controller
         $request -> session()->flash('message', "Usuario eliminado");
         return redirect()->route('user.index'); 
     }
-    public function iniciar(Request $request)
+    public function iniciar(Request $request, $id)
     {
         //dd($request->all());
         $caja = $request->name;
         $pass = $request->password;
         //dd($usuario);
-        $usuario = User::where('name', $caja)->where('password',$pass)->count();
+        $usuario = User::where('name', $caja)->where('password',$pass)->where('id_sucursal',$id)->count();
         return response()->json($usuario);
     }
 }

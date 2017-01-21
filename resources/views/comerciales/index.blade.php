@@ -12,7 +12,10 @@
       @endif 
       @if(Session::has('editar'))
           <p class="alert alert-warning">{{ session::get('editar') }}</p>
-      @endif   
+      @endif
+      @if(Session::has('formato'))
+          <p class="alert alert-warning">{{ session::get('formato') }}</p>
+      @endif    
       <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Nuevo Comercial</button>
       <br><br>
       <table class="table table-bordered">
@@ -26,9 +29,9 @@
   				<tr>
   					  <td>{{$c->ruta}}</td>
   					  <td>{{$c->tipo}}</td>
-              <td><a href="http://agua.dev/comercial/{{$c->ruta}}" class="btn btn-info" target="_blank">Abrir</a></td>
+              <td><a href="http://localhost/admin_agua/public/comercial/{{$c->ruta}}" class="btn btn-info" target="_blank">Abrir</a></td>
               <td style="width: 400px;">
-                  <a href="http://agua.dev/comerciales/{{$c->id}}/edit" class="btn btn-warning">Editar</a>
+                  <a href="http://localhost/admin_agua/public/comerciales/{{$c->id}}/edit" class="btn btn-warning">Editar</a>
                   {!! Form::open(array('url' => 'comerciales/'.$c->id, 'method'=>'DELETE', 'class' => 'eliminar' ) ) !!}
                       <button type="submit" class="btn btn-danger">Eliminar</button>
                   {!! Form::close() !!} 
@@ -51,6 +54,8 @@
             {!! Form::open((array('route' => 'comerciales.store', 'files'=>true ))) !!}
                 <label>Archivo</label>
                 {!! Form::file('file',null,['class'=>'form-control']) !!}
+                {!! Form::label('tipo', 'Tipo') !!}
+                {!! Form::select('tipo',['video' => 'Video', 'imagen' => 'Imagen'], 'imagen',['class' => 'form-control', 'id' => 'tipo']) !!}
             </div>
             <div class="modal-footer">
                 {!! Form::submit('Guardar',['class'=>'form-group btn btn-success'])!!}

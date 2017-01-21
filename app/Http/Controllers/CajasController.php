@@ -8,6 +8,7 @@ use Auth;
 use App\User;
 use App\Role;
 use App\Tiket;
+use App\Sucursal;
 
 class CajasController extends Controller
 {
@@ -18,8 +19,17 @@ class CajasController extends Controller
     }
     public function index()
     {
-        $cajas=Role::find(2)->user()->orderBy('name')->get();
-        return view('cajas.index', compact('cajas'));
+        $sucursal = Sucursal::all();
+        return view('cajas.index',compact('sucursal'));
+        /*$cajas=Role::find(2)->user()->orderBy('name')->get();
+        return view('cajas.index', compact('cajas'));*/
+    }
+    public function sucursal($id)
+    {
+        $sucursal = Sucursal::where('id', $id)->first();
+        $cajas=Role::find(2)->user()->where('id_sucursal',$id)->orderBy('name')->get();
+        //dd($cajas);
+        return view('cajas.sucursal', compact('sucursal','cajas'));
     }
     public function create()
     {
@@ -29,14 +39,16 @@ class CajasController extends Controller
     {
         //
         $caja = new User;
+        $caja->id_sucursal = $request->id;
         $caja->name = $request->name;
-        $caja->password = bcrypt($request->password);
+        $caja->password = $request->password;
         $caja->save();
         $rol = Role::find(2);
         $caja->attachRole($rol->id); 
 
         $request -> session()->flash('nuevo', "Caja Agregada con exito");
-        return redirect()->route('cajas.index'); 
+        return redirect()->action('CajasController@sucursal',[ 'id' => $request->id ]);    
+
     }
     public function show($id)
     {
@@ -46,6 +58,7 @@ class CajasController extends Controller
     }
     public function edit($id)
     {
+        $sucursal = Sucursal::where('id', $id)->first();
         $caja = User::find($id);
         return view('cajas.edit',compact('caja'));
     }
@@ -53,7 +66,7 @@ class CajasController extends Controller
     {
         $caja=User::find($id);
         $caja->name = $request->name;
-        $caja->password = bcrypt($request->password);
+        $caja->password = $request->password;
         $caja->save();        
 
         $request -> session()->flash('editar', "Caja editada con exito");
@@ -61,8 +74,9 @@ class CajasController extends Controller
     }
     public function destroy(Request $request, $id)
     {
+        $id_sucursal = $request->id_sucursal;
         User::destroy($id);
         $request -> session()->flash('message', "La Caja fue eliminada");
-        return redirect()->route('cajas.index'); 
+        return redirect()->action('CajasController@sucursal',[ 'id' => $id_sucursal ]); 
     }
 }

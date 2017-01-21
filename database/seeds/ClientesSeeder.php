@@ -11,7 +11,7 @@ class ClientesSeeder extends Seeder
      */
     public function run()
     {
-         DB::table('clientes')->insert([
+        /* DB::table('clientes')->insert([
             'nombre' => 'admin',
             'apellidos' => 'admin',
             'direccion'=> 'Una Calle',
@@ -39,6 +39,6 @@ class ClientesSeeder extends Seeder
             'direccion'=> 'Avenida siempreviva 742',
             'email' => 'amantedelacomida@gmail.com',
             'password' => bcrypt('123456'),
-        ]);
+        ]);*/
     }
 }

@@ -23,8 +23,8 @@
           <tr>
              <td>{{$u->name}}</td>
              <td style="width: 400px;">
-                  <a href="http://agua.dev/user/{{$u->id}}" class="btn btn-info">Ver</a>
-                  <a href="http://agua.dev/user/{{$u->id}}/edit" class="btn btn-warning">Editar</a>
+                  <a href="http://192.168.2.1/admin_agua/public/user/{{$u->id}}" class="btn btn-info">Ver</a>
+                  <a href="http://192.168.2.1/admin_agua/public/user/{{$u->id}}/edit" class="btn btn-warning">Editar</a>
                   {!! Form::open(array('url' => 'user/'.$u->id, 'method'=>'DELETE', 'class' => 'eliminar' ) ) !!}
                   <button type="submit" class="btn btn-danger">Eliminar</button>
                   {!! Form::close() !!} 
@@ -46,7 +46,6 @@
             <div class="modal-body">
             {!! Form::open((array('route' => 'user.store', 'files'=>true ))) !!}
                 <label>Numero</label>
-                
                 {!! Form::text('name',null,['class'=>'form-control']) !!}
                 <label>Contraseña</label>
         {!! Form::password('password', array('placeholder'=>'****', 'class'=>'form-control' ) ) !!}     

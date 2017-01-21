@@ -25,16 +25,17 @@
 		    </div>
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		        <ul class="nav navbar-nav">
-		        	<li><img src="{{ '/img/agua_logo.jpeg' }}" width="50px" height="50px"></li>
+		        	<li><img src="{{ 'http://localhost/admin_agua/public/img/agua_logo.jpeg' }}" width="50px" height="50px"></li>
 					@role('caja')
 					<li><a href="/home">Inicio</a></li>
 					<!--<li><a href="/clientes">Clientes</a></li>-->
 			    	@endrole
 			    	@role('admin')
-				    	<li><a href="/comerciales">Comerciales</a></li>
-				    	<li><a href="/turnos">Turnos</a></li>
-				    	<li><a href="/cajas">Cajas</a></li>
-			    		<li><a href="/user">Usuarios</a></li>
+			    		<li><a href="http://localhost/admin_agua/public/home">Dashboard</a></li>
+						<li><a href="http://localhost/admin_agua/public/comerciales">Comerciales</a></li>
+				    	<li><a href="http://localhost/admin_agua/public/turnos">Turnos</a></li>
+				    	<li><a href="http://localhost/admin_agua/public/cajas">Cajas</a></li>
+			    		<li><a href="http://localhost/admin_agua/public/user">Usuarios</a></li>
 					@endrole
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -67,9 +68,7 @@
     <!-- Scripts -->
     {!! Html::script('assets/js/jquery-3.1.1.min.js') !!}
 	{!! Html::script('assets/js/bootstrap.min.js') !!}
-	{!! Html::script('assets/js/angular.min.js') !!}
-	{!! Html::script('assets/js/angular-resource.min.js') !!}
-	{!! Html::script('assets/js/main.js') !!}
-	{!! Html::script('assets/js/cronometro.js') !!}
+	{!! Html::script('assets/js/highcharts.js') !!}
+	{!! Html::script('assets/js/graficas.js') !!}
 </body>
 </html>

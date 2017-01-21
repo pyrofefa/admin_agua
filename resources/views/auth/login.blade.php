@@ -8,11 +8,12 @@
                     <div class="panel-heading">Iniciar Sesión</div>
                     <div class="panel-body">
                         <div align="middle">
-                            <img src="{{ '/img/agua_logo.jpeg' }}" width="150px" height="150px">
+                            <img src="{{ 'img/agua_logo.jpeg' }}" width="150px" height="150px">
+                            <!--<img src="http://192.168.100.27/admin_agua/public/img/agua_logo.jpeg" width="150px" height="150px">-->
                         </div>
                         {!! Form::open(['route' => 'auth/login', 'class' => 'form']) !!}
                             <div class="form-group">
-                                <label>Nombre de Usuario o No. de caja</label>
+                                <label>Nombre de Usuario</label>
                                 {!! Form::text('name', '', ['class'=> 'form-control']) !!}
                             </div>
                             <div class="form-group">

@@ -29,15 +29,29 @@ class ComercialesController extends Controller
     public function store(Request $request)
     {
         $file = $request->file('file');
-        $nombre = $file->getClientOriginalName();
-        \Storage::disk('public')->put($nombre,  \File::get($file));
+        $tipo = $request->input('tipo');
+
+        $mimetype = \File::mimeType($file);
+        //dd($mimetype);
+
+        if ($mimetype == 'video/mp4' || $mimetype == 'image/jpeg'|| $mimetype == 'image/png')
+        {
+            
+            $nombre = $file->getClientOriginalName();
+            \Storage::disk('public')->put($nombre,  \File::get($file));
                 
-        $comercial = new Comercial;
-        $comercial->ruta = $nombre;
-        $comercial->tipo = "imagen";
-        $comercial->save();
-        $request -> session()->flash('nuevo', "Comercial Agregado con exito");
-        return redirect()->route('comerciales.index');  
+            $comercial = new Comercial;
+            $comercial->ruta = $nombre;
+            $comercial->tipo = $tipo;
+            $comercial->save();
+            $request -> session()->flash('nuevo', "Comercial Agregado con exito");
+            return redirect()->route('comerciales.index');    
+        }
+        else
+        {
+            $request -> session()->flash('formato', "El Formato es incorrecto");
+            return redirect()->route('comerciales.index');  
+        }
     }
     public function show($id)
     {
@@ -50,19 +64,31 @@ class ComercialesController extends Controller
     }
     public function update(Request $request, $id)
     {
-
-        //
         $file = $request->file('file');
-        $nombre = $file->getClientOriginalName();
-        \Storage::disk('public')->put($nombre,  \File::get($file));
-                
-        $comercial = Comercial::find($id);;
-        $comercial->ruta = $nombre;
-        $comercial->tipo = "imagen";
-        $comercial->save();
-        $request -> session()->flash('editar', "Comercial Editado con exito");
-        return redirect()->route('comerciales.index');  
+        $tipo = $request->input('tipo');
 
+        $mimetype = \File::mimeType($file);
+
+        if ($mimetype == 'video/mp4' || $mimetype == 'image/jpeg'|| $mimetype == 'image/png')
+        {
+            $file = $request->file('file');
+            $tipo = $request->input('tipo');
+
+            $nombre = $file->getClientOriginalName();
+            \Storage::disk('public')->put($nombre,  \File::get($file));
+                    
+            $comercial = Comercial::find($id);;
+            $comercial->ruta = $nombre;
+            $comercial->tipo = $tipo;
+            $comercial->save();
+            $request -> session()->flash('editar', "Comercial Editado con exito");
+            return redirect()->route('comerciales.index');  
+         }
+         else
+         {
+            $request -> session()->flash('formato', "El Formato es incorrecto");
+            return redirect()->route('comerciales.index'); 
+         }   
     }
     public function destroy(Request $request, $id)
     {

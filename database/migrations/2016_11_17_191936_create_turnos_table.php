@@ -15,11 +15,13 @@ class CreateTurnosTable extends Migration
         //
          Schema::create('tikets', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_sucursal')->length(255);
             $table->integer('turno')->length(255);
             $table->integer('fk_caja')->length(11);
             $table->integer('estado')->length(11);
             $table->string('tiempo',255);
             $table->string('asunto',255);
+            $table->string('subasunto',255);
             $table->rememberToken();
             $table->timestamps();
         });

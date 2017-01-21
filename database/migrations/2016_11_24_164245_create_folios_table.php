@@ -15,6 +15,7 @@ class CreateFoliosTable extends Migration
         //
         Schema::create('folios', function (Blueprint $table) {
             $table->increments('id');
+            $table->interger('id_sucursal');
             $table->integer('numero');
             $table->string('tipo');
             $table->timestamps();

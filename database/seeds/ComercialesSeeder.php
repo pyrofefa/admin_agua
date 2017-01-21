@@ -5,7 +5,7 @@ class ComercialesSeeder extends Seeder
 {
     public function run()
     {
-          DB::table('comerciales')->insert([
+          /*DB::table('comerciales')->insert([
             'ruta' => 'Siam.ogg',
             'tipo' => 'video',
             'duracion'=> '20000',
@@ -15,6 +15,6 @@ class ComercialesSeeder extends Seeder
             'ruta' => 'Siam.ogg',
             'tipo' => 'video',
             'duracion'=> '20000',
-         ]); 
+         ]); */
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Tiket;
 use App\Folios;
+use App\Sucursal;
 use Carbon\Carbon;
 
 class TurnosController extends Controller
@@ -19,35 +20,32 @@ class TurnosController extends Controller
     }
     public function index(Request $request)
     {
-        $folios = Folios::all()->first();
-        $tikets = Tiket::orderBy('created_at','DESC')->where('estado', '1')->paginate(30);
-        $en_espera = Tiket::where('estado', '0')->count();
-        $atendidos = Tiket::where('estado', '1')->count();
+        $sucursal = Sucursal::all();
+        return view('turnos.index',compact('sucursal'));
+    }
+    public function Sucursal(Request $request, $id)
+    {
+        $sucursal = Sucursal::where('id', $id)->first();
+        $folios = Folios::where('tipo','pagos')->where('id_sucursal',$id)->first();
+        $folios_aclaraciones = Folios::where('tipo','aclaraciones')->where('id_sucursal',$id)->first();
+        $tikets = Tiket::orderBy('created_at','DESC')->where('estado', '1')->where('subasunto','Pagos Y Tramites')->where('id_sucursal',$id)->paginate(30);
+        $en_espera = Tiket::where('estado', '0')->where('id_sucursal',$id)->count();
+        $atendidos = Tiket::where('estado', '1')->where('id_sucursal',$id)->count();
         
-        return view('turnos.index',compact('tikets','folios', 'en_espera', 'atendidos'));
+        return view('turnos.sucursal',compact('tikets','folios','folios_aclaraciones','en_espera', 'atendidos','sucursal'));
     }
-    public function create()
+    public function en_espera(Request $request, $id)
     {
-        //
+        $sucursal = Sucursal::where('id', $id)->first();
+        $tikets = Tiket::orderBy('created_at','DESC')->where('estado', '0')->where('id_sucursal',$id)->paginate(30);
+        //dd($tikets);
+        return view('turnos.en_espera',compact('tikets','sucursal'));   
     }
-    public function store(Request $request)
+    
+    public function terminar(Request $request, $id)
     {
-        //
-    }
-    public function show($id)
-    {
-        //
-    }
-    public function edit($id)
-    {
-        //
-    }
-    public function update(Request $request, $id)
-    {
-        //
-    }
-    public function destroy($id)
-    {
-        //
+        $folio = Tiket::where('estado','0')->where('id_sucursal',$id)->update(['estado' => '3']);
+        $request -> session()->flash('espera', "Se ha dado por terminado los turnos en espera");
+        return redirect()->action('TurnosController@sucursal',[ 'id' => $id ]);    
     }
 }
