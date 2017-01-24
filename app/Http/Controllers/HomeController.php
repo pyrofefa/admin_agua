@@ -31,7 +31,7 @@ class HomeController extends Controller
     }
     public function mostrar_pagos($id)
     {
-        $turno=Tiket::where('estado', 0)->where('subasunto','Pagos y Tramites')->where('id_sucursal',$id)->first();
+        $turno=Tiket::where('estado', 0)->where('subasunto','Trámites')->where('id_sucursal',$id)->first();
         //dd($turno);
         return [$turno];
     }
@@ -48,7 +48,7 @@ class HomeController extends Controller
     }
     public function grafica_pagos()
     {
-    $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->groupBy('asunto')->where('subasunto','=','Pagos y Tramites')->get();        
+    $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->groupBy('asunto')->where('subasunto','=','Tramites')->get();        
         return response()->json($tiket);
     }
     public function grafica_aclaraciones()
@@ -59,7 +59,7 @@ $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->g
 
     public function grafica_pagos_id($id)
     {
-        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->groupBy('asunto')->where('subasunto','=','Pagos y Tramites')->where('id_sucursal','=',$id)->get();        
+        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->groupBy('asunto')->where('subasunto','=','Trámites')->where('id_sucursal','=',$id)->get();        
         return response()->json($tiket);
     }
     public function grafica_aclaraciones_id($id)

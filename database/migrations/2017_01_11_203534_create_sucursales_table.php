@@ -13,10 +13,11 @@ class CreateSucursalesTable extends Migration
     public function up()
     {
         Schema::create('sucursales', function (Blueprint $table) {
-            $table->interger('id');
-            $table->string('nombre',255);
-            $table->integer('direccion',255);
-            $table->integer('horario',255);
+            $table->integer('id');
+            $table->string('nombre');
+            $table->string('direccion');
+            $table->string('horario');
+            $table->rememberToken();
             $table->timestamps();
         }); 
     }

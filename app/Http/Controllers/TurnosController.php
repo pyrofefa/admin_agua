@@ -28,7 +28,7 @@ class TurnosController extends Controller
         $sucursal = Sucursal::where('id', $id)->first();
         $folios = Folios::where('tipo','pagos')->where('id_sucursal',$id)->first();
         $folios_aclaraciones = Folios::where('tipo','aclaraciones')->where('id_sucursal',$id)->first();
-        $tikets = Tiket::orderBy('created_at','DESC')->where('estado', '1')->where('subasunto','Pagos Y Tramites')->where('id_sucursal',$id)->paginate(30);
+        $tikets = Tiket::orderBy('created_at','DESC')->where('estado', '1')->where('id_sucursal',$id)->paginate(30);
         $en_espera = Tiket::where('estado', '0')->where('id_sucursal',$id)->count();
         $atendidos = Tiket::where('estado', '1')->where('id_sucursal',$id)->count();
         
