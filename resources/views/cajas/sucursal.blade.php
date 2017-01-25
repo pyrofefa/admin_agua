@@ -19,7 +19,7 @@
       			@endif  
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Nueva Caja</button>
       			<br><br>
-      			<table class="table table-bordered">
+      		<table class="table table-bordered">
   				<tr>
   					  <th>Nombre</th>
               <th>Numero</th>

@@ -1,6 +1,11 @@
 @extends('plantillas.app')
 @section('content')
 <div class="container">
+  <div class="row">
+      <div class="col-md-12">
+          <h1 style="text-align: center">Cajas</h1>
+      </div>
+   </div>
    <table class="table table-bordered">
       @foreach($sucursal as $s)
       <tr>

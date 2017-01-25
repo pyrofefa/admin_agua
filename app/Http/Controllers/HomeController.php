@@ -8,7 +8,9 @@ use Auth;
 use App\Tiket; 
 use App\User;
 use App\Sucursal;
+use App\Role;
 use DB;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -16,12 +18,24 @@ class HomeController extends Controller
     {
         $this->middleware('cors');
         //$this->middleware('auth');
+        Carbon::setLocale('es');
+
     }
     public function index()
     {
         //$tiket = DB::table('tikets')->selectRaw('asunto, count(asunto) as cantidad')->groupBy('asunto')->get();        
         $sucursal = Sucursal::all();
-        return view('home.index',compact('sucursal'));
+
+        $carbon =  Carbon::today()->format('d-m-Y');
+        $atendidos = DB::table('tikets')->select(DB::raw('*'))->whereRaw('Date(created_at) = CURDATE()')->count();
+        
+        $cajas=DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.fk_caja')->whereRaw('Date(tikets.created_at) = CURDATE()')
+        ->groupBy('tikets.fk_caja')->get();
+
+        $promedio=DB::table('tikets')->selectRaw('DATE(created_at) as inicio, AVG(TIME_TO_SEC(TIMEDIFF(updated_at,created_at))) AS diferencia')
+            ->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('inicio')->first();
+
+        return view('home.index',compact('sucursal','carbon','atendidos','cajas','promedio'));
     }
     //api
     public function mostrar()
@@ -31,7 +45,7 @@ class HomeController extends Controller
     }
     public function mostrar_pagos($id)
     {
-        $turno=Tiket::where('estado', 0)->where('subasunto','Trámites')->where('id_sucursal',$id)->first();
+        $turno=Tiket::where('estado', 0)->where('subasunto','Pagos y Tramites')->where('id_sucursal',$id)->first();
         //dd($turno);
         return [$turno];
     }
@@ -48,29 +62,43 @@ class HomeController extends Controller
     }
     public function grafica_pagos()
     {
-    $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->groupBy('asunto')->where('subasunto','=','Tramites')->get();        
-        return response()->json($tiket);
+    $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->groupBy('asunto')->where('subasunto','=','Pagos y Tramites')->get();    
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
     }
     public function grafica_aclaraciones()
     {
-$tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->groupBy('asunto')->where('subasunto','=','Aclaraciones y Otros')->get();        
-        return response()->json($tiket);
+$tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->groupBy('asunto')->where('subasunto','=','Aclaraciones y Otros')->get();    
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
     }
 
     public function grafica_pagos_id($id)
     {
-        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->groupBy('asunto')->where('subasunto','=','Trámites')->where('id_sucursal','=',$id)->get();        
-        return response()->json($tiket);
+        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->groupBy('asunto')->where('subasunto','=','Pagos y Tramites')->where('id_sucursal','=',$id)->get();
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
     }
     public function grafica_aclaraciones_id($id)
     {
 $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->groupBy('asunto')->where('subasunto','=','Aclaraciones y Otros')->where('id_sucursal','=',$id)->get();
-        return response()->json($tiket);
+       $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
     }
     public function sucursal($id)
     {
+        $carbon =  Carbon::today()->format('d-m-Y');
+        $atendidos = DB::table('tikets')->select(DB::raw('*'))->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
+        
+        $cajas=DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.fk_caja')
+        ->where("tikets.id_sucursal",$id)->whereRaw('Date(tikets.created_at) = CURDATE()')
+        ->groupBy('tikets.fk_caja')->get();
+
+        $promedio=DB::table('tikets')->selectRaw('DATE(created_at) as inicio, AVG(TIME_TO_SEC(TIMEDIFF(updated_at,created_at))) AS diferencia')
+            ->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('inicio')->first();
+
         $sucursal = Sucursal::where('id', $id)->first();
-        return view('home.sucursal', compact('sucursal'));
+        return view('home.sucursal', compact('sucursal','atendidos','carbon','promedio','cajas','promedio'));
     }
     public function destroy($id)
     {

@@ -1,7 +1,12 @@
 @extends('plantillas.app')
 @section('content')
 <div class="container">
-     <table class="table table-bordered">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 style="text-align: center">Turnos</h1>
+        </div>
+    </div>
+    <table class="table table-bordered">
         @foreach($sucursal as $s)
         <tr>
             <td>{{$s->nombre}}</td>

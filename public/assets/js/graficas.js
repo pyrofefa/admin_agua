@@ -51,7 +51,7 @@ $(document).ready(function() {
             plotShadow: false
         },
         title: {
-            text: 'Aclaraciones Y Otros'
+            text: 'Aclaraciones y Otros'
         },
         tooltip: {
             formatter: function() {
@@ -80,6 +80,7 @@ $(document).ready(function() {
     }
     $.getJSON("http://localhost/admin_agua/public/home/graficaaclaraciones/"+id, function(json) {
         optionsa.series[0].data = json;
+        console.log(json);
         chart = new Highcharts.Chart(optionsa);
     });
 
@@ -93,7 +94,7 @@ $(document).ready(function() {
             plotShadow: false
         },
         title: {
-            text: 'Pagos Y Tramites'
+            text: 'Pagos y Tramites'
         },
         tooltip: {
             
