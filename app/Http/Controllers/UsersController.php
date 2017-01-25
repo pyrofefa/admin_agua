@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
+use DB;
 
 class UsersController extends Controller
 {
@@ -37,8 +38,12 @@ class UsersController extends Controller
     }
     public function show($id)
     {
-        //
-        return User::find($id);
+        $usuario = DB::table('users')->select(DB::raw('roles.display_name, roles.description, users.name'))
+            ->join('role_user','users.id','=','role_user.user_id')
+            ->join('roles','roles.id','=','role_user.role_id')
+            ->where('users.id','=',$id)->first();
+
+        return view('user.show', compact('usuario'));
     }
     public function edit($id)
     {

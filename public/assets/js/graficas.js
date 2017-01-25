@@ -10,7 +10,7 @@ $(document).ready(function() {
             plotShadow: false
         },
         title: {
-            text: 'Pagos Y Tramites'
+            text: 'Pagos y trámites'
         },
         tooltip: {
             
@@ -27,7 +27,7 @@ $(document).ready(function() {
                 color: '#000000',
                 connectorColor: '#000000',
                 formatter: function() {
-                    return '<b>'+ this.point.name +'</b>';
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
                     }
                 }
             }
@@ -51,7 +51,7 @@ $(document).ready(function() {
             plotShadow: false
         },
         title: {
-            text: 'Aclaraciones y Otros'
+            text: 'Aclaraciones y otros'
         },
         tooltip: {
             formatter: function() {
@@ -67,7 +67,7 @@ $(document).ready(function() {
                 color: '#000000',
                 connectorColor: '#000000',
                 formatter: function() {
-                    return '<b>'+ this.point.name +'</b>';
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
                     }
                 }
             }
@@ -94,7 +94,7 @@ $(document).ready(function() {
             plotShadow: false
         },
         title: {
-            text: 'Pagos y Tramites'
+            text: 'Pagos y trámites'
         },
         tooltip: {
             
@@ -111,7 +111,7 @@ $(document).ready(function() {
                 color: '#000000',
                 connectorColor: '#000000',
                 formatter: function() {
-                    return '<b>'+ this.point.name +'</b>';
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
                     }
                 }
             }
@@ -135,7 +135,7 @@ $(document).ready(function() {
             plotShadow: false
         },
         title: {
-            text: 'Aclaraciones Y Otros'
+            text: 'Aclaraciones y otros'
         },
         tooltip: {
             formatter: function() {
@@ -151,7 +151,7 @@ $(document).ready(function() {
                 color: '#000000',
                 connectorColor: '#000000',
                 formatter: function() {
-                    return '<b>'+ this.point.name +'</b>';
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
                     }
                 }
             }

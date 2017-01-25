@@ -23,8 +23,8 @@
           <tr>
              <td>{{$u->name}}</td>
              <td style="width: 400px;">
-                  <a href="http://192.168.2.1/admin_agua/public/user/{{$u->id}}" class="btn btn-info">Ver</a>
-                  <a href="http://192.168.2.1/admin_agua/public/user/{{$u->id}}/edit" class="btn btn-warning">Editar</a>
+                  <a href="http://localhost/admin_agua/public/user/{{$u->id}}" class="btn btn-info">Ver</a>
+                  <a href="http://localhost/admin_agua/public/user/{{$u->id}}/edit" class="btn btn-warning">Editar</a>
                   {!! Form::open(array('url' => 'user/'.$u->id, 'method'=>'DELETE', 'class' => 'eliminar' ) ) !!}
                   <button type="submit" class="btn btn-danger">Eliminar</button>
                   {!! Form::close() !!} 
