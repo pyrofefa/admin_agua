@@ -21,7 +21,8 @@
                 {!! Form::submit('Limpiar',['class'=>'form-group btn btn-success btn-lg'])!!}
             {!! Form::close() !!}
             <br>
-            <h4><a href="http://localhost/admin_agua/public/turnos/sucursal/{{$sucursal->id}}/espera"> No. de turnos en espera: {{$en_espera}}</a></h4>
+            <h4>
+            <a href=" <?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/turnos/sucursal/'.$sucursal->id.'/espera' ?>"> No. de turnos en espera: {{$en_espera}}</a></h4>
             <h4> Turnos atendidos: {{$atendidos}}</h4>
         </div>
         <div class="col-md-6">

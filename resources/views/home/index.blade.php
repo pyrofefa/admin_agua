@@ -6,7 +6,7 @@
   		<tr>
   			<td>{{$s->nombre}}</td>
   			<td>
-  				<a href="http://localhost/admin_agua/public/home/sucursal/{{$s->id}}" class="btn btn-info">Ver</a>
+				<a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/home/sucursal/'.$s->id;?>" class="btn btn-info">Ver</a>
 			</td>
 		</tr>
   		@endforeach

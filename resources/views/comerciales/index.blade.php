@@ -29,9 +29,9 @@
   				<tr>
   					  <td>{{$c->ruta}}</td>
   					  <td>{{$c->tipo}}</td>
-              <td><a href="http://localhost/admin_agua/public/comercial/{{$c->ruta}}" class="btn btn-info" target="_blank">Abrir</a></td>
+              <td><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/comercial/'.$c->ruta; ?>" class="btn btn-info" target="_blank">Abrir</a></td>
               <td style="width: 400px;">
-                  <a href="http://localhost/admin_agua/public/comerciales/{{$c->id}}/edit" class="btn btn-warning">Editar</a>
+          <a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/comerciales/'.$c->id .'/edit' ?>" class="btn btn-warning">Editar</a>
                   {!! Form::open(array('url' => 'comerciales/'.$c->id, 'method'=>'DELETE', 'class' => 'eliminar' ) ) !!}
                       <button type="submit" class="btn btn-danger">Eliminar</button>
                   {!! Form::close() !!} 

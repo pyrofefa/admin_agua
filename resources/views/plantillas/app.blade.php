@@ -31,12 +31,12 @@
 					<!--<li><a href="/clientes">Clientes</a></li>-->
 			    	@endrole
 			    	@role('admin')
-			    		<li><a href="http://localhost/admin_agua/public/home">Dashboard</a></li>
-						<li><a href="http://localhost/admin_agua/public/comerciales">Comerciales</a></li>
-				    	<li><a href="http://localhost/admin_agua/public/turnos">Turnos</a></li>
-				    	<li><a href="http://localhost/admin_agua/public/cajas">Cajas</a></li>
-			    		<li><a href="http://localhost/admin_agua/public/user">Usuarios</a></li>
-					@endrole
+			    		<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/home' ?>">Dashboard</a></li>
+						<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/comerciales' ?>">Comerciales</a></li>
+				    	<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/turnos' ?>">Turnos</a></li>
+				    	<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/cajas' ?>">Cajas</a></li>
+			    		<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/user' ?>">Usuarios</a></li>
+			    	@endrole
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 				    @if (Auth::guest())
