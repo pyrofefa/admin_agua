@@ -31,21 +31,46 @@ class ComercialesController extends Controller
         $file = $request->file('file');
         $tipo = $request->input('tipo');
 
+        //dd($file);
+
+        $tamaño = getimagesize($file);
+        $ancho = $tamaño[0];
+        $alto = $tamaño[1];
+
         $mimetype = \File::mimeType($file);
         //dd($mimetype);
 
-        if ($mimetype == 'video/mp4' || $mimetype == 'image/jpeg'|| $mimetype == 'image/png')
+        if ($mimetype == 'image/jpeg'|| $mimetype == 'image/png')
         {
-            
+            if($ancho == 1366 || $alto == 41)
+            {    
+                $nombre = $file->getClientOriginalName();
+                \Storage::disk('public')->put($nombre,  \File::get($file));
+                    
+                $comercial = new Comercial;
+                $comercial->ruta = $nombre;
+                $comercial->tipo = $tipo;
+                $comercial->save();
+                $request -> session()->flash('nuevo', "Comercial Agregado con exito");
+                return redirect()->route('comerciales.index');    
+            }
+            else
+            {
+                $request -> session()->flash('formato', "Las dimensiones son incorrectas");
+                return redirect()->route('comerciales.index');  
+            }
+        }
+        else if($mimetype == 'video/mp4')
+        {
             $nombre = $file->getClientOriginalName();
             \Storage::disk('public')->put($nombre,  \File::get($file));
-                
+                    
             $comercial = new Comercial;
             $comercial->ruta = $nombre;
             $comercial->tipo = $tipo;
             $comercial->save();
             $request -> session()->flash('nuevo', "Comercial Agregado con exito");
-            return redirect()->route('comerciales.index');    
+            return redirect()->route('comerciales.index');
         }
         else
         {

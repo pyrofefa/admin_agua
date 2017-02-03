@@ -17,7 +17,7 @@
       			@if(Session::has('editar'))
           			<p class="alert alert-warning">{{ session::get('editar') }}</p>
       			@endif  
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Nueva Caja</button>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Nueva Ventanilla</button>
       			<br><br>
       		<table class="table table-bordered">
   				<tr>
@@ -27,7 +27,7 @@
   				</tr>
   				@foreach($cajas as $c)
   				<tr>
-  					 <td>Caja {{$c->name}}</td>
+  					 <td>Ventanilla: {{$c->name}}</td>
    				 	 <td>{{$c->name}}</td>
              <td style="width: 400px;">
                   <a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/cajas/'.$c->id; ?>" class="btn btn-info">Ver</a>

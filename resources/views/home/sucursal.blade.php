@@ -16,6 +16,9 @@
 					<h4> Turnos atendidos: {{ $atendidos }}</h4>	
 				</div>
 				<div class="col-md-4">
+					<h4> Turnos en espera: {{ $espera }}</h4>
+				</div>
+				<div class="col-md-4">
 				@if(is_null($promedio))
 					<h4>Promedio de tiempo de espera: 0 </h4>
 				@else
@@ -33,7 +36,7 @@
   						<tr>
   							@if($c->fk_caja==0)
   							@else
-  					 		<td>Caja {{$c->fk_caja}}</td>
+  					 		<td>Ventanilla: {{$c->fk_caja}}</td>
   					 		<td>{{ $c->numero }}</td>
   					 		@endif
              			</tr>

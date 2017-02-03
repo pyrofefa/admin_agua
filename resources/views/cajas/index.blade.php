@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
       <div class="col-md-12">
-          <h1 style="text-align: center">Cajas</h1>
+          <h1 style="text-align: center">Ventanillas</h1>
       </div>
    </div>
    <table class="table table-bordered">

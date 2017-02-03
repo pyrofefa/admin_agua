@@ -41,7 +41,7 @@
             <table class="table table-striped">
                 <tr>
                     <th>Turno</th>
-                    <th>Caja</th>
+                    <th>Ventanilla</th>
                     <th>Tiempo</th>
                     <th>Asunto</th>
                     <th>Sub Asunto</th>
@@ -52,8 +52,14 @@
                 </tr>
                 @foreach($tikets as $t)
                 <tr>
-                    <td>{{ $t->turno }}</td>
-                    <td>Caja. {{ $t->fk_caja }}</td>
+                    @if($t->subasunto=="Aclaraciones y Otros")
+                        <td>A{{ $t->turno }}</td>
+                    @elseif($t->subasunto=="Pago")
+                        <td>P{{ $t->turno }}</td>    
+                    @elseif($t->subasunto=="Trámites")
+                        <td>T{{ $t->turno }}</td>    
+                    @endif    
+                    <td>Ventanilla: {{ $t->fk_caja }}</td>
                     <td>{{ $t->tiempo }}</td>
                     <td>{{ $t->asunto }}</td>
                     <td>{{ $t->subasunto }}</td>
