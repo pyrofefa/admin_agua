@@ -117,8 +117,19 @@ class ComercialesController extends Controller
     }
     public function destroy(Request $request, $id)
     {
-        Comercial::destroy($id);
-        $request -> session()->flash('message', "El registro fue eliminado");
-        return redirect()->route('comerciales.index');    
+        $file = $request->ruta;
+        if( \Storage::disk('public')->exists($file))
+        {
+            \Storage::disk('public')->delete($file);
+            Comercial::destroy($id);
+            $request -> session()->flash('message', "El registro fue eliminado");
+            return redirect()->route('comerciales.index');    
+        }
+        else
+        {
+            Comercial::destroy($id);
+            $request -> session()->flash('message', "El registro fue eliminado");
+            return redirect()->route('comerciales.index');    
+        }
     }
 }

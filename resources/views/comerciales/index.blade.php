@@ -33,6 +33,7 @@
               <td style="width: 400px;">
           <a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/comerciales/'.$c->id .'/edit' ?>" class="btn btn-warning">Editar</a>
                   {!! Form::open(array('url' => 'comerciales/'.$c->id, 'method'=>'DELETE', 'class' => 'eliminar' ) ) !!}
+                  {!! Form::hidden('ruta',$c->ruta,['class'=>'form-control']) !!}
                       <button type="submit" class="btn btn-danger">Eliminar</button>
                   {!! Form::close() !!} 
               </td>
