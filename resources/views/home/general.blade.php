@@ -26,10 +26,10 @@
 				@endif	
 				</div>
 				<div class="col-md-4">
-					<h5>Promedio de tiempo de atencion (global): {{ $promedio_atendido->inicio }} </h5>
-					<h5>Promedio de tiempo de atencion (tramites): {{ gmdate("H:i:s",$promedio_tramitesa->inicio) }} </h5>
-					<h5>Promedio de tiempo de atencion (Aclaraciones): {{ gmdate("H:i:s",$promedio_aclaracionesa->inicio) }} </h5>
-					<h5>Promedio de tiempo de atencion (Pago): {{ gmdate("H:i:s",$promedio_pagoa->inicio) }} </h5>
+					<h5>Promedio de tiempo de atencion (global): {{ $promedio_atendido->tiempo }} </h5>
+					<h5>Promedio de tiempo de atencion (tramites): {{ $promedio_tramitesa->tiempo }} </h5>
+					<h5>Promedio de tiempo de atencion (Aclaraciones): {{ $promedio_aclaracionesa->tiempo }} </h5>
+					<h5>Promedio de tiempo de atencion (Pago): {{ $promedio_pagoa->tiempo }} </h5>
 				</div>
 			</div>	
 		</div>	

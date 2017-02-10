@@ -107,19 +107,18 @@ class HomeController extends Controller
 
         $promedio_tramites=DB::table('tikets')->selectRaw('time(created_at) as inicio, AVG(TIME_TO_SEC(TIMEDIFF(updated_at,created_at))) AS diferencia')->where('subasunto','Trámites')->whereRaw('Date(tikets.created_at) = CURDATE()')->first(); 
         $promedio_aclaraciones=DB::table('tikets')->selectRaw('time(created_at) as inicio, AVG(TIME_TO_SEC(TIMEDIFF(updated_at,created_at))) AS diferencia')->where('subasunto','Aclaraciones y Otros')->whereRaw('Date(tikets.created_at) = CURDATE()')->first();    
-        //dd($promedio_aclaraciones);
-        
-        $promedio_atendido=DB::table('tikets')->selectRaw('avg(time(tikets.tiempo)) as inicio')
-            ->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
+         
+        $promedio_atendido=DB::table('tikets')->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 3)) as tiempo')
+            ->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
 
-        $promedio_tramitesa=DB::table('tikets')->selectRaw('avg(time(tikets.tiempo)) as inicio')->where('subasunto','Trámites')
-            ->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
+        $promedio_tramitesa=DB::table('tikets')->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 3)) as tiempo')
+            ->where('subasunto','Trámites')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
 
-         $promedio_aclaracionesa=DB::table('tikets')->selectRaw('avg(time(tikets.tiempo)) as inicio')
-            ->where('subasunto','Aclaraciones y Otros')->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
+         $promedio_aclaracionesa=DB::table('tikets')->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 3)) as tiempo')
+            ->where('subasunto','Aclaraciones y Otros')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
 
-        $promedio_pagoa=DB::table('tikets')->selectRaw('avg(time(tikets.tiempo)) as inicio')
-            ->where('subasunto','Pago')->whereRaw('Date(tikets.created_at) = CURDATE()')->first();        
+        $promedio_pagoa=DB::table('tikets')->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 3)) as tiempo')
+            ->where('subasunto','Pago')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();        
     
 
         return view('home.general',compact('sucursal','carbon','atendidos','espera','cajas','promedio','promedio_tramites','promedio_aclaraciones','promedio_atendido','promedio_tramitesa','promedio_aclaracionesa','promedio_pagoa','subasunto', 'subasunto_abandonados','tramites','tramites_abandonados','aclaraciones','aclaraciones_abandonados','pago','pago_abandonado','abandonados'));
