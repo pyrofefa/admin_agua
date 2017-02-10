@@ -18,39 +18,11 @@ rutas.factory('socket',['$rootScope', function($rootScope){
         }
     };
 }]);
-rutas.controller('inicioController', function($http, $scope, socket) 
+rutas.controller('comercialController', function($http, $scope, socket) 
 {
     
-    $scope.tomar_turno = function($caja, $turno, $id)
+    $scope.comercial = function()
     {
-        socket.emit('caja',$caja);
-        socket.emit('turno',$turno);
-
-        $http({
-            method:"put",
-            url: "http://agua.dev/tikets/actualizar/"+$id,
-            data: ({ 'estado' : 1, 'fk_caja' : $caja  })
-        }).success(function(data){
-            console.log(data);
-        
-        }).error(function(data){
-            console.log(data);
-            //alert("Ha ocurrido un error al actualizar los datos");
-            //console.log(id);
-        })
+        socket.emit('comercial');
     };
-        
-    socket.on('turno',function(data){
-        console.log(data);
-        $scope.$apply(function(){
-            $scope.turno = data;
-        });
-    })
-
-    socket.on('caja',function(data){
-        console.log(data);
-        $scope.$apply(function(){
-            $scope.caja = data;
-        });
-    })
 });

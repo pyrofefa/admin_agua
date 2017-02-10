@@ -33,13 +33,33 @@ Route::resource('folios','FoliosController');
 Route::put('tikets/actualizar/{id}','TiketsController@actualizar');
 Route::resource('tikets','TiketsController');
 Route::get('home/mostrar','HomeController@mostrar');
+Route::get('home/general','HomeController@general');
 Route::get('home/sucursal/{id}','HomeController@sucursal');
 Route::get('home/mostrarpagos/{id}','HomeController@mostrar_pagos');
 Route::get('home/mostraraclaraciones/{id}','HomeController@mostrar_aclaraciones');
-Route::get('home/graficapagos','HomeController@grafica_pagos');
-Route::get('home/graficaaclaraciones','HomeController@grafica_aclaraciones');
-Route::get('home/graficapagos/{id}','HomeController@grafica_pagos_id');
-Route::get('home/graficaaclaraciones/{id}','HomeController@grafica_aclaraciones_id');
+
+//Graficas Lineales
+Route::get('graficas/linealsubasuntos','GraficasLinealController@lineal_subasunto_tramites');
+Route::get('graficas/linealsubasuntosabandonados','GraficasLinealController@lineal_subasunto_tramites_abandonados');
+Route::get('graficas/linealsubasuntosa','GraficasLinealController@lineal_subasunto_aclaraciones');
+Route::get('graficas/linealsubasuntosaabandonados','GraficasLinealController@lineal_subasunto_aclaraciones_abandonados');
+Route::get('graficas/linealsubasuntosp','GraficasLinealController@lineal_subasunto_pagos');
+Route::get('graficas/linealsubasuntospabandonados','GraficasLinealController@lineal_subasunto_pagos_abandonados');
+
+
+//Graficas Pastel
+Route::get('graficas/graficasubasuntos','GraficasPieController@grafica_subasunto');
+Route::get('graficas/graficasubasuntos_abandonados','GraficasPieController@grafica_subasunto_abandonado');
+Route::get('graficas/graficapagos','GraficasPieController@grafica_pagos');
+Route::get('graficas/graficatramites','GraficasPieController@grafica_tramites');
+Route::get('graficas/graficaaclaraciones','GraficasPieController@grafica_aclaraciones');
+Route::get('graficas/graficapagosabandonados','GraficasPieController@grafica_pagos_abandonados');
+Route::get('graficas/graficatramitesabandonados','GraficasPieController@grafica_tramites_abandonados');
+Route::get('graficas/graficaaclaracionesabandonados','GraficasPieController@grafica_aclaraciones_abandonados');
+Route::get('graficas/graficapagos/{id}','GraficasPieController@grafica_pagos_id');
+Route::get('graficas/graficaaclaraciones/{id}','GraficasPieController@grafica_aclaraciones_id');
+
+
 Route::resource('home','HomeController');
 Route::get('turnos/sucursal/{id}','TurnosController@sucursal');
 Route::get('turnos/sucursal/{id}/espera','TurnosController@en_espera');

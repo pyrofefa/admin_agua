@@ -30,8 +30,8 @@
   					 <td>Ventanilla: {{$c->name}}</td>
    				 	 <td>{{$c->name}}</td>
              <td style="width: 400px;">
-                  <a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/cajas/'.$c->id; ?>" class="btn btn-info">Ver</a>
-						      <a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/cajas/'.$c->id.'/edit' ?>" class="btn btn-warning">Editar</a>
+                  <a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/cajas/'.$c->id; ?>" class="btn btn-info">Ver</a>
+						      <a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/cajas/'.$c->id.'/edit' ?>" class="btn btn-warning">Editar</a>
 						      {!! Form::open(array('url' => 'cajas/'.$c->id, 'method'=>'DELETE', 'class' => 'eliminar' ) ) !!}
                   {!! Form::hidden('id_sucursal',$sucursal->id,['class'=>'form-control']) !!}
                   <button type="submit" class="btn btn-danger">Eliminar</button>

@@ -36,7 +36,7 @@
                 @elseif($t->subasunto=="Pago")
                     <td>P{{ $t->turno }}</td>    
                 @elseif($t->subasunto=="Trámites")
-                    <td>T{{ $t->turno }}</td>    
+                    <td>A{{ $t->turno }}</td>    
                 @endif    
                 <td>{{ $t->tiempo }}</td>
                 <td>{{ $t->asunto }}</td>

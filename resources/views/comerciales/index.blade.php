@@ -29,12 +29,14 @@
   				<tr>
   					  <td>{{$c->ruta}}</td>
   					  <td>{{$c->tipo}}</td>
-              <td><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/comercial/'.$c->ruta; ?>" class="btn btn-info" target="_blank">Abrir</a></td>
+              <td><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/comercial/'.$c->ruta; ?>" class="btn btn-info" target="_blank">Abrir</a></td>
               <td style="width: 400px;">
-          <a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/comerciales/'.$c->id .'/edit' ?>" class="btn btn-warning">Editar</a>
+          <a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/comerciales/'.$c->id .'/edit' ?>" class="btn btn-warning">Editar</a>
                   {!! Form::open(array('url' => 'comerciales/'.$c->id, 'method'=>'DELETE', 'class' => 'eliminar' ) ) !!}
                   {!! Form::hidden('ruta',$c->ruta,['class'=>'form-control']) !!}
-                      <button type="submit" class="btn btn-danger">Eliminar</button>
+                      <div ng-controller="comercialController">
+                        <button type="submit" class="btn btn-danger" ng-click="comercial()">Eliminar</button>
+                      </div>
                   {!! Form::close() !!} 
               </td>
   				</tr>
@@ -44,7 +46,7 @@
 	</div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="comercialController">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -59,8 +61,8 @@
                 {!! Form::select('tipo',['video' => 'Video', 'imagen' => 'Imagen'], 'imagen',['class' => 'form-control', 'id' => 'tipo']) !!}
             </div>
             <div class="modal-footer">
-                {!! Form::submit('Guardar',['class'=>'form-group btn btn-success'])!!}
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" name="Guardar" class="btn btn-success" ng-click="comercial()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancelar</button>
             {!! Form::close() !!}
             </div>
         </div>

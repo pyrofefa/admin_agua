@@ -25,17 +25,21 @@
 		    </div>
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		        <ul class="nav navbar-nav">
-		        	<li><img src="{{ 'http://localhost/admin_agua/public/img/agua_logo.jpeg' }}" width="50px" height="50px"></li>
+		        	<li>
+						<a	href="{{ 'http://' . $_SERVER['SERVER_NAME'] . '/turnomatic/public/' }}">
+							<img src="{{ 'http://' . $_SERVER['SERVER_NAME'] . '/turnomatic/public/img/agua_logo.jpeg' }}" width="50px" height="50px">
+						</a>
+					</li>
 					@role('caja')
 					<li><a href="/home">Inicio</a></li>
 					<!--<li><a href="/clientes">Clientes</a></li>-->
 			    	@endrole
 			    	@role('admin')
-			    		<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/home' ?>">Dashboard</a></li>
-						<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/comerciales' ?>">Comerciales</a></li>
-				    	<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/turnos' ?>">Turnos</a></li>
-				    	<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/cajas' ?>">Ventanillas</a></li>
-			    		<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/admin_agua/public/user' ?>">Usuarios</a></li>
+			    		<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/home' ?>">Dashboard</a></li>
+						<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/comerciales' ?>">Comerciales</a></li>
+				    	<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/turnos' ?>">Turnos</a></li>
+				    	<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/cajas' ?>">Ventanillas</a></li>
+			    		<li><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/user' ?>">Usuarios</a></li>
 			    	@endrole
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -70,5 +74,12 @@
 	{!! Html::script('assets/js/bootstrap.min.js') !!}
 	{!! Html::script('assets/js/highcharts.js') !!}
 	{!! Html::script('assets/js/graficas.js') !!}
+	{!! Html::script('assets/js/graficasbarras.js') !!}
+	{!! Html::script('assets/js/angular.min.js') !!}
+	{!! Html::script('assets/js/angular-resource.min.js') !!}
+	{!! Html::script('assets/js/main.js') !!}
+	<!--{!! Html::script('http://code.highcharts.com/modules/exporting.js')!!}
+	{!! Html::script('http://highcharts.github.io/export-csv/export-csv.js"')!!}-->
+
 </body>
 </html>

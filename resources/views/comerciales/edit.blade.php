@@ -6,7 +6,15 @@
     		<div class="panel-body">
     		{!! Form::model($comerciales, ['url'=>'comerciales/'.$comerciales->id , 'method'=> 'PUT', 'files'=> 'true', 'enctype' => 'multipart/form-data',]) !!}
     		<div>
-    		<h4>{{ $comerciales->ruta }}</h4>
+    			@if($comerciales->tipo =="imagen")
+    			<img src="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/comercial/'.$comerciales->ruta; ?>" style="width: 200px; height: 200px;" >
+    			<h4>{{ $comerciales->ruta }}</h4>
+    			@else
+    			<video style="width: 200px; height: 200px;">
+    				<source src="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/comercial/'.$comerciales->ruta; ?>" >
+    			</video>
+    			<h4>{{ $comerciales->ruta }}</h4>
+    			@endif
  			</div>
 			<label>Archivo</label>
 			<div>
