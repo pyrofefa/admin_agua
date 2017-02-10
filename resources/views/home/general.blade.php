@@ -20,9 +20,10 @@
 					@if(is_null($promedio))
 					<h5>Promedio de tiempo de espera: 0 </h5>
 				@else
-					<h5>Promedio de tiempo de espera (global): {{ gmdate("H:i:s",$promedio->diferencia) }} </h5>
-					<h5>Promedio de tiempo de espera (tramites): {{ gmdate("H:i:s",$promedio_tramites->diferencia) }} </h5>
-					<h5>Promedio de tiempo de espera (Aclaraciones): {{ gmdate("H:i:s",$promedio_aclaraciones->diferencia) }} </h5>
+					<h5>Promedio de tiempo de espera (global): {{ $promedio->tiempo }} </h5>
+					<h5>Promedio de tiempo de espera (tramites): {{ $promedio_tramites->tiempo }} </h5>
+					<h5>Promedio de tiempo de espera (Aclaraciones): {{ $promedio_aclaraciones->tiempo }} </h5>
+					<h5>Promedio de tiempo de espera (Pago): {{ $promedio_pago->tiempo }} </h5>
 				@endif	
 				</div>
 				<div class="col-md-4">
