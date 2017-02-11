@@ -53,7 +53,7 @@ $(document).ready(function() {
 			}]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealsubasuntos", function(data) {
-        	 console.log(data);
+        	 //console.log(data);
         	 $.each(data, function(index, data)
              {
              	options.series[0].data.push(data.numero);
@@ -62,7 +62,7 @@ $(document).ready(function() {
 			chart = new Highcharts.Chart(options);
     	});	
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealsubasuntosa", function(data) {
-        	 console.log(data);
+        	 //console.log(data);
         	 $.each(data, function(index, data)
              {
              	options.series[1].data.push(data.numero);
@@ -71,7 +71,7 @@ $(document).ready(function() {
 			chart = new Highcharts.Chart(options);
     	});
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealsubasuntosp", function(data) {
-        	 console.log(data);
+        	 //console.log(data);
         	 $.each(data, function(index, data)
              {
              	options.series[2].data.push(data.numero);
@@ -131,7 +131,7 @@ $(document).ready(function() {
 			}]
 		}
 		$.getJSON("http://localhost/turnomatic/public/graficas/linealsubasuntosabandonados", function(data) {
-        	 console.log(data);
+        	 //console.log(data);
         	 $.each(data, function(index, data)
              {
              	optionsabandonados.series[0].data.push(data.numero);
@@ -140,7 +140,7 @@ $(document).ready(function() {
 			chart = new Highcharts.Chart(optionsabandonados);
     	});
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealsubasuntosaabandonados", function(data) {
-        	 console.log(data);
+        	 //console.log(data);
         	 $.each(data, function(index, data)
              {
              	optionsabandonados.series[1].data.push(data.numero);
@@ -149,7 +149,7 @@ $(document).ready(function() {
 			chart = new Highcharts.Chart(optionsabandonados);
     	});
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealsubasuntospabandonados", function(data) {
-        	 console.log(data);
+        	 //console.log(data);
         	 $.each(data, function(index, data)
              {
              	optionsabandonados.series[2].data.push(data.numero);

@@ -75,11 +75,11 @@
 	{!! Html::script('assets/js/highcharts.js') !!}
 	{!! Html::script('assets/js/graficas.js') !!}
 	{!! Html::script('assets/js/graficasbarras.js') !!}
+	{!! Html::script('assets/js/graficalineal.js') !!}
 	{!! Html::script('assets/js/angular.min.js') !!}
 	{!! Html::script('assets/js/angular-resource.min.js') !!}
 	{!! Html::script('assets/js/main.js') !!}
-	<!--{!! Html::script('http://code.highcharts.com/modules/exporting.js')!!}
-	{!! Html::script('http://highcharts.github.io/export-csv/export-csv.js"')!!}-->
+ 	{!! Html::script('https://code.highcharts.com/modules/data.js')!!}
 
 </body>
 </html>

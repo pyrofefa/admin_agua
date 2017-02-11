@@ -16,22 +16,6 @@
 					<h5> Turnos abandonados: {{ $abandonados }}</h5>	
 	
 				</div>
-				<div class="col-md-4">
-					@if(is_null($promedio))
-					<h5>Promedio de tiempo de espera: 0 </h5>
-				@else
-					<h5>Promedio de tiempo de espera (global): {{ $promedio->tiempo }} </h5>
-					<h5>Promedio de tiempo de espera (tramites): {{ $promedio_tramites->tiempo }} </h5>
-					<h5>Promedio de tiempo de espera (Aclaraciones): {{ $promedio_aclaraciones->tiempo }} </h5>
-					<h5>Promedio de tiempo de espera (Pago): {{ $promedio_pago->tiempo }} </h5>
-				@endif	
-				</div>
-				<div class="col-md-4">
-					<h5>Promedio de tiempo de atencion (global): {{ $promedio_atendido->tiempo }} </h5>
-					<h5>Promedio de tiempo de atencion (tramites): {{ $promedio_tramitesa->tiempo }} </h5>
-					<h5>Promedio de tiempo de atencion (Aclaraciones): {{ $promedio_aclaracionesa->tiempo }} </h5>
-					<h5>Promedio de tiempo de atencion (Pago): {{ $promedio_pagoa->tiempo }} </h5>
-				</div>
 			</div>	
 		</div>	
 	</div>
@@ -210,8 +194,6 @@
 			</div>
 		</div>
 	</div>
-
-
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="row">
@@ -225,7 +207,52 @@
 				</div>
 			</div>
 		</div>
-	</div>			
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<table id="datatable" class="table table-bordered">
+		    			<thead>
+		        			<tr>
+					            <th></th>
+					            <th>Promedio de tiempo de espera</th>
+					            <th>Promedio de tiempo de atencion</th>
+		        			</tr>
+		    			</thead>
+		    			<tbody>
+					        <tr>
+					            <th>Global</th>
+					            <td>{{ $promedio->tiempo }}</td>
+					            <td>{{ $promedio_atendido->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Tramites</th>
+					            <td>{{ $promedio_tramites->tiempo }}</td>
+					            <td>{{ $promedio_tramitesa->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Aclaraciones</th>
+					            <td>{{ $promedio_aclaraciones->tiempo }}</td>
+					            <td>{{ $promedio_aclaracionesa->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Pago</th>
+					            <td>{{ $promedio_pago->tiempo }}</td>
+					            <td>{{ $promedio_pagoa->tiempo }}</td>
+					        </tr>
+					        
+		    			</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="barraspromedio"></div>
+				</div>
+			</div>
+		</div>
+	</div>					
 </div>
 @endsection
 
