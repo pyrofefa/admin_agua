@@ -59,18 +59,60 @@ class HomeController extends Controller
             ->where('id_sucursal',$id)->count();
         $espera = DB::table('tikets')->select(DB::raw('*'))->where('estado',0)->whereRaw('Date(created_at) = CURDATE()')
             ->where('id_sucursal',$id)->count();
+        $abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)->whereRaw('Date(created_at) = CURDATE()')
+            ->where('id_sucursal',$id)->count();
+
 
         $cajas=DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.fk_caja')
         ->where("tikets.id_sucursal",$id)->whereRaw('Date(tikets.created_at) = CURDATE()')
         ->groupBy('tikets.fk_caja')->get();
 
-        $promedio=DB::table('tikets')->selectRaw('DATE(created_at) as inicio, AVG(TIME_TO_SEC(TIMEDIFF(updated_at,created_at))) AS diferencia')
-            ->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('inicio')->first();
+        $subasunto=DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.subasunto')->where('estado',1)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.subasunto')->get();
+
+        $subasunto_abandonados=DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.subasunto')->where('estado',2)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.subasunto')->get();
+
+
+        $tramites = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')->where('subasunto','Trámites')
+            ->where('estado',1)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();
+        
+        $tramites_abandonados = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')->where('subasunto','Trámites')
+            ->where('estado',2)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();    
+
+        $aclaraciones = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')->where('subasunto','Aclaraciones y Otros')->where('estado',1)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();
+
+        $aclaraciones_abandonados = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')->where('subasunto','Aclaraciones y Otros')->where('estado',2)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();         
+
+        $pago = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')
+            ->where('subasunto','Pago')->where('estado',1)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();
+        
+        $pago_abandonado = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')
+            ->where('subasunto','Pago')->where('estado',2)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();    
+            
+        $promedio=DB::table('tikets')->selectRaw('CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as tiempo')->where('estado',1)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
+        //dd($promedio);
+
+        $promedio_tramites=DB::table('tikets')->selectRaw('CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as tiempo')->where('id_sucursal',$id)->where('subasunto','Trámites')->whereRaw('Date(tikets.created_at) = CURDATE()')->first(); 
+        
+        //dd($promedio_tramites);
+        $promedio_aclaraciones=DB::table('tikets')->selectRaw('CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as tiempo')->where('subasunto','Aclaraciones y Otros')->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();    
+
+        $promedio_pago=DB::table('tikets')->selectRaw('CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as tiempo')->where('subasunto','Pago')->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->first(); 
+         
+        $promedio_atendido=DB::table('tikets')->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 2)) as tiempo')
+            ->where('estado',1)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
+
+        $promedio_tramitesa=DB::table('tikets')->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 2)) as tiempo')
+            ->where('subasunto','Trámites')->where('estado',1)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
+
+        $promedio_aclaracionesa=DB::table('tikets')->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 2)) as tiempo')->where('subasunto','Aclaraciones y Otros')->where('estado',1)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
+
+        $promedio_pagoa=DB::table('tikets')->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 2)) as tiempo')
+            ->where('subasunto','Pago')->where('estado',1)->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
 
         $sucursal = Sucursal::where('id', $id)->first();
-        return view('home.sucursal', compact('sucursal','atendidos','espera','carbon','promedio','cajas','promedio'));
+        
+        return view('home.sucursal', compact('sucursal','carbon','atendidos','espera','cajas','promedio','promedio_tramites','promedio_aclaraciones','promedio_pago','promedio_atendido','promedio_tramitesa','promedio_aclaracionesa','promedio_pagoa','subasunto', 'subasunto_abandonados','tramites','tramites_abandonados','aclaraciones','aclaraciones_abandonados','pago','pago_abandonado','abandonados','cajas'));
     }
-
     public function general()
     {
         $carbon =  Carbon::today()->format('d-m-Y');
@@ -88,13 +130,13 @@ class HomeController extends Controller
 
         $tramites = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')->where('subasunto','Trámites')
             ->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();
+        
         $tramites_abandonados = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')->where('subasunto','Trámites')
             ->where('estado',2)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();    
 
-       $aclaraciones = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')
-            ->where('subasunto','Aclaraciones y Otros')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();
-        $aclaraciones_abandonados = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')
-            ->where('subasunto','Aclaraciones y Otros')->where('estado',2)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();         
+        $aclaraciones = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')->where('subasunto','Aclaraciones y Otros')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();
+
+        $aclaraciones_abandonados = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')->where('subasunto','Aclaraciones y Otros')->where('estado',2)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();         
 
         $pago = DB::table('tikets')->selectRaw('count(tikets.turno) as numero, tikets.asunto')
             ->where('subasunto','Pago')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('tikets.asunto')->get();

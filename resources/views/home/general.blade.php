@@ -168,7 +168,7 @@
 					<div id="tramites"></div>
 				</div>
 				<div class="col-md-6">
-					<div id="aclaraciones"></div>
+					<div id="aclaracionesid"></div>
 				</div>
 				<div class="col-md-6">
 					<div id="pagos"></div>

@@ -87,6 +87,93 @@ $(document).ready(function() {
         chart = new Highcharts.Chart(optionsasuntoabandonado);
     });
 
+
+    var optionsasuntoid = {
+        chart: {
+            renderTo: 'subasuntoid',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Realizados',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntos/"+id, function(json) {
+        optionsasuntoid.series[0].data = json;
+        chart = new Highcharts.Chart(optionsasuntoid);
+    });
+
+    var optionsasuntoabandonadoid = {
+        chart: {
+            renderTo: 'subasuntoabandonadoid',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Abandonados',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntos_abandonados/"+id, function(json) {
+        optionsasuntoabandonadoid.series[0].data = json;
+        chart = new Highcharts.Chart(optionsasuntoabandonadoid);
+    });
+
+
+
     var options = {
         chart: {
             renderTo: 'pagosid',
@@ -95,7 +182,7 @@ $(document).ready(function() {
             plotShadow: false
         },
         title: {
-            text: 'Pagos y trámites',
+            text: 'Pagos',
             x: -20 //center
         },
         tooltip: {
@@ -129,6 +216,50 @@ $(document).ready(function() {
         chart = new Highcharts.Chart(options);
     });
 
+
+    var optionstid = {
+        chart: {
+            renderTo: 'tramitesid',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Trámites',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficatramites/"+id, function(json) {
+        optionstid.series[0].data = json;
+        chart = new Highcharts.Chart(optionstid);
+    });
+
+
     var optionsa = {
         chart: {
             renderTo: 'aclaracionesid',
@@ -137,7 +268,7 @@ $(document).ready(function() {
             plotShadow: false
         },
         title: {
-            text: 'Aclaraciones y otros',
+            text: 'Aclaraciones',
             x: -20 //center
         },
         tooltip: {
@@ -341,6 +472,49 @@ $(document).ready(function() {
         chart = new Highcharts.Chart(optionspa);
     });
 
+
+    var optionsaid = {
+        chart: {
+            renderTo: 'pagosabandonadosid',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Pagos',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficapagosabandonados/"+id, function(json) {
+        optionsaid.series[0].data = json;
+        chart = new Highcharts.Chart(optionsaid);
+    });
+
     var optionsta = {
         chart: {
             renderTo: 'tramitesbandonados',
@@ -383,6 +557,47 @@ $(document).ready(function() {
         chart = new Highcharts.Chart(optionsta);
     });
 
+    var optionstaid = {
+        chart: {
+            renderTo: 'tramitesbandonadosid',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Trámites',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficatramitesabandonados/"+id, function(json) {
+        optionstaid.series[0].data = json;
+        chart = new Highcharts.Chart(optionstaid);
+    });
 
     var optionsaclaracionesa = {
         chart: {
@@ -423,6 +638,49 @@ $(document).ready(function() {
         }]
     }
     $.getJSON("http://localhost/turnomatic/public/graficas/graficaaclaracionesabandonados", function(json) {
+        optionsaclaracionesa.series[0].data = json;
+        chart = new Highcharts.Chart(optionsaclaracionesa);
+    });
+
+    var optionsaclaracionesa = {
+        chart: {
+            renderTo: 'aclaracionesabandonadosid',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Aclaraciones',
+            x: -20 //center
+
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficaaclaracionesabandonados/"+id, function(json) {
         optionsaclaracionesa.series[0].data = json;
         chart = new Highcharts.Chart(optionsaclaracionesa);
     });

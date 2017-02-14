@@ -50,6 +50,19 @@ class GraficasPieController extends Controller
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
+    public function grafica_subasunto_id($id)
+    {
+        $tiket = DB::table('tikets')->selectRaw('subasunto as name, count(subasunto) as y, created_at')->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('subasunto')->where('estado',1)->where('id_sucursal',$id)->get();
+
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_subasunto_abandonado_id($id)
+    {
+        $tiket = DB::table('tikets')->selectRaw('subasunto as name, count(subasunto) as y, created_at')->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('subasunto')->where('estado',2)->where('id_sucursal',$id)->get();    
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
     public function grafica_pagos()
     {
         $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y, created_at')
@@ -95,16 +108,48 @@ class GraficasPieController extends Controller
     }
     public function grafica_pagos_id($id)
     {
-        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')
-            ->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('asunto')->where('subasunto','=','Trámites')->where('id_sucursal','=',$id)->get();
+        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y, created_at')->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('asunto')->where('estado',1)->Where('subasunto','=','Pago')->where('id_sucursal','=',$id)->get();
+
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function grafica_aclaraciones_id($id)
     {
-        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')
-            ->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('asunto')->where('subasunto','=','Aclaraciones y Otros')->where('id_sucursal','=',$id)->get();
-       $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y, created_at')->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('asunto')->where('estado',1)->Where('subasunto','=','Aclaraciones y Otros')->where('id_sucursal','=',$id)->get();
+        
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
+    public function grafica_tramites_id($id)
+    {
+        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y, created_at')->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('asunto')->where('estado',1)->Where('subasunto','=','Trámites')->where('id_sucursal',$id)->get();    
+        
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_pagos_abandonados_id($id)
+    {
+        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y, created_at')->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('asunto')->where('estado',2)->Where('subasunto','=','Pago')->where('id_sucursal',$id)->get();    
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_tramites_abandonados_id($id)
+    {
+        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->groupBy('asunto')->where('estado',2)->Where('subasunto','=','Trámites')->where('id_sucursal',$id)->get();    
+        
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_aclaraciones_abandonados_id($id)
+    {
+
+        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('asunto')->where('subasunto','=','Aclaraciones y Otros')->where('id_sucursal',$id)->where('estado',2)->get();    
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        
+        dd();
+
+        return $json;
+    }
+
 }
