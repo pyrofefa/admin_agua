@@ -20,6 +20,13 @@ class ComercialesController extends Controller
     public function mostrar()
     {
         $comerciales = Comercial::all();
+        //dd(public_path());
+        dd("El fichero existe");
+        foreach ( $comerciales as $c)
+        {
+            \File::copy('/Applications/AMPPS/www/turnomatic/public/comercial/'.$c->ruta, '/Users/teknol/Desktop/comeciales'.$c->ruta );
+        }
+        
         return response()->json($comerciales);
     }
     public function create()
@@ -42,7 +49,7 @@ class ComercialesController extends Controller
 
         if ($mimetype == 'image/jpeg'|| $mimetype == 'image/png')
         {
-            if($ancho == 1366 || $alto == 41)
+            if($ancho == 1366 || $alto == 641)
             {    
                 $nombre = $file->getClientOriginalName();
                 \Storage::disk('public')->put($nombre,  \File::get($file));
