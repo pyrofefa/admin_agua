@@ -20,11 +20,14 @@ class ComercialesController extends Controller
     public function mostrar()
     {
         $comerciales = Comercial::all();
-        //dd(public_path());
-        dd("El fichero existe");
-        foreach ( $comerciales as $c)
+        
+        foreach ($comerciales as $c)
         {
-            \File::copy('/Applications/AMPPS/www/turnomatic/public/comercial/'.$c->ruta, '/Users/teknol/Desktop/comeciales'.$c->ruta );
+            $url = 'http://localhost/turnomatic/public/comercial/'.$c->ruta;
+            $source = file_get_contents($url);
+            file_put_contents('/Users/teknol/Desktop/comeciales/'.$c->ruta, $source);
+            //dd('Se ha descargado el CSV');
+            //\File::copy('/Applications/AMPPS/www/turnomatic/public/comercial/'.$c->ruta, '/Users/teknol/Desktop/comeciales'.$c->ruta );
         }
         
         return response()->json($comerciales);
