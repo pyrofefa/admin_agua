@@ -190,12 +190,12 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
-					<div id="lineal"></div>
+					<div id="linealid"></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<div id="linealabandonados"></div>
+					<div id="linealabandonadosid"></div>
 				</div>
 			</div>
 		</div>
@@ -245,13 +245,5 @@
 			</div>
 		</div>
 	</div>					
-	<div class="row">
-		<div class="col-md-6">
-			<div id="pagosid"></div>
-		</div>
-		<div class="col-md-6">
-			<div id="aclaracionesid"></div>
-		</div>
-	</div>
 </div>
 @endsection

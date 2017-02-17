@@ -19,16 +19,28 @@ class ComercialesController extends Controller
     }
     public function mostrar()
     {
-        $comerciales = Comercial::all();
+
         
-        foreach ($comerciales as $c)
-        {
-            $url = 'http://localhost/turnomatic/public/comercial/'.$c->ruta;
-            $source = file_get_contents($url);
-            file_put_contents('/Users/teknol/Desktop/comeciales/'.$c->ruta, $source);
+        
+        $comerciales = Comercial::all();
+        //foreach ($comerciales as $c)
+        //{
+            
+
+            //$file = file('http://192.168.100.111/turnomatic/public/comercial/'.$c->ruta);
+            //$file2 =implode("", $file);
+            
+
+            //header("Content-Type: application/octet-stream");
+            //header("Content-Disposition: attachment; filename=".$c->ruta);
+
+            //dd($file2);
+            //$url = 'http://localhost/turnomatic/public/comercial/'.$c->ruta;
+            //$source = file_get_contents($url);
+            //file_put_contents('/Applications/AMPPS/www/agua_arriba/system/comerciales/'.$c->ruta, $source);
             //dd('Se ha descargado el CSV');
-            //\File::copy('/Applications/AMPPS/www/turnomatic/public/comercial/'.$c->ruta, '/Users/teknol/Desktop/comeciales'.$c->ruta );
-        }
+            //\File::copy('http://192.168.100.111/turnomatic/public/comercial/'.$c->ruta, '/Users/teknol/Desktop/comerciales'.$c->ruta );
+        //}
         
         return response()->json($comerciales);
     }
@@ -140,6 +152,26 @@ class ComercialesController extends Controller
             Comercial::destroy($id);
             $request -> session()->flash('message', "El registro fue eliminado");
             return redirect()->route('comerciales.index');    
+        }
+    }
+
+
+    protected function downloadFile($src)
+    {
+        if(is_file($src)){
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $content_type = finfo_file($finfo, $src);
+            finfo_close($finfo);
+            $file_name = basename($src).PHP_EOL;
+            $size = filesize($src);
+            header("Content-Type: $content_type");
+            header("Content-Disposition: attachment; filename=$file_name");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: $size");
+            readfile($src);
+            return true;
+        } else{
+            return false;
         }
     }
 }

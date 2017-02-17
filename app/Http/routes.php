@@ -40,11 +40,17 @@ Route::get('home/mostraraclaraciones/{id}','HomeController@mostrar_aclaraciones'
 
 //Graficas Lineales
 Route::get('graficas/linealsubasuntos','GraficasLinealController@lineal_subasunto_tramites');
+Route::get('graficas/linealsubasuntos/{id}','GraficasLinealController@lineal_subasunto_tramites_id');
 Route::get('graficas/linealsubasuntosabandonados','GraficasLinealController@lineal_subasunto_tramites_abandonados');
+Route::get('graficas/linealsubasuntosabandonados/{id}','GraficasLinealController@lineal_subasunto_tramites_abandonados_id');
 Route::get('graficas/linealsubasuntosa','GraficasLinealController@lineal_subasunto_aclaraciones');
+Route::get('graficas/linealsubasuntosa/{id}','GraficasLinealController@lineal_subasunto_aclaraciones_id');
 Route::get('graficas/linealsubasuntosaabandonados','GraficasLinealController@lineal_subasunto_aclaraciones_abandonados');
+Route::get('graficas/linealsubasuntosaabandonados/{id}','GraficasLinealController@lineal_subasunto_aclaraciones_abandonados_id');
 Route::get('graficas/linealsubasuntosp','GraficasLinealController@lineal_subasunto_pagos');
+Route::get('graficas/linealsubasuntosp/{id}','GraficasLinealController@lineal_subasunto_pagos_id');
 Route::get('graficas/linealsubasuntospabandonados','GraficasLinealController@lineal_subasunto_pagos_abandonados');
+Route::get('graficas/linealsubasuntospabandonados/{id}','GraficasLinealController@lineal_subasunto_pagos_abandonados_id');
 
 //Graficas Pastel
 Route::get('graficas/graficasubasuntos','GraficasPieController@grafica_subasunto');

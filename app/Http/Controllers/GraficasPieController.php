@@ -147,8 +147,6 @@ class GraficasPieController extends Controller
         $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y')->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('asunto')->where('subasunto','=','Aclaraciones y Otros')->where('id_sucursal',$id)->where('estado',2)->get();    
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         
-        dd();
-
         return $json;
     }
 

@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	//alert();
-	console.log("Hola Mundo");
+	//console.log("Hola Mundo");
     var id = $('#valor').val();
     Highcharts.chart('barraspromedio', {
 	    data: {
