@@ -10,7 +10,14 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<h5>{{$carbon}}</h5>
-				
+				<div class="col-md-4">
+            {!! Form::open((array( 'url' => 'home/general/fecha', 'method' => 'GET' ))) !!}
+			<div class="input-group">
+    {!! Form::text('fecha',null,['class' => 'form-control', 'placeholder' => 'Buscar fecha...','id' => 'fecha']) !!}
+        				<span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>        
+        			</div>
+    			{!! Form::close() !!}
+    			</div>
  				<div class="col-md-4">
 					<h5> Turnos atendidos: {{ $atendidos }}</h5>
 					<h5> Turnos en espera: {{ $espera }}</h5>
