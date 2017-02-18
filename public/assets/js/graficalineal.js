@@ -2,7 +2,8 @@ $(document).ready(function() {
 	//alert();
 	//console.log("Hola Mundo");
     var id = $('#valor').val();
-    Highcharts.chart('barraspromedio', {
+	
+	Highcharts.chart('barraspromedio', {
 	    data: {
 	        table: 'datatable'
 	    },

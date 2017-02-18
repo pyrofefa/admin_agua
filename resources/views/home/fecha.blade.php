@@ -1,23 +1,21 @@
 @extends('plantillas.app')
 @section('content')
+{!! Form::hidden('fecha',$f->created_at->format('Y-m-d'),['class'=>'form-control' , 'id' => 'fecha']) !!}<br>
 <div class="container">
 	 <div class="row">
 		<div class="col-md-12">
-			<h1 style="text-align: center">General al dia: {{$carbon}}  </h1>
+			<h1 style="text-align: center">General al dia: {{ $f->created_at->format('d-m-Y')}}  </h1>
 		</div>
 	</div>
 	<div class="row">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<h5>{{$carbon}}</h5>
-				
- 				<div class="col-md-4">
+				<div class="col-md-4">
 					<h5> Turnos atendidos: {{ $atendidos }}</h5>
-					<h5> Turnos en espera: {{ $espera }}</h5>
-					<h5> Turnos abandonados: {{ $abandonados }}</h5>	
-				</div>
+					<h5> Turnos abandonados: {{ $abandonados }}</h5>
+				</div>	
 			</div>	
-		</div>	
+		</div>
 	</div>
 	<div class="row">
 		<div class="panel panel-default">
@@ -145,15 +143,14 @@
 			</div>
 		</div>
 	</div>
-	<br>
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-6">
-					<div id="subasunto"></div>
+					<div id="subasuntofecha"></div>
 				</div>
 				<div class="col-md-6">
-					<div id="subasuntoabandonado"></div>
+					<div id="subasuntoabandonadofecha"></div>
 				</div>
 			</div>
 		</div>
@@ -165,13 +162,13 @@
 			<br><br>
 			<div class="row">
 				<div class="col-md-6">
-					<div id="tramites"></div>
+					<div id="tramitesfecha"></div>
 				</div>
 				<div class="col-md-6">
-					<div id="aclaraciones"></div>
+					<div id="aclaracionesfecha"></div>
 				</div>
 				<div class="col-md-6">
-					<div id="pagos"></div>
+					<div id="pagosfecha"></div>
 				</div>
 			</div>
 		</div>
@@ -183,13 +180,13 @@
 			<br><br>
 			<div class="row">
 				<div class="col-md-6">
-					<div id="tramitesbandonados"></div>
+					<div id="tramitesbandonadosfecha"></div>
 				</div>
 				<div class="col-md-6">
-					<div id="aclaracionesabandonados"></div>
+					<div id="aclaracionesabandonadosfecha"></div>
 				</div>
 				<div class="col-md-6">
-					<div id="pagosabandonados"></div>
+					<div id="pagosabandonadosfecha"></div>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,8 @@
 $(document).ready(function() {
     var id = $('#valor').val();
+    var fecha = $('#fecha').val();
+
+    console.log(fecha);
     //console.log(id);
 
 
@@ -172,6 +175,89 @@ $(document).ready(function() {
         chart = new Highcharts.Chart(optionsasuntoabandonadoid);
     });
 
+    var optionsasuntofecha = {
+        chart: {
+            renderTo: 'subasuntofecha',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Realizados',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntosfecha/"+fecha, function(json) {
+        optionsasuntofecha.series[0].data = json;
+        chart = new Highcharts.Chart(optionsasuntofecha);
+    });
+
+    var optionsasuntofechaaban = {
+        chart: {
+            renderTo: 'subasuntoabandonadofecha',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Abandonados',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntos_abandonados_fecha/"+fecha, function(json) {
+        optionsasuntofechaaban.series[0].data = json;
+        chart = new Highcharts.Chart(optionsasuntofechaaban);
+    });
 
 
     var options = {
@@ -386,6 +472,48 @@ $(document).ready(function() {
     $.getJSON("http://localhost/turnomatic/public/graficas/graficatramites", function(json) {
         optionst.series[0].data = json;
         chart = new Highcharts.Chart(optionst);
+    });
+
+    var optionstfecha = {
+        chart: {
+            renderTo: 'tramitesfecha',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Trámites',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficatramitesfecha/"+fecha, function(json) {
+        optionstfecha.series[0].data = json;
+        chart = new Highcharts.Chart(optionstfecha);
     });
 
     var optionsaa = {

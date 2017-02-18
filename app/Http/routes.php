@@ -34,6 +34,7 @@ Route::put('tikets/actualizar/{id}','TiketsController@actualizar');
 Route::resource('tikets','TiketsController');
 Route::get('home/mostrar','HomeController@mostrar');
 Route::get('home/general','HomeController@general');
+Route::get('home/general/fecha','HomeController@general_fecha');
 Route::get('home/sucursal/{id}','HomeController@sucursal');
 Route::get('home/mostrarpagos/{id}','HomeController@mostrar_pagos');
 Route::get('home/mostraraclaraciones/{id}','HomeController@mostrar_aclaraciones');
@@ -56,7 +57,10 @@ Route::get('graficas/linealsubasuntospabandonados/{id}','GraficasLinealControlle
 Route::get('graficas/graficasubasuntos','GraficasPieController@grafica_subasunto');
 Route::get('graficas/graficasubasuntos_abandonados','GraficasPieController@grafica_subasunto_abandonado');
 Route::get('graficas/graficasubasuntos/{id}','GraficasPieController@grafica_subasunto_id');
+Route::get('graficas/graficasubasuntosfecha/{fecha}','GraficasPieController@grafica_subasunto_fecha');
 Route::get('graficas/graficasubasuntos_abandonados/{id}','GraficasPieController@grafica_subasunto_abandonado_id');
+Route::get('graficas/graficasubasuntos_abandonados_fecha/{id}','GraficasPieController@grafica_subasunto_abandonado_fecha');
+
 Route::get('graficas/graficapagos','GraficasPieController@grafica_pagos');
 Route::get('graficas/graficatramites','GraficasPieController@grafica_tramites');
 Route::get('graficas/graficaaclaraciones','GraficasPieController@grafica_aclaraciones');
@@ -66,9 +70,15 @@ Route::get('graficas/graficatramitesabandonados','GraficasPieController@grafica_
 Route::get('graficas/graficatramitesabandonados/{id}','GraficasPieController@grafica_tramites_abandonados_id');
 Route::get('graficas/graficaaclaracionesabandonados','GraficasPieController@grafica_aclaraciones_abandonados');
 Route::get('graficas/graficaaclaracionesabandonados/{id}','GraficasPieController@grafica_aclaraciones_abandonados_id');
+
 Route::get('graficas/graficapagos/{id}','GraficasPieController@grafica_pagos_id');
+Route::get('graficas/graficapagos/{fecha}','GraficasPieController@grafica_pagos_fecha');
+
+
 Route::get('graficas/graficaaclaraciones/{id}','GraficasPieController@grafica_aclaraciones_id');
 Route::get('graficas/graficatramites/{id}','GraficasPieController@grafica_tramites_id');
+Route::get('graficas/graficatramitesfecha/{fecha}','GraficasPieController@grafica_tramites_fecha');
+
 
 Route::resource('home','HomeController');
 Route::get('turnos/sucursal/{id}','TurnosController@sucursal');

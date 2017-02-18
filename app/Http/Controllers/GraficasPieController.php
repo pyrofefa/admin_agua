@@ -63,6 +63,20 @@ class GraficasPieController extends Controller
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
+    public function grafica_subasunto_fecha($fecha)
+    {
+        $tiket = DB::table('tikets')->selectRaw('subasunto as name, count(subasunto) as y, created_at')
+            ->whereDate('created_at','=',$fecha)->groupBy('subasunto')->where('estado',1)->get();    
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_subasunto_abandonado_fecha($fecha)
+    {
+        $tiket = DB::table('tikets')->selectRaw('subasunto as name, count(subasunto) as y, created_at')->whereDate('created_at','=',$fecha)->groupBy('subasunto')->where('estado',2)->get();    
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+
     public function grafica_pagos()
     {
         $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y, created_at')
@@ -123,6 +137,14 @@ class GraficasPieController extends Controller
     public function grafica_tramites_id($id)
     {
         $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y, created_at')->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('asunto')->where('estado',1)->Where('subasunto','=','Trámites')->where('id_sucursal',$id)->get();    
+        
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_tramites_fecha($fecha)
+    {
+        $tiket = DB::table('tikets')->selectRaw('asunto as name, count(asunto) as y, created_at')->whereDate('created_at','=',$fecha)
+            ->groupBy('asunto')->where('estado',1)->Where('subasunto','=','Trámites')->get();    
         
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
