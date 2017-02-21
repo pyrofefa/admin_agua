@@ -7,6 +7,7 @@
     <title>Agua</title>
     {!! Html::style('assets/css/bootstrap.css') !!}
     {!! Html::style('assets/css/style.css') !!}
+    {!! Html::style('assets/css/jquery-ui.min.css') !!}
     <script src="http://localhost:8080/socket.io/socket.io.js"></script>
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -80,6 +81,7 @@
 	{!! Html::script('assets/js/angular-resource.min.js') !!}
 	{!! Html::script('assets/js/main.js') !!}
  	{!! Html::script('https://code.highcharts.com/modules/data.js')!!}
-
+   	{!! Html::script('assets/js/jquery-ui.min.js')!!}
+   	{!! Html::script('assets/js/datetimepicket.js')!!}
 </body>
 </html>

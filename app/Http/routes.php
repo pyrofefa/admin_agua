@@ -38,6 +38,7 @@ Route::get('home/general/fecha','HomeController@general_fecha');
 Route::get('home/sucursal/{id}','HomeController@sucursal');
 Route::get('home/mostrarpagos/{id}','HomeController@mostrar_pagos');
 Route::get('home/mostraraclaraciones/{id}','HomeController@mostrar_aclaraciones');
+Route::get('home/excel','ExcelController@importar');
 
 //Graficas Lineales
 Route::get('graficas/linealsubasuntos','GraficasLinealController@lineal_subasunto_tramites');
@@ -60,7 +61,6 @@ Route::get('graficas/graficasubasuntos/{id}','GraficasPieController@grafica_suba
 Route::get('graficas/graficasubasuntosfecha/{fecha}','GraficasPieController@grafica_subasunto_fecha');
 Route::get('graficas/graficasubasuntos_abandonados/{id}','GraficasPieController@grafica_subasunto_abandonado_id');
 Route::get('graficas/graficasubasuntos_abandonados_fecha/{id}','GraficasPieController@grafica_subasunto_abandonado_fecha');
-
 Route::get('graficas/graficapagos','GraficasPieController@grafica_pagos');
 Route::get('graficas/graficatramites','GraficasPieController@grafica_tramites');
 Route::get('graficas/graficaaclaraciones','GraficasPieController@grafica_aclaraciones');
@@ -70,11 +70,8 @@ Route::get('graficas/graficatramitesabandonados','GraficasPieController@grafica_
 Route::get('graficas/graficatramitesabandonados/{id}','GraficasPieController@grafica_tramites_abandonados_id');
 Route::get('graficas/graficaaclaracionesabandonados','GraficasPieController@grafica_aclaraciones_abandonados');
 Route::get('graficas/graficaaclaracionesabandonados/{id}','GraficasPieController@grafica_aclaraciones_abandonados_id');
-
 Route::get('graficas/graficapagos/{id}','GraficasPieController@grafica_pagos_id');
 Route::get('graficas/graficapagos/{fecha}','GraficasPieController@grafica_pagos_fecha');
-
-
 Route::get('graficas/graficaaclaraciones/{id}','GraficasPieController@grafica_aclaraciones_id');
 Route::get('graficas/graficatramites/{id}','GraficasPieController@grafica_tramites_id');
 Route::get('graficas/graficatramitesfecha/{fecha}','GraficasPieController@grafica_tramites_fecha');
