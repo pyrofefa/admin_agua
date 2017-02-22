@@ -120,5 +120,54 @@ class GraficasLinealController extends Controller
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
+    public function lineal_subasunto_pagos_hora()
+    {
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',1)->where('subasunto','Pago')->orderBy('x','ASC')->get();   
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_subasunto_tramites_hora()
+    {
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',1)->where('subasunto','Trámites')->orderBy('x','ASC')->get();   
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_subasunto_aclaraciones_hora()
+    {
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',1)->where('subasunto','Aclaraciones y Otros')->orderBy('x','ASC')->get();   
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_subasunto_pagos_hora_abandonados()
+    {
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',2)->where('subasunto','Pago')->orderBy('x','ASC')->get();   
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_subasunto_tramites_hora_abandonados()
+    {
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',2)->where('subasunto','Trámites')->orderBy('x','ASC')->get();   
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_subasunto_aclaraciones_hora_abandonados()
+    {
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',2)->where('subasunto','Aclaraciones y Otros')->orderBy('x','ASC')->get();   
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_tiempo_espera_global()
+    {
+        $promedio=DB::table('tikets')->selectRaw('DATE(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')->where('estado',1)->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio,JSON_NUMERIC_CHECK);
+        return $json;
+    }
 
 }

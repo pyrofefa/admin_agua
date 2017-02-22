@@ -15,7 +15,11 @@
             	{!! Form::open((array( 'url' => 'home/general/fecha', 'method' => 'GET' ))) !!}
 					<div class="input-group">
     			{!! Form::text('fecha',null,['class' => 'form-control', 'placeholder' => 'Buscar fecha...','id' => 'fecha']) !!}
-    			<span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>        
+    				<span class="input-group-btn">
+    					<button class="btn btn-default" type="submit">
+    						<span class="glyphicon glyphicon-search"></span>
+    					</button>
+    				</span>        
         			</div>
     			{!! Form::close() !!}
     			</div>
@@ -234,6 +238,34 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div id="linealabandonados"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="linealhora"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="linealabandonadoshora"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="linealpromedio"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id=""></div>
 				</div>
 			</div>
 		</div>

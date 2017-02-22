@@ -312,6 +312,159 @@ $(document).ready(function() {
               	optionsabandonadosid.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(optionsabandonadosid);
-    	});				
+    	});
 
+    	var optionshora = {
+    	chart:{
+    			renderTo: 'linealhora',
+
+			}, 
+		    title: {
+		        text: 'Operaciones por hora',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Numero de Turnos'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshora", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	optionshora.series[0].data.push(data.numero);
+              	optionshora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(optionshora);
+    	});	
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshora", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	optionshora.series[1].data.push(data.numero);
+              	optionshora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(optionshora);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagoshora", function(data) {
+        	 console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	optionshora.series[2].data.push(data.numero);
+              	optionshora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(optionshora);
+    	});
+
+    	var optionsabandonadoshora = {
+    	chart:{
+    			renderTo: 'linealabandonadoshora',
+
+			}, 
+		    title: {
+		        text: 'Operaciones por hora Abandonados',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Fecha'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Numero de Turnos'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshoraabandonados", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	optionsabandonadoshora.series[0].data.push(data.numero);
+              	optionsabandonadoshora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(optionsabandonadoshora);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshoraabandonados", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	optionsabandonadoshora.series[1].data.push(data.numero);
+              	optionsabandonadoshora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(optionsabandonadoshora);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagoshoraabandonados", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	optionsabandonadoshora.series[2].data.push(data.numero);
+              	optionsabandonadoshora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(optionsabandonadoshora);
+    	});
 });

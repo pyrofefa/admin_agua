@@ -7,25 +7,172 @@
 			<h1 style="text-align: center">{{$sucursal->nombre}}</h1>
 		</div>
 	</div>
-	<br>
-	<div class="row">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<h5>{{$carbon}}</h5>
-				<div class="col-md-4">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<!--<a href="excel">Importar a excel</a>-->
+			<div class="row">
+				
+ 				<div class="col-md-4">
 					<h5> Turnos atendidos: {{ $atendidos }}</h5>
 					<h5> Turnos en espera: {{ $espera }}</h5>
 					<h5> Turnos abandonados: {{ $abandonados }}</h5>	
-	
 				</div>
-			</div>	
-		</div>	
-	</div>
-	<div class="row">
-		<div class="panel panel-default">
-			<div class="panel-body">
+			</div>
+			<br>
+			<div class="row">
 				<div class="col-md-12">
-					<br>
+					<table class="table table-bordered">
+						<tr width="50px">
+							<td width="1px;"></td>
+							<td width="20px;"><strong>Atendidas</strong></td>
+							<td width="20px;"><strong>Abandonadas</strong></td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Aclaraciones</td>
+							<td>{{$aclaraciones}}</td>
+							<td>{{$aclaraciones_abandonadas}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Tramites</td>
+							<td>{{$tramites}}</td>
+							<td>{{$tramites_abandonados}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Pagos</td>
+							<td>{{$pago}}</td>
+							<td>{{$pago_abandonado}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered">
+						<tr width="50px">
+							<td width="1px;"><strong>Tramites</strong></td>
+							<td width="20px;"><strong>Atendidas</strong></td>
+							<td width="20px;"><strong>Abandonadas</strong></td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Contrato</td>
+							<td>{{$contrato}}</td>
+							<td>{{$contrato_abandonado}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Convenio</td>
+							<td>{{$convenio}}</td>
+							<td>{{$convenio_abandonado}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Cambio de nombre</td>
+							<td>{{$cambio}}</td>
+							<td>{{$cambio_abandonado}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Carta de no Adeudo</td>
+							<td>{{$carta}}</td>
+							<td>{{$carta_abandonado}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Factibilidad</td>
+							<td>{{$factibilidad}}</td>
+							<td>{{$factibilidad_abandonado}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">2 o mas tramites</td>
+							<td>{{$dosomas}}</td>
+							<td>{{$dosomas_abandonado}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered">
+						<tr width="50px">
+							<td width="1px;"><strong>Pago</strong></td>
+							<td width="20px;"><strong>Atendidas</strong></td>
+							<td width="20px;"><strong>Abandonadas</strong></td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Recibo</td>
+							<td>{{$pago_recibo}}</td>
+							<td>{{$pago_recibo_abandonados}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Convenio</td>
+							<td>{{$pago_convenio}}</td>
+							<td>{{$pago_convenio_abandonados}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Carta de no Adeudo</td>
+							<td>{{$pago_carta}}</td>
+							<td>{{$pago_carta_abandonados}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered">
+						<tr width="50px">
+							<td width="1px;"><strong>Aclaraciones</strong></td>
+							<td width="20px;"><strong>Atendidas</strong></td>
+							<td width="20px;"><strong>Abandonadas</strong></td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Alto Consumo <br>(Con y sin medidor)</td>
+							<td>{{$alto}}</td>
+							<td>{{$alto_abandonado}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Reconexion de servicios</td>
+							<td>{{$reconexion}}</td>
+							<td>{{$reconexion_abandonado}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Error en lectura</td>
+							<td>{{$error}}</td>
+							<td>{{$error_abandonados}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">No toma de lectura</td>
+							<td>{{$notoma}}</td>
+							<td>{{$notoma_abandonados}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">No entrega de recibo</td>
+							<td>{{$noentrega}}</td>
+							<td>{{$noentrega_abandonados}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Cambio de tarifa</td>
+							<td>{{$cambiotarifa}}</td>
+							<td>{{$cambiodetarifa_abandonados}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Solicitud de medidor</td>
+							<td>{{$solicitud}}</td>
+							<td>{{$solicitud_abandonados}}</td>
+						</tr>
+						<tr width="50px">
+							<td width="1px;">Otros tramites</td>
+							<td>{{$otros}}</td>
+							<td>{{$otros_abandonados}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<br>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
 					<table class="table table-bordered">
   						<tr>
   					  		<th>Nombre</th>
@@ -42,102 +189,9 @@
   			  			@endforeach
 					</table>
 				</div>
-			</div>	
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">	
-				<div class="col-md-4">
-					<table class="table table-bordered">
-						<tr width="50px">
-							<td width="1px;"><strong>Tramites</strong></td>
-							<td width="20px;"><strong>No. Personas Atendidas</strong></td>
-						</tr>
-						@foreach($tramites as $t)
-						<tr width="50px">
-							<td width="1px;">{{$t->asunto}}</td>
-							<td width="20px;">{{$t->numero}}</td>
-						</tr>
-						@endforeach
-					</table>		
-				</div>
-				<div class="col-md-4">
-					<table class="table table-bordered">
-						<tr width="50px">
-							<td width="1px;"><strong>Aclaraciones</strong></td>
-							<td width="20px;"><strong>No. Personas Atendidas</strong></td>
-						</tr>
-						@foreach($aclaraciones as $a)
-						<tr width="50px">
-							<td width="1px;">{{$a->asunto}}</td>
-							<td width="20px;">{{$a->numero}}</td>
-						</tr>
-						@endforeach
-					</table>		
-				</div>
-				<div class="col-md-4">
-					<table class="table table-bordered">
-						<tr width="50px">
-							<td width="1px;"><strong>Pagos</strong></td>
-							<td width="20px;"><strong>No. Personas Atendidas</strong></td>
-						</tr>
-						@foreach($pago as $p)
-						<tr width="50px">
-							<td width="1px;">{{$p->asunto}}</td>
-							<td width="20px;">{{$p->numero}}</td>
-						</tr>
-						@endforeach
-					</table>	
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<table class="table table-bordered">
-						<tr width="50px">
-							<td width="1px;"><strong>Tramites</strong></td>
-							<td width="20px;"><strong>No. Turnos Abandonados</strong></td>
-						</tr>
-						@foreach($tramites_abandonados as $t)
-						<tr width="50px">
-							<td width="1px;">{{$t->asunto}}</td>
-							<td width="20px;">{{$t->numero}}</td>
-						</tr>
-						@endforeach
-					</table>		
-				</div>
-				<div class="col-md-4">
-					<table class="table table-bordered">
-						<tr width="50px">
-							<td width="1px;"><strong>Aclaraciones</strong></td>
-							<td width="20px;"><strong>No. Turnos Abandonados</strong></td>
-						</tr>
-						@foreach($aclaraciones_abandonados as $a)
-						<tr width="50px">
-							<td width="1px;">{{$a->asunto}}</td>
-							<td width="20px;">{{$a->numero}}</td>
-						</tr>
-						@endforeach
-					</table>		
-				</div>
-				<div class="col-md-4">
-					<table class="table table-bordered">
-						<tr width="50px">
-							<td width="1px;"><strong>Pagos</strong></td>
-							<td width="20px;"><strong>No. Turnos Abandonados</strong></td>
-						</tr>
-						@foreach($pago_abandonado as $p)
-						<tr width="50px">
-							<td width="1px;">{{$p->asunto}}</td>
-							<td width="20px;">{{$p->numero}}</td>
-						</tr>
-						@endforeach
-					</table>	
-				</div>
 			</div>
 		</div>
 	</div>
-	<br>
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="row">

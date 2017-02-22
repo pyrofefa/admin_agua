@@ -83,5 +83,6 @@
  	{!! Html::script('https://code.highcharts.com/modules/data.js')!!}
    	{!! Html::script('assets/js/jquery-ui.min.js')!!}
    	{!! Html::script('assets/js/datetimepicket.js')!!}
+	{!! Html::script('http://code.highcharts.com/modules/exporting.js') !!}
 </body>
 </html>

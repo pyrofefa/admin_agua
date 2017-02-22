@@ -53,6 +53,13 @@ Route::get('graficas/linealsubasuntosp','GraficasLinealController@lineal_subasun
 Route::get('graficas/linealsubasuntosp/{id}','GraficasLinealController@lineal_subasunto_pagos_id');
 Route::get('graficas/linealsubasuntospabandonados','GraficasLinealController@lineal_subasunto_pagos_abandonados');
 Route::get('graficas/linealsubasuntospabandonados/{id}','GraficasLinealController@lineal_subasunto_pagos_abandonados_id');
+Route::get('graficas/linealpagoshora','GraficasLinealController@lineal_subasunto_pagos_hora');
+Route::get('graficas/linealtramiteshora','GraficasLinealController@lineal_subasunto_tramites_hora');
+Route::get('graficas/linealaclaracioneshora','GraficasLinealController@lineal_subasunto_aclaraciones_hora');
+Route::get('graficas/linealaclaracioneshoraabandonados','GraficasLinealController@lineal_subasunto_aclaraciones_hora_abandonados');
+Route::get('graficas/linealtramiteshoraabandonados','GraficasLinealController@lineal_subasunto_tramites_hora_abandonados');
+Route::get('graficas/linealpagoshoraabandonados','GraficasLinealController@lineal_subasunto_pagos_hora_abandonados');
+Route::get('graficas/linealtiempoesperaglobal','GraficasLinealController@lineal_tiempo_espera_global');
 
 //Graficas Pastel
 Route::get('graficas/graficasubasuntos','GraficasPieController@grafica_subasunto');
@@ -71,11 +78,14 @@ Route::get('graficas/graficatramitesabandonados/{id}','GraficasPieController@gra
 Route::get('graficas/graficaaclaracionesabandonados','GraficasPieController@grafica_aclaraciones_abandonados');
 Route::get('graficas/graficaaclaracionesabandonados/{id}','GraficasPieController@grafica_aclaraciones_abandonados_id');
 Route::get('graficas/graficapagos/{id}','GraficasPieController@grafica_pagos_id');
-Route::get('graficas/graficapagos/{fecha}','GraficasPieController@grafica_pagos_fecha');
+Route::get('graficas/graficapagosfecha/{fecha}','GraficasPieController@grafica_pagos_fecha');
 Route::get('graficas/graficaaclaraciones/{id}','GraficasPieController@grafica_aclaraciones_id');
+Route::get('graficas/graficaaclaracionesfecha/{fecha}','GraficasPieController@grafica_aclaraciones_fecha');
 Route::get('graficas/graficatramites/{id}','GraficasPieController@grafica_tramites_id');
 Route::get('graficas/graficatramitesfecha/{fecha}','GraficasPieController@grafica_tramites_fecha');
-
+Route::get('graficas/graficatramitesabandonadosfecha/{fecha}','GraficasPieController@grafica_tramites_abandonados_fecha');
+Route::get('graficas/graficaaclaracionesabandonadosfecha/{fecha}','GraficasPieController@grafica_aclaraciones_abandonados_fecha');
+Route::get('graficas/graficapagosabandonadosfecha/{fecha}','GraficasPieController@grafica_pagos_abandonados_fecha');
 
 Route::resource('home','HomeController');
 Route::get('turnos/sucursal/{id}','TurnosController@sucursal');
