@@ -11,6 +11,7 @@ class ComercialesController extends Controller
     public function __construct()
     {
         $this->middleware('cors');
+        $this->middleware('auth');
     }
     public function index()
     {

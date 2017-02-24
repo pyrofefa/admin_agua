@@ -284,6 +284,6 @@
 			</div>
 		</div>
 	</div>
-</div
+</div>
 @endif
 @endsection

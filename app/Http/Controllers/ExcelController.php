@@ -13,7 +13,7 @@ class ExcelController extends Controller
     public function __construct()
     {
         $this->middleware('cors');
-        //$this->middleware('auth');
+        $this->middleware('auth');
         Carbon::setLocale('es');
 
     }

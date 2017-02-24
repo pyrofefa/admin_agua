@@ -169,5 +169,58 @@ class GraficasLinealController extends Controller
         $json = json_encode($promedio,JSON_NUMERIC_CHECK);
         return $json;
     }
+    public function lineal_tiempo_espera_tramites()
+    {
+        $promedio_tramites=DB::table('tikets')->selectRaw('DATE(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')->where('estado',1)->where('subasunto','Trámites')->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio_tramites,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_tiempo_espera_aclaraciones()
+    {
+        $promedio_aclaraciones=DB::table('tikets')->selectRaw('DATE(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')->where('estado',1)->where('subasunto','Aclaraciones y Otros')->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio_aclaraciones,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_tiempo_espera_pago()
+    {
+        $promedio_pago=DB::table('tikets')->selectRaw('DATE(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')->where('estado',1)->where('subasunto','Pago')
+                ->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio_pago,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_tiempo_espera_global_hora()
+    {
+        $promedio=DB::table('tikets')->selectRaw('HOUR(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')
+            ->whereRaw('Date(tikets.created_at) = CURDATE()')->where('estado',1)->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_tiempo_espera_tramites_hora()
+    {
+        $promedio_tramites=DB::table('tikets')->selectRaw('HOUR(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')->where('estado',1)->where('subasunto','Trámites')
+            ->whereRaw('Date(tikets.created_at) = CURDATE()')->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio_tramites,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_tiempo_espera_aclaraciones_hora()
+    {
+        $promedio_aclaraciones=DB::table('tikets')->selectRaw('HOUR(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->where('subasunto','Aclaraciones y Otros')->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio_aclaraciones,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_tiempo_espera_pago_hora()
+    {
+        $promedio_pago=DB::table('tikets')->selectRaw('HOUR(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->where('subasunto','Pago')->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio_pago,JSON_NUMERIC_CHECK);
+        return $json;
+    }
 
 }

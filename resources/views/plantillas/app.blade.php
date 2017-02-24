@@ -27,7 +27,7 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		        <ul class="nav navbar-nav">
 		        	<li>
-						<a	href="{{ 'http://' . $_SERVER['SERVER_NAME'] . '/turnomatic/public/' }}">
+						<a	href="{{ 'http://' . $_SERVER['SERVER_NAME'] . '/turnomatic/public/home' }}">
 							<img src="{{ 'http://' . $_SERVER['SERVER_NAME'] . '/turnomatic/public/img/agua_logo.jpeg' }}" width="50px" height="50px">
 						</a>
 					</li>

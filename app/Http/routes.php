@@ -60,6 +60,14 @@ Route::get('graficas/linealaclaracioneshoraabandonados','GraficasLinealControlle
 Route::get('graficas/linealtramiteshoraabandonados','GraficasLinealController@lineal_subasunto_tramites_hora_abandonados');
 Route::get('graficas/linealpagoshoraabandonados','GraficasLinealController@lineal_subasunto_pagos_hora_abandonados');
 Route::get('graficas/linealtiempoesperaglobal','GraficasLinealController@lineal_tiempo_espera_global');
+Route::get('graficas/linealtiempoesperatramites','GraficasLinealController@lineal_tiempo_espera_tramites');
+Route::get('graficas/linealtiempoesperaaclaraciones','GraficasLinealController@lineal_tiempo_espera_aclaraciones');
+Route::get('graficas/linealtiempoespagos','GraficasLinealController@lineal_tiempo_espera_pago');
+
+Route::get('graficas/linealtiempoesperaglobalhora','GraficasLinealController@lineal_tiempo_espera_global_hora');
+Route::get('graficas/linealtiempoesperatramiteshora','GraficasLinealController@lineal_tiempo_espera_tramites_hora');
+Route::get('graficas/linealtiempoesperaaclaracioneshora','GraficasLinealController@lineal_tiempo_espera_aclaraciones_hora');
+Route::get('graficas/linealtiempoespagoshora','GraficasLinealController@lineal_tiempo_espera_pago_hora');
 
 //Graficas Pastel
 Route::get('graficas/graficasubasuntos','GraficasPieController@grafica_subasunto');
@@ -86,6 +94,23 @@ Route::get('graficas/graficatramitesfecha/{fecha}','GraficasPieController@grafic
 Route::get('graficas/graficatramitesabandonadosfecha/{fecha}','GraficasPieController@grafica_tramites_abandonados_fecha');
 Route::get('graficas/graficaaclaracionesabandonadosfecha/{fecha}','GraficasPieController@grafica_aclaraciones_abandonados_fecha');
 Route::get('graficas/graficapagosabandonadosfecha/{fecha}','GraficasPieController@grafica_pagos_abandonados_fecha');
+
+//comunicacion con api
+//turnomatic
+Route::get('api/pagos/{id}','apiController@pagos');
+Route::get('api/aclaraciones/{id}','apiController@aclaraciones');
+Route::post('api/tikets_pago','apiController@agregar_tiket_pagos');
+Route::post('api/tikets_aclaraciones','apiController@agregar_tiket_aclaraciones');
+
+Route::put('api/actualizarpagos/{id}','apiController@actualizar');
+Route::put('api/actualizaraclaraciones/{id}','apiController@actualizar_aclaraciones');
+//mostrador
+Route::get('api/comerciales','apiController@mostrar');
+//usuarios
+Route::post('api/iniciar/{id}','apiController@iniciar');
+Route::get('api/mostrarpagos/{id}','apiController@mostrar_pagos');
+Route::get('api/mostraraclaraciones/{id}','apiController@mostrar_aclaraciones');
+Route::put('api/tikets/actualizar/{id}','apiController@actualizar_tiket');
 
 Route::resource('home','HomeController');
 Route::get('turnos/sucursal/{id}','TurnosController@sucursal');

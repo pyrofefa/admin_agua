@@ -18,5 +18,6 @@ class VerifyCsrfToken extends BaseVerifier
         'folios*',
         'tikets*',
         'home*',
+        'api*',
     ];
 }
