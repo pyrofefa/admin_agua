@@ -28,7 +28,7 @@
                     <td>A{{ $t->turno }}</td>
                 @elseif($t->subasunto=="Pago")
                     <td>P{{ $t->turno }}</td>    
-                @elseif($t->subasunto=="Trámites")
+                @elseif($t->subasunto=="Tramites")
                     <td>A{{ $t->turno }}</td>    
                 @endif    
                 <td>Ventanilla: {{ $t->fk_caja }}</td>
