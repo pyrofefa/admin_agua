@@ -21,8 +21,6 @@ class ComercialesController extends Controller
     public function mostrar()
     {
 
-        
-        
         $comerciales = Comercial::all();
         //foreach ($comerciales as $c)
         //{

@@ -80,6 +80,15 @@ class apiController extends Controller
     public function mostrar()
     {
         $comerciales = Comercial::all();
+        
+        
+        foreach ($comerciales as $c)
+        {
+            
+            $imagen = file_get_contents("http://192.168.100.111/turnomatic/public/comercial/".$c->ruta);
+            $save = file_put_contents('/Users/teknol/Desktop/comercial/'.$c->ruta,$imagen);
+            //\File::copy('http://192.168.100.111/turnomatic/public/comercial/'.$c->ruta, 'C:/agua_arriba/system/comerciales/'.$c->ruta );
+        }
         return response()->json($comerciales);
     }
     /******
