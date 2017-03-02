@@ -310,6 +310,62 @@
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">Tramites</h4>
+					<table id="datatabletramites" class="table table-bordered">
+		    			<thead>
+		        			<tr>
+					            <th></th>
+					            <th>Promedio de tiempo de espera</th>
+					            <th>Promedio de tiempo de atencion</th>
+		        			</tr>
+		    			</thead>
+		    			<tbody>
+					        <tr>
+					            <th>Contrato</th>
+					            <td>{{ $promedio_contrato_espera->tiempo }}</td>
+					            <td>{{ $promedio_contrato->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Convenio</th>
+					            <td>{{ $promedio_convenio_espera->tiempo }}</td>
+					            <td>{{ $promedio_convenio->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Cambio de nombre</th>
+					            <td>{{ $promedio_cambio_espera->tiempo }}</td>
+					            <td>{{ $promedio_cambio->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Carta de no adeudo</th>
+					            <td>{{ $promedio_carta_espera->tiempo }}</td>
+					            <td>{{ $promedio_carta->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Factibilidad de servicio</th>
+					            <td>{{ $promedio_factibilidad_espera->tiempo }}</td>
+					            <td>{{ $promedio_factibilidad->tiempo }}</td>
+					        </tr>
+					         <tr>
+					            <th>2 o mas tramites</th>
+					            <td>{{ $promedio_dosomas_espera->tiempo }}</td>
+					            <td>{{ $promedio_dosomas->tiempo }}</td>
+					        </tr>
+					        
+		    			</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="barraspromediotramites"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
 			<!--<div class="row">
 				<div class="col-md-12">
 					<div id="linealpromedio"></div>

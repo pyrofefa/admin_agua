@@ -349,38 +349,62 @@ class ExcelController extends Controller
                 $carbon =  Carbon::today()->format('d-m-Y');
                 $sucursal = Sucursal::where('id', $id)->first();
 
-                $promedio=DB::table('tikets')->selectRaw('CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as tiempo')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
-                $promedio_atendido=DB::table('tikets')->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 2)) as tiempo')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->where('id_sucursal', $id)->first();
-                
-                $promedio_tramites=DB::table('tikets')->selectRaw('CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as tiempo')->where('subasunto','Trámites')->whereRaw('Date(tikets.created_at) = CURDATE()')->where('id_sucursal', $id)->first();
+                $promedio_tramites=DB::table('tikets')
+                    ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+                    ->where('subasunto','Tramites')
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal', $id)
+                    ->first();
 
                 $promedio_tramitesa=DB::table('tikets')
-                ->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 2)) as tiempo')->where('subasunto','Trámites')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')->where('id_sucursal', $id)->first();
+                    ->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as tiempo')
+                    ->where('subasunto','Tramites')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal', $id)
+                    ->first();
 
-                $promedio_aclaraciones=DB::table('tikets')->selectRaw('CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as tiempo')->where('subasunto','Aclaraciones y Otros')->whereRaw('Date(tikets.created_at) = CURDATE()')->where('id_sucursal', $id)->first();
+                $promedio_aclaraciones=DB::table('tikets')
+                    ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+                    ->where('subasunto','Aclaraciones y Otros')
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal', $id)
+                    ->first();
 
                 $promedio_aclaracionesa=DB::table('tikets')
-                    ->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 2)) as tiempo')->where('subasunto','Aclaraciones y Otros')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')
-                        ->where('id_sucursal', $id)
-                        ->first();    
+                    ->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as tiempo')
+                    ->where('subasunto','Aclaraciones y Otros')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal', $id)
+                    ->first();    
 
-                $promedio_pago=DB::table('tikets')->selectRaw('CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as tiempo')->where('subasunto','Pago')->whereRaw('Date(tikets.created_at) = CURDATE()')
-                    ->where('id_sucursal', $id)->first();
+                $promedio_pago=DB::table('tikets')
+                    ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+                    ->where('subasunto','Pago')
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal', $id)
+                    ->first();
 
                 $promedio_pagoa=DB::table('tikets')
-                    ->selectRaw('cast(avg(time_to_sec(tiempo) / (60 * 60)) as decimal(10, 2)) as tiempo')
-                    ->where('subasunto','Pago')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')
-                    ->where('id_sucursal', $id)->first();     
+                    ->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as tiempo')
+                    ->where('subasunto','Pago')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal', $id)
+                    ->first();     
+
+                $promedio = round(($promedio_tramites->tiempo + $promedio_aclaraciones->tiempo + $promedio_pago->tiempo ) / 3 );
+    
+                $promedio_atendido = round(($promedio_tramitesa->tiempo + $promedio_aclaracionesa->tiempo + $promedio_pagoa->tiempo ) / 3 );    
 
                 $sheet->appendRow(array('Reporte de actividad a:',$carbon, $sucursal->nombre));
                 $sheet->appendRow(array('','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
-                foreach ($promedio as $p) 
-                {
-                    foreach ($promedio_atendido as $pa) 
-                    {   
-                        $sheet->appendRow(array('Global',$p,$pa));
-                    }
-                }
+               
+                   
+                $sheet->appendRow(array('Global',$promedio,$promedio_atendido));
+                    
+                
                 foreach ($promedio_tramites as $p) 
                 {
                     foreach ($promedio_tramitesa as $pt) 
@@ -402,6 +426,47 @@ class ExcelController extends Controller
                         $sheet->appendRow(array('Pago',$p,$pa));
                     }
                 }
+
+
+            });
+            $excel->sheet('Agentes', function($sheet) use($id)
+            {
+                $cajas_tramites = DB::table('tikets')
+                    ->selectRaw('count(turno) as numero, asunto, fk_caja as caja')
+                    ->where("id_sucursal",$id)->where('subasunto','Tramites')
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('estado',1)
+                    ->groupBy('caja')
+                    ->groupBy('subasunto')
+                    ->get();
+                    //dd($cajas_tramites);
+        
+                $cajas_pago=DB::table('tikets')
+                    ->selectRaw('count(turno) as numero, asunto, fk_caja as caja')
+                    ->where("id_sucursal",$id)
+                    ->where('subasunto','Pago')
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('estado',1)
+                    ->groupBy('caja')
+                    ->groupBy('subasunto')
+                    ->get();
+        
+                $cajas_aclaraciones=DB::table('tikets')
+                    ->selectRaw('count(turno) as numero, asunto, fk_caja as caja')
+                    ->where("id_sucursal",$id)
+                    ->where('subasunto','Aclaraciones y Otros')
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('estado',1)
+                    ->groupBy('caja')
+                    ->groupBy('subasunto')
+                    ->get();
+
+                    $sheet->appendRow(array('Ventanilla','Tramite','Numero'));
+
+                    foreach ($cajas_tramites as $c) 
+                    {
+                        $sheet->appendRow(array($c->caja, $c->asunto, $c->numero));
+                    }
 
 
             });
