@@ -159,7 +159,9 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
         //pdf
-        Barryvdh\Snappy\ServiceProvider::class,    
+        Barryvdh\Snappy\ServiceProvider::class,
+        
+        Anchu\Ftp\FtpServiceProvider::class,
     ],
 
     /*

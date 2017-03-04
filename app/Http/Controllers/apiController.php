@@ -80,16 +80,62 @@ class apiController extends Controller
     public function mostrar()
     {
         $comerciales = Comercial::all();
-        
+        //header("Content-Type: image/png");
+        // Se va a llamar descarga.pdf 
+        //header('Content-Disposition: attachment; filename="Agua.png"');             
+        // La fuente del PDF se encuentra en original.pdf 
+        //readfile('AguaLogo.png');
         
         foreach ($comerciales as $c)
         {
+            /*header("Content-Type: image/png");
+            // Se va a llamar descarga.pdf 
+            header('Content-Disposition: attachment; filename="Agua.png"');             
+            // La fuente del PDF se encuentra en original.pdf 
+            readfile('http://localhost/turnomatic/public/comercial/AguaLogo.png');*/
+
+           // $r = $_FILES[$c->ruta];
+            //dd($r);
+            //$destination = '/Users/teknol/Desktop/comerciales/';
+            //move_uploaded_file($c->ruta, $destination);
             
-            $imagen = file_get_contents("http://192.168.100.111/turnomatic/public/comercial/".$c->ruta);
-            $save = file_put_contents('/Users/teknol/Desktop/comercial/'.$c->ruta,$imagen);
-            //\File::copy('http://192.168.100.111/turnomatic/public/comercial/'.$c->ruta, 'C:/agua_arriba/system/comerciales/'.$c->ruta );
+            //var_dump($x);
+
+            //$imagen = file_get_contents("http://192.168.100.111/turnomatic/public/comercial/".$c->ruta);
+            //$save = file_put_contents('http://192.168.100.132/agua_comerciales/'.$c->ruta,$imagen);
+
+            //\File::copy('http://192.168.100.111/turnomatic/public/comercial/'.$c->ruta, 'http://192.168.100.132/agua_comerciales/'.$c->ruta );
+            //$pathToFile = public_path().'/comercial/'.$c->ruta;
+            //return response()->download($pathToFile);
         }
-        return response()->json($comerciales);
+
+        
+        //Direccion local del archivo que queremos subir
+        $fileLocal = public_path().'/comercial/AguaLogo.png';
+        /*Direccion remota donde queremos subir el archivo
+        En este caso seria a la raiz del servidor*/
+        $fileRemote = '/AguaLogo.png';
+        $mode = 'FTP_BINARY';
+        //Hacemos el upload
+        \FTP::connection()->uploadFile($fileLocal,$fileRemote,$mode);
+        //\FTP::connection()->makeDir('pathname');
+
+
+        //Detenemos la funcion con un mensajes
+        return('Operación realizada con éxito');
+
+        /*$fileLocal = public_path().'/comercial/AguaLogo.png';
+        $fileRemote= '/AguaLogo.png';
+        $mode = 'FTP_BINARY';
+        
+        $ftp_server = "192.168.100.132";
+        $ftp_user = "";
+        $ftp_pass = "bar";
+
+        // establecer una conexión o finalizarla
+        $conn_id = ftp_connect($ftp_server) or die("No se pudo conectar a $ftp_server");         return('Operación realizada con éxito');
+
+        //return response()->json($comerciales);*/
     }
     /******
         Usuarios

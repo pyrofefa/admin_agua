@@ -67,11 +67,15 @@ class ComercialesController extends Controller
             {    
                 $nombre = $file->getClientOriginalName();
                 \Storage::disk('public')->put($nombre,  \File::get($file));
+
                     
                 $comercial = new Comercial;
                 $comercial->ruta = $nombre;
                 $comercial->tipo = $tipo;
                 $comercial->save();
+
+
+
                 $request -> session()->flash('nuevo', "Comercial Agregado con exito");
                 return redirect()->route('comerciales.index');    
             }
