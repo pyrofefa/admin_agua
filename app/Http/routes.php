@@ -35,10 +35,15 @@ Route::resource('tikets','TiketsController');
 Route::get('home/mostrar','HomeController@mostrar');
 Route::get('home/general','HomeController@general');
 Route::get('home/general/fecha','HomeController@general_fecha');
+Route::get('home/sucursal/{id}/fecha','HomeController@sucursal_fecha');
+
+
 Route::get('home/sucursal/{id}','HomeController@sucursal');
 Route::get('home/mostrarpagos/{id}','HomeController@mostrar_pagos');
 Route::get('home/mostraraclaraciones/{id}','HomeController@mostrar_aclaraciones');
 Route::get('home/excel','ExcelController@importar');
+Route::get('home/excel/{id}','ExcelController@importar_sucursal');
+
 
 //Graficas Lineales
 Route::get('graficas/linealsubasuntos','GraficasLinealController@lineal_subasunto_tramites');
@@ -101,7 +106,6 @@ Route::get('api/pagos/{id}','apiController@pagos');
 Route::get('api/aclaraciones/{id}','apiController@aclaraciones');
 Route::post('api/tikets_pago','apiController@agregar_tiket_pagos');
 Route::post('api/tikets_aclaraciones','apiController@agregar_tiket_aclaraciones');
-
 Route::put('api/actualizarpagos/{id}','apiController@actualizar');
 Route::put('api/actualizaraclaraciones/{id}','apiController@actualizar_aclaraciones');
 //mostrador

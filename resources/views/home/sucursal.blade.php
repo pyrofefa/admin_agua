@@ -9,9 +9,25 @@
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<!--<a href="excel">Importar a excel</a>-->
+			<a href="../excel/{{ $sucursal->id }}">
+				<button type="button" class="btn btn-success">
+  					<span class="glyphicon glyphicon-save"> Exportar</span>
+				</button>
+			</a>
 			<div class="row">
-				
+				<div class="col-md-4">
+				<br><br>
+            	{!! Form::open((array( 'url' => 'home/sucursal/'.$sucursal->id.'/fecha', 'method' => 'GET' ))) !!}
+					<div class="input-group">
+    			{!! Form::text('fecha',null,['class' => 'form-control', 'placeholder' => 'Buscar fecha...','id' => 'fecha']) !!}
+    				<span class="input-group-btn">
+    					<button class="btn btn-default" type="submit">
+    						<span class="glyphicon glyphicon-search"></span>
+    					</button>
+    				</span>        
+        			</div>
+    			{!! Form::close() !!}
+    			</div>
  				<div class="col-md-4">
 					<h5> Turnos atendidos: {{ $atendidos }}</h5>
 					<h5> Turnos en espera: {{ $espera }}</h5>

@@ -8,7 +8,11 @@
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<a href="excel">Importar a excel</a>
+				<a href="excel">
+					<button type="button" class="btn btn-success">
+  						<span class="glyphicon glyphicon-save"> Exportar</span>
+					</button>
+				</a>
 			<div class="row">
 				<div class="col-md-4">
 				<br><br>

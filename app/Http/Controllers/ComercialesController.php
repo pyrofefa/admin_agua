@@ -22,25 +22,6 @@ class ComercialesController extends Controller
     {
 
         $comerciales = Comercial::all();
-        //foreach ($comerciales as $c)
-        //{
-            
-
-            //$file = file('http://192.168.100.111/turnomatic/public/comercial/'.$c->ruta);
-            //$file2 =implode("", $file);
-            
-
-            //header("Content-Type: application/octet-stream");
-            //header("Content-Disposition: attachment; filename=".$c->ruta);
-
-            //dd($file2);
-            //$url = 'http://localhost/turnomatic/public/comercial/'.$c->ruta;
-            //$source = file_get_contents($url);
-            //file_put_contents('/Applications/AMPPS/www/agua_arriba/system/comerciales/'.$c->ruta, $source);
-            //dd('Se ha descargado el CSV');
-            //\File::copy('http://192.168.100.111/turnomatic/public/comercial/'.$c->ruta, '/Users/teknol/Desktop/comerciales'.$c->ruta );
-        //}
-        
         return response()->json($comerciales);
     }
     public function create()
@@ -53,7 +34,6 @@ class ComercialesController extends Controller
         $tipo = $request->input('tipo');
 
         //dd($file);
-
         $tamaño = getimagesize($file);
         $ancho = $tamaño[0];
         $alto = $tamaño[1];
@@ -74,6 +54,7 @@ class ComercialesController extends Controller
                 $comercial->tipo = $tipo;
                 $comercial->save();
 
+                \File::copy(public_path().'/comercial/'.$nombre, '/Users/teknol/Desktop/comercial/'.$nombre);
 
 
                 $request -> session()->flash('nuevo', "Comercial Agregado con exito");
@@ -94,6 +75,9 @@ class ComercialesController extends Controller
             $comercial->ruta = $nombre;
             $comercial->tipo = $tipo;
             $comercial->save();
+
+            \File::copy(public_path().'/comercial/'.$nombre, '/Users/teknol/Desktop/comercial/'.$nombre);
+
             $request -> session()->flash('nuevo', "Comercial Agregado con exito");
             return redirect()->route('comerciales.index');
         }
@@ -148,6 +132,8 @@ class ComercialesController extends Controller
             \Storage::disk('public')->delete($file);
             Comercial::destroy($id);
             $request -> session()->flash('message', "El registro fue eliminado");
+            
+            unlink('/Users/teknol/Desktop/comercial/'.$file);
             return redirect()->route('comerciales.index');    
         }
         else
@@ -155,26 +141,6 @@ class ComercialesController extends Controller
             Comercial::destroy($id);
             $request -> session()->flash('message', "El registro fue eliminado");
             return redirect()->route('comerciales.index');    
-        }
-    }
-
-
-    protected function downloadFile($src)
-    {
-        if(is_file($src)){
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $content_type = finfo_file($finfo, $src);
-            finfo_close($finfo);
-            $file_name = basename($src).PHP_EOL;
-            $size = filesize($src);
-            header("Content-Type: $content_type");
-            header("Content-Disposition: attachment; filename=$file_name");
-            header("Content-Transfer-Encoding: binary");
-            header("Content-Length: $size");
-            readfile($src);
-            return true;
-        } else{
-            return false;
         }
     }
 }
