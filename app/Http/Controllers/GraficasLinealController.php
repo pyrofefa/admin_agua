@@ -122,42 +122,48 @@ class GraficasLinealController extends Controller
     }
     public function lineal_subasunto_pagos_hora()
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',1)->where('subasunto','Pago')->orderBy('x','ASC')->get();   
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',1)->where('subasunto','Pago')->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->orderBy('x','ASC')->get();   
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_tramites_hora()
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',1)->where('subasunto','Trámites')->orderBy('x','ASC')->get();   
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',1)->where('subasunto','Trámites')->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->orderBy('x','ASC')->get();   
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_aclaraciones_hora()
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',1)->where('subasunto','Aclaraciones y Otros')->orderBy('x','ASC')->get();   
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',1)->where('subasunto','Aclaraciones y Otros')
+            ->whereRaw('Date(tikets.created_at) = CURDATE()')->orderBy('x','ASC')->get();   
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_pagos_hora_abandonados()
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',2)->where('subasunto','Pago')->orderBy('x','ASC')->get();   
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',2)->where('subasunto','Pago')->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->orderBy('x','ASC')->get();   
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_tramites_hora_abandonados()
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',2)->where('subasunto','Trámites')->orderBy('x','ASC')->get();   
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',2)->where('subasunto','Trámites')->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->orderBy('x','ASC')->get();   
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_aclaraciones_hora_abandonados()
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',2)->where('subasunto','Aclaraciones y Otros')->orderBy('x','ASC')->get();   
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, subasunto as name, COUNT(turno) as numero')->groupBy('subasunto')->groupBy('x')->where('estado',2)->where('subasunto','Aclaraciones y Otros')->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->orderBy('x','ASC')->get();   
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
@@ -217,6 +223,38 @@ class GraficasLinealController extends Controller
     public function lineal_tiempo_espera_pago_hora()
     {
         $promedio_pago=DB::table('tikets')->selectRaw('HOUR(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->where('subasunto','Pago')->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio_pago,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_tiempo_espera_global_hora_fecha($fecha)
+    {
+        $promedio=DB::table('tikets')->selectRaw('HOUR(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')
+            ->whereDate('created_at','=',$fecha)->where('estado',1)->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_tiempo_espera_tramites_hora_fecha($fecha)
+    {
+        $promedio_tramites=DB::table('tikets')->selectRaw('HOUR(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')->where('estado',1)->where('subasunto','Trámites')
+            ->whereDate('created_at','=',$fecha)->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio_tramites,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_tiempo_espera_aclaraciones_hora_fecha($fecha)
+    {
+        $promedio_aclaraciones=DB::table('tikets')->selectRaw('HOUR(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')->where('estado',1)->whereDate('created_at','=',$fecha)
+            ->where('subasunto','Aclaraciones y Otros')->groupBy('x')->orderBy('x','ASC')->get();
+        //dd($tiket); 
+        $json = json_encode($promedio_aclaraciones,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function lineal_tiempo_espera_pago_hora_fecha($fecha)
+    {
+        $promedio_pago=DB::table('tikets')->selectRaw('HOUR(created_at) as x, CAST(avg(TIMEDIFF(TIME_to_sec(updated_at) / (60 * 60),TIME_to_sec(created_at) / (60 *60))) AS DECIMAL(10,2)) as numero')->where('estado',1)->whereDate('created_at','=',$fecha)
             ->where('subasunto','Pago')->groupBy('x')->orderBy('x','ASC')->get();
         //dd($tiket); 
         $json = json_encode($promedio_pago,JSON_NUMERIC_CHECK);

@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	//alert();
     var id = $('#valor').val();
+    var fecha = $('#fecha').val();
     console.log(id);
     
     var options = {
@@ -645,5 +646,94 @@ $(document).ready(function() {
               	optionspromedioaban.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(optionspromedioaban);
+    	});
+
+    	var options_lineal_hora_fecha = {
+    	chart:{
+    			renderTo: 'linealhorafecha',
+
+			}, 
+		    title: {
+		        text: 'Operaciones por hora',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Global',
+		        data: []
+		    },{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhorafecha/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha.series[0].data.push(data.numero);
+              	options_lineal_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshorafecha/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha.series[1].data.push(data.numero);
+              	options_lineal_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaaclaracioneshorafecha/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha.series[2].data.push(data.numero);
+              	options_lineal_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoespagoshorafecha/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha.series[3].data.push(data.numero);
+              	options_lineal_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha);
     	});
 });

@@ -19,7 +19,11 @@
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<!--<a href="excel">Importar a excel</a>-->
+			<a href="../excelfecha/{{$f->created_at->format('Y-m-d')}}">
+				<button type="button" class="btn btn-success">
+  					<span class="glyphicon glyphicon-save"> Exportar</span>
+				</button>
+			</a><br><br>
 			<div class="row">
 				<div class="col-md-4">
 					<h5> Turnos atendidos: {{ $atendidos }}</h5>
@@ -229,12 +233,12 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
-					<div id="lineal"></div>
+					<div id="linealhorafecha"></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<div id="linealabandonados"></div>
+					<div id="linealhorafechaabandonados"></div>
 				</div>
 			</div>
 		</div>
@@ -287,3 +291,7 @@
 </div>
 @endif
 @endsection
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://highcharts.github.io/export-csv/export-csv.js"></script>
+

@@ -36,14 +36,13 @@ Route::get('home/mostrar','HomeController@mostrar');
 Route::get('home/general','HomeController@general');
 Route::get('home/general/fecha','HomeController@general_fecha');
 Route::get('home/sucursal/{id}/fecha','HomeController@sucursal_fecha');
-
-
 Route::get('home/sucursal/{id}','HomeController@sucursal');
 Route::get('home/mostrarpagos/{id}','HomeController@mostrar_pagos');
 Route::get('home/mostraraclaraciones/{id}','HomeController@mostrar_aclaraciones');
 Route::get('home/excel','ExcelController@importar');
 Route::get('home/excel/{id}','ExcelController@importar_sucursal');
-
+Route::get('home/excelfecha/{fecha}','ExcelController@importar_fecha');
+Route::get('home/sucursal/excel/{id}/{fecha}','ExcelController@importar_sucursal_fecha');
 
 //Graficas Lineales
 Route::get('graficas/linealsubasuntos','GraficasLinealController@lineal_subasunto_tramites');
@@ -68,11 +67,18 @@ Route::get('graficas/linealtiempoesperaglobal','GraficasLinealController@lineal_
 Route::get('graficas/linealtiempoesperatramites','GraficasLinealController@lineal_tiempo_espera_tramites');
 Route::get('graficas/linealtiempoesperaaclaraciones','GraficasLinealController@lineal_tiempo_espera_aclaraciones');
 Route::get('graficas/linealtiempoespagos','GraficasLinealController@lineal_tiempo_espera_pago');
-
 Route::get('graficas/linealtiempoesperaglobalhora','GraficasLinealController@lineal_tiempo_espera_global_hora');
 Route::get('graficas/linealtiempoesperatramiteshora','GraficasLinealController@lineal_tiempo_espera_tramites_hora');
 Route::get('graficas/linealtiempoesperaaclaracioneshora','GraficasLinealController@lineal_tiempo_espera_aclaraciones_hora');
 Route::get('graficas/linealtiempoespagoshora','GraficasLinealController@lineal_tiempo_espera_pago_hora');
+
+Route::get('graficas/linealtiempoesperaglobalhorafecha/{fecha}','GraficasLinealController@lineal_tiempo_espera_global_hora_fecha');
+Route::get('graficas/linealtiempoesperatramiteshorafecha/{fecha}','GraficasLinealController@lineal_tiempo_espera_tramites_hora_fecha');
+Route::get('graficas/linealtiempoesperaaclaracioneshorafecha/{fecha}','GraficasLinealController@lineal_tiempo_espera_aclaraciones_hora_fecha');
+Route::get('graficas/linealtiempoespagoshorafecha/{fecha}','GraficasLinealController@lineal_tiempo_espera_pago_hora_fecha');
+
+
+
 
 //Graficas Pastel
 Route::get('graficas/graficasubasuntos','GraficasPieController@grafica_subasunto');
@@ -99,6 +105,15 @@ Route::get('graficas/graficatramitesfecha/{fecha}','GraficasPieController@grafic
 Route::get('graficas/graficatramitesabandonadosfecha/{fecha}','GraficasPieController@grafica_tramites_abandonados_fecha');
 Route::get('graficas/graficaaclaracionesabandonadosfecha/{fecha}','GraficasPieController@grafica_aclaraciones_abandonados_fecha');
 Route::get('graficas/graficapagosabandonadosfecha/{fecha}','GraficasPieController@grafica_pagos_abandonados_fecha');
+Route::get('graficas/graficasubasuntossucursalfecha/{id}/{fecha}','GraficasPieController@grafica_subasunto_fecha_sucursal');
+Route::get('graficas/graficasubasuntossucursalfechaabandonados/{id}/{fecha}','GraficasPieController@grafica_subasunto_fecha_sucursalab');
+Route::get('graficas/graficatramitessucursalfecha/{id}/{fecha}','GraficasPieController@grafica_tramites_fecha_sucursal');
+Route::get('graficas/graficatramitessucursalfechaabandonados/{id}/{fecha}','GraficasPieController@grafica_tramites_fecha_sucursal_ab');
+Route::get('graficas/graficaaclaracionessucursalfecha/{id}/{fecha}','GraficasPieController@grafica_aclaraciones_fecha_sucursal');
+Route::get('graficas/graficaaclaracionessucursalfechaabandonados/{id}/{fecha}','GraficasPieController@grafica_aclaraciones_fecha_sucursal_ab');
+Route::get('graficas/graficapagossucursalfecha/{id}/{fecha}','GraficasPieController@grafica_pagos_fecha_sucursal');
+Route::get('graficas/graficapagossucursalfechaabandonados/{id}/{fecha}','GraficasPieController@grafica_pagos_fecha_sucursal_abandonados');
+
 
 //comunicacion con api
 //turnomatic
