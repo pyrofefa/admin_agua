@@ -314,7 +314,35 @@
 				</div>
 			</div>
 		</div>
-	</div>					
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="linealpromedioid"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="linealpromediohoraid"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="linealpromedioatencionid"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="linealpromediohoraatencionid"></div>
+				</div>
+			</div>
+		</div>
+	</div>											
 </div>
 @endsection
 <script src="https://code.highcharts.com/highcharts.js"></script>

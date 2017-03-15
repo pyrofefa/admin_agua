@@ -407,7 +407,7 @@ $(document).ready(function() {
 		    },
 		    xAxis:  {
 		    	title: {
-		            text: 'Fecha'
+		            text: 'Hora'
 		        },
 		        categories: []
 		    },
@@ -559,9 +559,9 @@ $(document).ready(function() {
 			chart = new Highcharts.Chart(optionspromedio);
     	});
 
-    	var optionspromedioaban = {
+    	var options_promedio_hora = {
     	chart:{
-    			renderTo: 'linealpromedioabandonados',
+    			renderTo: 'linealpromediohora',
 
 			}, 
 		    title: {
@@ -615,46 +615,46 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	optionspromedioaban.series[0].data.push(data.numero);
-              	optionspromedioaban.xAxis.categories.push(data.x);
+             	options_promedio_hora.series[0].data.push(data.numero);
+              	options_promedio_hora.xAxis.categories.push(data.x);
 			});
-			chart = new Highcharts.Chart(optionspromedioaban);
+			chart = new Highcharts.Chart(options_promedio_hora);
     	});
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshora", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	optionspromedioaban.series[1].data.push(data.numero);
-              	optionspromedioaban.xAxis.categories.push(data.x);
+             	options_promedio_hora.series[1].data.push(data.numero);
+              	options_promedio_hora.xAxis.categories.push(data.x);
 			});
-			chart = new Highcharts.Chart(optionspromedioaban);
+			chart = new Highcharts.Chart(options_promedio_hora);
     	});
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaaclaracioneshora", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	optionspromedioaban.series[2].data.push(data.numero);
-              	optionspromedioaban.xAxis.categories.push(data.x);
+             	options_promedio_hora.series[2].data.push(data.numero);
+              	options_promedio_hora.xAxis.categories.push(data.x);
 			});
-			chart = new Highcharts.Chart(optionspromedioaban);
+			chart = new Highcharts.Chart(options_promedio_hora);
     	});
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoespagoshora", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	optionspromedioaban.series[3].data.push(data.numero);
-              	optionspromedioaban.xAxis.categories.push(data.x);
+             	options_promedio_hora.series[3].data.push(data.numero);
+              	options_promedio_hora.xAxis.categories.push(data.x);
 			});
-			chart = new Highcharts.Chart(optionspromedioaban);
+			chart = new Highcharts.Chart(options_promedio_hora);
     	});
 
-    	var options_lineal_hora_fecha = {
+    	var options_promedio_hora_fecha = {
     	chart:{
-    			renderTo: 'linealhorafecha',
+    			renderTo: 'linealpromediohorafecha',
 
 			}, 
 		    title: {
-		        text: 'Operaciones por hora',
+		        text: 'Promedio de tiempo de espera hora',
 		        x: -20 //center
 		    },
 		    subtitle: {
@@ -704,12 +704,181 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_lineal_hora_fecha.series[0].data.push(data.numero);
-              	options_lineal_hora_fecha.xAxis.categories.push(data.x);
+             	options_promedio_hora_fecha.series[0].data.push(data.numero);
+              	options_promedio_hora_fecha.xAxis.categories.push(data.x);
 			});
-			chart = new Highcharts.Chart(options_lineal_hora_fecha);
+			chart = new Highcharts.Chart(options_promedio_hora_fecha);
     	});
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshorafecha/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_hora_fecha.series[1].data.push(data.numero);
+              	options_promedio_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaaclaracioneshora/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_hora_fecha.series[2].data.push(data.numero);
+              	options_promedio_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoespagoshorafecha/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_hora_fecha.series[3].data.push(data.numero);
+              	options_promedio_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_hora_fecha);
+    	});
+
+
+    	var options_promedio_hora_fecha_id = {
+    	chart:{
+    			renderTo: 'linealpromediohorafechaid',
+
+			}, 
+		    title: {
+		        text: 'Promedio de tiempo de espera hora',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Global',
+		        data: []
+		    },{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhorafechaid/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_hora_fecha_id.series[0].data.push(data.numero);
+              	options_promedio_hora_fecha_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_hora_fecha_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshorafechaid/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_hora_fecha_id.series[1].data.push(data.numero);
+              	options_promedio_hora_fecha_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_hora_fecha_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaaclaracioneshoraid/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_hora_fecha_id.series[2].data.push(data.numero);
+              	options_promedio_hora_fecha_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_hora_fecha_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoespagoshorafechaid/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_hora_fecha_id.series[3].data.push(data.numero);
+              	options_promedio_hora_fecha_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_hora_fecha_id);
+    	});
+
+
+    	var options_lineal_hora_fecha = {
+    	chart:{
+    			renderTo: 'linealhorafecha',
+
+			}, 
+		    title: {
+		        text: 'Operaciones por hora',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Numero'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [
+		    {
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafecha/"+fecha, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -718,7 +887,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaaclaracioneshorafecha/"+fecha, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafecha/"+fecha, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -727,7 +896,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoespagoshorafecha/"+fecha, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafecha/"+fecha, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -735,5 +904,957 @@ $(document).ready(function() {
               	options_lineal_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha);
+    	});
+
+    	var options_lineal_hora_fecha_aban = {
+    	chart:{
+    			renderTo: 'linealhorafechaabandonados',
+
+			}, 
+		    title: {
+		        text: 'Operaciones por hora abandonados',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Numero'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [
+		    {
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafechaabandonados/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha_aban.series[1].data.push(data.numero);
+              	options_lineal_hora_fecha_aban.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha_aban);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafechaabandonados/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha_aban.series[2].data.push(data.numero);
+              	options_lineal_hora_fecha_aban.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha_aban);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafechaabandonados/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha_aban.series[3].data.push(data.numero);
+              	options_lineal_hora_fecha_aban.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha_aban);
+    	});
+
+    	var options_lineal_hora_fecha_id = {
+    	chart:{
+    			renderTo: 'linealfechasucursal',
+
+			}, 
+		    title: {
+		        text: 'Operaciones por hora',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Numero'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [
+		    {
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafechaid/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha_id.series[1].data.push(data.numero);
+              	options_lineal_hora_fecha_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafechaid/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha_id.series[2].data.push(data.numero);
+              	options_lineal_hora_fecha_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafechaid/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha_id.series[3].data.push(data.numero);
+              	options_lineal_hora_fecha_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha_id);
+    	});
+
+
+    	var options_lineal_hora_fecha_id_a = {
+    	chart:{
+    			renderTo: 'linealabandonadosfechasucursal',
+
+			}, 
+		    title: {
+		        text: 'Operaciones por hora abandonados',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Numero'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [
+		    {
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafechaida/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha_id_a.series[1].data.push(data.numero);
+              	options_lineal_hora_fecha_id_a.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha_id_a);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafechaida/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha_id_a.series[2].data.push(data.numero);
+              	options_lineal_hora_fecha_id_a.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha_id_a);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafechaida/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha_id_a.series[3].data.push(data.numero);
+              	options_lineal_hora_fecha_id_a.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha_id_a);
+    	});
+
+
+    	var options_promedio_atencion = {
+    	chart:{
+    			renderTo: 'linealpromedioatencion',
+
+			}, 
+		    title: {
+		        text: 'Promedio de tiempo de atencion fecha',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Fecha'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Global',
+		        data: []
+		    },{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobal", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion.series[0].data.push(data.numero);
+              	options_promedio_atencion.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramites", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion.series[1].data.push(data.numero);
+              	options_promedio_atencion.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionaclaraciones", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion.series[2].data.push(data.numero);
+              	options_promedio_atencion.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionpago", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion.series[3].data.push(data.numero);
+              	options_promedio_atencion.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion);
+    	});
+
+    	var options_promedio_atencion_hora = {
+    	chart:{
+    			renderTo: 'linealpromediohoraatencion',
+
+			}, 
+		    title: {
+		        text: 'Promedio de tiempo de atencion hora',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Global',
+		        data: []
+		    },{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalhora", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora.series[0].data.push(data.numero);
+              	options_promedio_atencion_hora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramiteshora", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora.series[1].data.push(data.numero);
+              	options_promedio_atencion_hora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionaclaracioneshora", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora.series[2].data.push(data.numero);
+              	options_promedio_atencion_hora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionpagohora", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora.series[3].data.push(data.numero);
+              	options_promedio_atencion_hora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora);
+    	});
+
+
+    	var options_promedio_atencion_hora_fecha = {
+    	chart:{
+    			renderTo: 'linealpromediohoraatencionfecha',
+
+			}, 
+		    title: {
+		        text: 'Promedio de tiempo de atencion hora',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Global',
+		        data: []
+		    },{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalhorafecha/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora_fecha.series[0].data.push(data.numero);
+              	options_promedio_atencion_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramiteshorafecha/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora_fecha.series[1].data.push(data.numero);
+              	options_promedio_atencion_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionaclaracioneshorafecha/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora_fecha.series[2].data.push(data.numero);
+              	options_promedio_atencion_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionpagohorafecha/"+fecha, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora_fecha.series[3].data.push(data.numero);
+              	options_promedio_atencion_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora_fecha);
+    	});
+
+
+    	var options_promedio_atencion_id = {
+    	chart:{
+    			renderTo: 'linealpromedioatencionid',
+
+			}, 
+		    title: {
+		        text: 'Promedio de tiempo de atencion fecha',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Fecha'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Global',
+		        data: []
+		    },{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_id.series[0].data.push(data.numero);
+              	options_promedio_atencion_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramitesid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_id.series[1].data.push(data.numero);
+              	options_promedio_atencion_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionaclaracionesid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_id.series[2].data.push(data.numero);
+              	options_promedio_atencion_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionpagoid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_id.series[3].data.push(data.numero);
+              	options_promedio_atencion_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_id);
+    	});
+
+		var options_promedio_atencion_hora_id = {
+    	chart:{
+    			renderTo: 'linealpromediohoraatencionid',
+
+			}, 
+		    title: {
+		        text: 'Promedio de tiempo de atencion hora',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Global',
+		        data: []
+		    },{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalhoraid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora_id.series[0].data.push(data.numero);
+              	options_promedio_atencion_hora_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramiteshoraid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora_id.series[1].data.push(data.numero);
+              	options_promedio_atencion_hora_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionaclaracioneshoraid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora_id.series[2].data.push(data.numero);
+              	options_promedio_atencion_hora_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionpagohoraid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_atencion_hora_id.series[3].data.push(data.numero);
+              	options_promedio_atencion_hora_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_atencion_hora_id);
+    	});
+
+
+    	var options_promedio_espera_id = {
+    	chart:{
+    			renderTo: 'linealpromedioid',
+
+			}, 
+		    title: {
+		        text: 'Promedio de tiempo de espera fecha',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Fecha'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Global',
+		        data: []
+		    },{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id.series[0].data.push(data.numero);
+              	options_promedio_espera_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramitesid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id.series[1].data.push(data.numero);
+              	options_promedio_espera_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaaclaracionesid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id.series[2].data.push(data.numero);
+              	options_promedio_espera_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoespagosid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id.series[3].data.push(data.numero);
+              	options_promedio_espera_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id);
+    	});
+
+
+    	var options_promedio_espera_id_hora = {
+    	chart:{
+    			renderTo: 'linealpromediohoraid',
+
+			}, 
+		    title: {
+		        text: 'Promedio de tiempo de espera hora',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Global',
+		        data: []
+		    },{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linelpromedioesperaglobalid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id_hora.series[0].data.push(data.numero);
+              	options_promedio_espera_id_hora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id_hora);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linelpromedioesperatramitesid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id_hora.series[1].data.push(data.numero);
+              	options_promedio_espera_id_hora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id_hora);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linelpromedioesperaaclaracionesid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id_hora.series[2].data.push(data.numero);
+              	options_promedio_espera_id_hora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id_hora);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linelpromedioesperapagoid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id_hora.series[3].data.push(data.numero);
+              	options_promedio_espera_id_hora.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id_hora);
+    	});
+
+		var options_promedio_espera_id_hora_fecha = {
+    	chart:{
+    			renderTo: 'linealpromediohoraatencionfechaid',
+
+			}, 
+		    title: {
+		        text: 'Promedio de tiempo de atencion hora',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Global',
+		        data: []
+		    },{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionglobalhoraidfecha/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id_hora_fecha.series[0].data.push(data.numero);
+              	options_promedio_espera_id_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionhoratridfecha/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id_hora_fecha.series[1].data.push(data.numero);
+              	options_promedio_espera_id_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionhoraaclaidfecha/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id_hora_fecha.series[2].data.push(data.numero);
+              	options_promedio_espera_id_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionhorapagosidfecha/"+fecha+"/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_promedio_espera_id_hora_fecha.series[3].data.push(data.numero);
+              	options_promedio_espera_id_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_promedio_espera_id_hora_fecha);
     	});
 });
