@@ -123,6 +123,12 @@ Route::get('graficas/linealtiempodeatencionglobalhoraidfecha/{fecha}/{id}','Graf
 Route::get('graficas/linealtiempodeatencionhoratridfecha/{fecha}/{id}','GraficasLinealController@promedio_tiempo_aten_tramites_hora_fechaid');
 Route::get('graficas/linealtiempodeatencionhoraaclaidfecha/{fecha}/{id}','GraficasLinealController@promedio_tiempo_atencion_acla_hora_fechaid');
 Route::get('graficas/linealtiempodeatencionhorapagosidfecha/{fecha}/{id}','GraficasLinealController@promedio_tiempo_atencion_pago_hora_fechaid');
+Route::get('graficas/linealpagoshoraid/{id}','GraficasLinealController@lineal_subasunto_pagos_hora_id');
+Route::get('graficas/linealtramiteshoraid/{id}','GraficasLinealController@lineal_subasunto_tramites_hora_id');
+Route::get('graficas/linealaclaracioneshoraid/{id}','GraficasLinealController@lineal_subasunto_aclaraciones_hora_id');
+Route::get('graficas/linealpagoshoraidabandonados/{id}','GraficasLinealController@lineal_subasunto_pagos_hora_id_aban');
+Route::get('graficas/linealtramiteshoraidabandonados/{id}','GraficasLinealController@lineal_subasunto_tramites_hora_id_aban');
+Route::get('graficas/linealaclaracioneshoraidabandonados/{id}','GraficasLinealController@lineal_subasunto_aclaraciones_hora_id_aban');
 
 //Graficas Pastel
 Route::get('graficas/graficasubasuntos','GraficasPieController@grafica_subasunto');

@@ -21,6 +21,9 @@ $(document).ready(function() {
 		    	title: {
 		            text: 'Fecha'
 		        },
+		         /*scrollbar: {
+            		enabled: true
+        		},*/
 		        categories: []
 		    },
 		    yAxis: {
@@ -332,6 +335,9 @@ $(document).ready(function() {
 		    	title: {
 		            text: 'Hora'
 		        },
+		        scrollbar: {
+            		enabled: false
+        		},
 		        categories: []
 		    },
 		    yAxis: {
@@ -468,6 +474,168 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(optionsabandonadoshora);
     	});
+
+
+    	var options_hora_id = {
+    	chart:{
+    			renderTo: 'linealhoraid',
+
+			}, 
+		    title: {
+		        text: 'Operaciones por hora',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Numero de Turnos'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshoraid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_hora_id.series[0].data.push(data.numero);
+              	options_hora_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_hora_id);
+    	});	
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshoraid/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_hora_id.series[1].data.push(data.numero);
+              	options_hora_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_hora_id);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagoshoraid/"+id, function(data) {
+        	 console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_hora_id.series[2].data.push(data.numero);
+              	options_hora_id.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_hora_id);
+    	});
+
+
+
+    	var options_hora_id_abandonados = {
+    	chart:{
+    			renderTo: 'linealabandonadoshoraid',
+
+			}, 
+		    title: {
+		        text: 'Operaciones por hora abandonados',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Hora'
+		        },
+		        scrollbar: {
+            		enabled: true
+        		},
+		        
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Numero de Turnos'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Tramites',
+		        data: []
+		    },{
+		    	name: 'Aclaraciones',
+		        data: []
+		    },{
+		    	name: 'Pagos',
+		        data: []
+			}]
+		}
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshoraidabandonados/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_hora_id_abandonados.series[0].data.push(data.numero);
+              	options_hora_id_abandonados.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_hora_id_abandonados);
+    	});	
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshoraidabandonados/"+id, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_hora_id_abandonados.series[1].data.push(data.numero);
+              	options_hora_id_abandonados.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_hora_id_abandonados);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagoshoraidabandonados/"+id, function(data) {
+        	 console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_hora_id_abandonados.series[2].data.push(data.numero);
+              	options_hora_id_abandonados.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_hora_id_abandonados);
+    	});
+
 
     	//promedios
     	var optionspromedio = {
@@ -1038,7 +1206,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_lineal_hora_fecha_id.series[1].data.push(data.numero);
+             	options_lineal_hora_fecha_id.series[0].data.push(data.numero);
               	options_lineal_hora_fecha_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id);
@@ -1047,7 +1215,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_lineal_hora_fecha_id.series[2].data.push(data.numero);
+             	options_lineal_hora_fecha_id.series[1].data.push(data.numero);
               	options_lineal_hora_fecha_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id);
@@ -1056,7 +1224,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_lineal_hora_fecha_id.series[3].data.push(data.numero);
+             	options_lineal_hora_fecha_id.series[2].data.push(data.numero);
               	options_lineal_hora_fecha_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id);
@@ -1117,7 +1285,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_lineal_hora_fecha_id_a.series[1].data.push(data.numero);
+             	options_lineal_hora_fecha_id_a.series[0].data.push(data.numero);
               	options_lineal_hora_fecha_id_a.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id_a);
@@ -1126,7 +1294,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_lineal_hora_fecha_id_a.series[2].data.push(data.numero);
+             	options_lineal_hora_fecha_id_a.series[1].data.push(data.numero);
               	options_lineal_hora_fecha_id_a.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id_a);
@@ -1135,7 +1303,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_lineal_hora_fecha_id_a.series[3].data.push(data.numero);
+             	options_lineal_hora_fecha_id_a.series[2].data.push(data.numero);
               	options_lineal_hora_fecha_id_a.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id_a);
