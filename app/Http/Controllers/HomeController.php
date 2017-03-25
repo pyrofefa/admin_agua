@@ -186,12 +186,14 @@ class HomeController extends Controller
         $cajas_tramites_sub= DB::table('tikets')->selectRaw('count(turno) as numero, asunto, fk_caja as caja')
             ->where("id_sucursal",$id)->where('estado',1)->where('subasunto','Tramites')
             ->groupBy('subasunto')->groupBy('caja')->orderBy('asunto')->get();
-         dd($cajas_tramites_sub);   
-
         $cajas_aclaraciones_sub= DB::table('tikets')->selectRaw('count(turno) as numero, asunto, fk_caja as caja')
             ->where("id_sucursal",$id)->where('subasunto','Aclaraciones y otros')
             ->where('estado',1)
             ->groupBy('caja')->groupBy('subasunto')->orderBy('asunto')->get();
+        $cajas_pago_sub= DB::table('tikets')->selectRaw('count(turno) as numero, asunto, fk_caja as caja')
+            ->where("id_sucursal",$id)->where('subasunto','Pago')
+            ->where('estado',1)
+            ->groupBy('caja')->groupBy('subasunto')->orderBy('asunto')->get();    
 
         $asunto_mes = DB::table('tikets')->selectRaw('COUNT(turno) as numero,subasunto, MONTH(created_at) as mes')->where('id_sucursal',$id)->where('estado',1)->groupBy('mes')->groupBy('subasunto')->get();
         $tramites_mes = DB::table('tikets')->selectRaw('COUNT(turno) as numero, asunto, MONTH(created_at) as mes')->where('id_sucursal',$id)->where('estado',1)->where('subasunto','Tramites')->groupBy('mes')
@@ -263,7 +265,7 @@ class HomeController extends Controller
             ->where('id_sucursal',$id)->groupBy('caja')->get();         
 
 
-        return view('home.sucursal',compact('cajas_aclaraciones_sub','cajas_tramites_sub','promedio_atendido_cajera','promedio_tramitesa_cajera','promedio_aclaracionesa_cajera','promedio_pagoa_cajera','promedio_cajera','promedio_tramites_cajera','promedio_aclaraciones_cajera','promedio_pago_cajera','promedio_pagoa_mes','promedio_aclaracionesa_mes','promedio_tramitesa_mes','promedio_atendido_mes','promedio_pago_mes','promedio_aclaraciones_mes','promedio_tramites_mes','promedio_mes','pago_mes','aclaraciones_mes','tramites_mes','asunto_mes','cajas_tramites','cajas_aclaraciones','cajas_pago','sucursal','carbon','atendidos','espera','promedio','promedio_tramites','promedio_aclaraciones','promedio_pago','promedio_atendido','promedio_tramitesa','promedio_aclaracionesa','promedio_pagoa','tramites','tramites_abandonados','contrato','contrato_abandonado','convenio','convenio_abandonado','cajas','cambio','cambio_abandonado','carta','carta_abandonado','factibilidad','factibilidad_abandonado','dosomas','dosomas_abandonado','aclaraciones','aclaraciones_abandonadas','pago','pago_abandonado','pago_recibo','pago_recibo_abandonados','pago_convenio','pago_convenio_abandonados','pago_carta','pago_carta_abandonados','abandonados','alto','alto_abandonado','reconexion','reconexion_abandonado','error','error_abandonados','notoma','notoma_abandonados','noentrega','noentrega_abandonados','cambiotarifa','cambiodetarifa_abandonados','solicitud','solicitud_abandonados','otros','otros_abandonados','sucursal'));
+        return view('home.sucursal',compact('cajas_pago_sub','cajas_aclaraciones_sub','cajas_tramites_sub','promedio_atendido_cajera','promedio_tramitesa_cajera','promedio_aclaracionesa_cajera','promedio_pagoa_cajera','promedio_cajera','promedio_tramites_cajera','promedio_aclaraciones_cajera','promedio_pago_cajera','promedio_pagoa_mes','promedio_aclaracionesa_mes','promedio_tramitesa_mes','promedio_atendido_mes','promedio_pago_mes','promedio_aclaraciones_mes','promedio_tramites_mes','promedio_mes','pago_mes','aclaraciones_mes','tramites_mes','asunto_mes','cajas_tramites','cajas_aclaraciones','cajas_pago','sucursal','carbon','atendidos','espera','promedio','promedio_tramites','promedio_aclaraciones','promedio_pago','promedio_atendido','promedio_tramitesa','promedio_aclaracionesa','promedio_pagoa','tramites','tramites_abandonados','contrato','contrato_abandonado','convenio','convenio_abandonado','cajas','cambio','cambio_abandonado','carta','carta_abandonado','factibilidad','factibilidad_abandonado','dosomas','dosomas_abandonado','aclaraciones','aclaraciones_abandonadas','pago','pago_abandonado','pago_recibo','pago_recibo_abandonados','pago_convenio','pago_convenio_abandonados','pago_carta','pago_carta_abandonados','abandonados','alto','alto_abandonado','reconexion','reconexion_abandonado','error','error_abandonados','notoma','notoma_abandonados','noentrega','noentrega_abandonados','cambiotarifa','cambiodetarifa_abandonados','solicitud','solicitud_abandonados','otros','otros_abandonados','sucursal'));
     }
     public function general()
     {

@@ -230,8 +230,8 @@
 				<div class="col-md-12">
 					<table class="table table-bordered">
 						<tr>
-							<td>Tramite</td>
-							<td>Ventanilla</td>
+							<td><strong>Tramite</strong></td>
+							<td><strong>Ventanilla</td>
 							<td>Numero</td>
 						</tr>
 						@foreach($cajas_tramites_sub as $c)
@@ -244,9 +244,9 @@
 					</table>
 					<table class="table table-bordered">
 						<tr>
-							<td>Aclaraciones</td>
-							<td>Ventanilla</td>
-							<td>Numero</td>
+							<td><strong>Aclaraciones</strong></td>
+							<td><strong>Ventanilla</strong></td>
+							<td><strong>Numero</strong></td>
 						</tr>
 						@foreach($cajas_aclaraciones_sub as $c)
 						<tr>
@@ -258,12 +258,12 @@
 					</table>
 					<table class="table table-bordered">
 						<tr>
-							<td>Pagos</td>
-							<td>Ventanilla</td>
-							<td>Numero</td>
+							<td><strong>Pagos</strong></td>
+							<td><strong>Ventanilla</strong></td>
+							<td><strong>Numero</strong></td>
 						</tr>
 						<tr>
-							@foreach($cajas_tramites_sub as $c)
+							@foreach($cajas_pago_sub as $c)
 								<td>{{ $c->asunto }}</td>
 								<td>{{ $c->caja }}</td>
 								<td>{{ $c->numero }}</td>
@@ -572,7 +572,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
-				<h3 style="text-align: center;">Promedio de tiempo de espera</h3><br>
+				<h3 style="text-align: center;">Promedio de tiempo de espera meses</h3><br>
 				<table class="table table-bordered">
 					<tr>
 						<td width="100px"></td>
@@ -729,7 +729,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<h3 style="text-align: center;">Promedio de tiempo de atencion</h3><br>
+					<h3 style="text-align: center;">Promedio de tiempo de atencion meses</h3><br>
 					<table class="table table-bordered">
 						<tr>
 							<td width="100px"></td>
@@ -890,7 +890,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
-				<h3 style="text-align: center;">Promedio de tiempo de espera cajeras</h3><br>
+				<h3 style="text-align: center;">Promedio de tiempo de espera cajeras al dia</h3><br>
 				<table class="table table-bordered">
 					<tr>
 						<td width="100px">Ventanillas</td>
@@ -951,7 +951,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<h3 style="text-align: center;">Promedio de tiempo de atencion</h3><br>
+					<h3 style="text-align: center;">Promedio de tiempo de atencion cajeras al dia</h3><br>
 					<table class="table table-bordered">
 						<tr>
 							<td width="100px">Ventanillas</td>
