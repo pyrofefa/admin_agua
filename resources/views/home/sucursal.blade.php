@@ -193,7 +193,10 @@
   						<tr>
   							<th>Ventanilla:</th>
   					  		@foreach($cajas as $c)
-							<th>{{$c->name}}</th>
+  					  			@if($c->fk_caja == '0')
+  					  			@else
+									<th>{{$c->fk_caja}}</th>
+  								@endif
   							@endforeach
   						</tr>
   						<tr>
@@ -230,48 +233,54 @@
 				<div class="col-md-12">
 					<table class="table table-bordered">
 						<tr>
-							<td><strong>Tramite</strong></td>
 							<td><strong>Ventanilla</td>
-							<td>Numero</td>
+							<td><strong>Tramite</strong></td>
+							<td><strong>Numero</strong></td>
 						</tr>
 						@foreach($cajas_tramites_sub as $c)
 						<tr>
-							<td>{{ $c->asunto }}</td>
 							<td>{{ $c->caja }}</td>
+							<td>{{ $c->asunto }}</td>
 							<td>{{ $c->numero }}</td>
 						</tr>
 						@endforeach
 					</table>
 					<table class="table table-bordered">
 						<tr>
-							<td><strong>Aclaraciones</strong></td>
 							<td><strong>Ventanilla</strong></td>
+							<td><strong>Aclaraciones</strong></td>
 							<td><strong>Numero</strong></td>
 						</tr>
 						@foreach($cajas_aclaraciones_sub as $c)
 						<tr>
-							<td>{{ $c->asunto }}</td>
 							<td>{{ $c->caja }}</td>
+							<td>{{ $c->asunto }}</td>
 							<td>{{ $c->numero }}</td>
 						</tr>
 						@endforeach
 					</table>
 					<table class="table table-bordered">
 						<tr>
-							<td><strong>Pagos</strong></td>
 							<td><strong>Ventanilla</strong></td>
+							<td><strong>Pagos</strong></td>
 							<td><strong>Numero</strong></td>
 						</tr>
 						<tr>
 							@foreach($cajas_pago_sub as $c)
-								<td>{{ $c->asunto }}</td>
 								<td>{{ $c->caja }}</td>
+								<td>{{ $c->asunto }}</td>
 								<td>{{ $c->numero }}</td>
 							@endforeach
 						</tr>
 					</table>
 				</div>
 			</div>
+		</div>
+	</div><br>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			
+			
 			<div class="row">
 				<div class="col-md-12">
 					<table class="table table-bordered">
