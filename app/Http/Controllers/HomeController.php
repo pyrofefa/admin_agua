@@ -682,7 +682,7 @@ class HomeController extends Controller
 
         $cajas_tramites_sub= DB::table('tikets')->selectRaw('count(turno) as numero, asunto, fk_caja as caja')
             ->where("id_sucursal",$id)->where('estado',1)->where('subasunto','Tramites')->whereDate('created_at','=',$fecha)
-            ->groupBy('subasunto')->groupBy('caja')->orderBy('asunto')->get();
+            ->groupBy('subasunto')->groupBy('caja')->orderBy('caja','DESC')->get();
         $cajas_aclaraciones_sub= DB::table('tikets')->selectRaw('count(turno) as numero, asunto, fk_caja as caja')
             ->where("id_sucursal",$id)->where('subasunto','Aclaraciones y otros')->whereDate('created_at','=',$fecha)
             ->where('estado',1)

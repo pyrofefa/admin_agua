@@ -27,11 +27,27 @@
         </div>
         <div class="col-md-6">
             <br><br><br><br><br><br><br><br><br><br>
-            {!! Form::model($sucursal, ['url'=>'turnos/sucursal/'.$sucursal->id , 'method'=> 'GET', 'class' => 'navbar-formpull-right' ]) !!}
-                <div class="input-group">
+            {!! Form::model($sucursal, ['url'=>'turnos/sucursal/busqueda', 'method'=> 'POST', 'class' => 'form-inline' ]) !!}
+                 <div class="form-group">
                     {!! Form::text('asunto',null,['class' => 'form-control', 'placeholder' => 'Buscar...', 'aria-describedby' => 'search']) !!}
-                    <span class="input-group-addon" id="search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>        
-                </div>
+                 </div>
+                 <div class="form-group" >
+                    <select class="selectpicker" id="sub" name="sub">
+                        <option value="asunto">Asunto</option>
+                        <option value="subasunto">Sub Asunto</option>
+                        <option value="ventanilla">No. Ventanilla</option>
+                        <option value="fecha">Fecha</option>
+
+                    </select>
+
+
+
+                     
+                 </div>
+                 <div class="form-group">
+                        {!! Form::hidden('id_sucursal',$sucursal->id,['class'=>'form-control']) !!}
+                        <button type="submit" class="btn btn-default">Buscar</button> 
+                 </div>
             {!! Form::close() !!}
         </div>
     </div>

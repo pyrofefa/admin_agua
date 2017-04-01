@@ -184,6 +184,7 @@ Route::put('api/tikets/actualizar/{id}','apiController@actualizar_tiket');
 Route::resource('home','HomeController');
 Route::get('turnos/sucursal/{id}','TurnosController@sucursal');
 Route::get('turnos/sucursal/{id}/espera','TurnosController@en_espera');
+Route::post('turnos/sucursal/busqueda','TurnosController@busqueda');
 Route::put('turnos/terminar/{id}','TurnosController@terminar');
 Route::resource('turnos','TurnosController');
 Route::resource('sucursales','SucursalesController');

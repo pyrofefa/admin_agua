@@ -29,7 +29,6 @@ class TurnosController extends Controller
         $folios = Folios::where('tipo','pagos')->where('id_sucursal',$id)->first();
         $folios_aclaraciones = Folios::where('tipo','aclaraciones')->where('id_sucursal',$id)->first();
         $tikets = Tiket::where('estado',1)->orderBy('created_at','DESC')->where('id_sucursal',$id)->paginate(30);
-        $busqueda=Tiket::Search($request->asunto);
         $en_espera = Tiket::where('estado', '0')->where('id_sucursal',$id)->count();
         $atendidos = Tiket::where('estado', '1')->where('id_sucursal',$id)->count();
         return view('turnos.sucursal',compact('tikets','folios','folios_aclaraciones','en_espera', 'atendidos','sucursal'));
@@ -47,5 +46,41 @@ class TurnosController extends Controller
         $folio = Tiket::where('estado','0')->where('id_sucursal',$id)->update(['estado' => '3']);
         $request -> session()->flash('espera', "Se ha dado por terminado los turnos en espera");
         return redirect()->action('TurnosController@sucursal',[ 'id' => $id ]);    
+    }
+    public function busqueda(Request $request)
+    {
+        //dd($request->all());
+        $id = $request->id_sucursal;
+        $asunto = $request->asunto;
+        
+        if ($request->sub == "asunto") 
+        {
+            $tikets = Tiket::where('asunto','LIKE',"%$asunto%")->where('estado',1)
+            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->paginate(30);
+            //dd($tikets);
+            return view('turnos.busqueda',compact('tikets'));   
+        }
+        elseif ($request->sub == "subasunto") 
+        {
+            $tikets = Tiket::where('subasunto','LIKE',"%$asunto%")->where('estado',1)
+            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->paginate(30);
+            //dd($tikets);
+            return view('turnos.busqueda',compact('tikets'));   
+        }
+        elseif($request->sub == "ventanilla")
+        {
+            $tikets = Tiket::where('fk_caja','LIKE',"%$asunto%")->where('estado',1)
+            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->paginate(30);
+            //dd($tikets);
+            return view('turnos.busqueda',compact('tikets'));   
+
+        }
+        elseif($request->sub == "fecha")
+        {
+            $tikets = Tiket::where('created_at','LIKE',"%$asunto%")->where('estado',1)
+            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->paginate(30);
+            //dd($tikets);
+            return view('turnos.busqueda',compact('tikets'));   
+        }
     }
 }
