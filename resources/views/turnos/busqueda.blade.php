@@ -34,8 +34,7 @@
             </tr>
             @endforeach
         </table>
-        {!! $tikets->render() !!}
-        </div>
+         </div>
   </div>
 </div>
 @endsection

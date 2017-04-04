@@ -27,7 +27,7 @@
         </div>
         <div class="col-md-6">
             <br><br><br><br><br><br><br><br><br><br>
-            {!! Form::model($sucursal, ['url'=>'turnos/sucursal/busqueda', 'method'=> 'POST', 'class' => 'form-inline' ]) !!}
+            {!! Form::model($sucursal, ['url'=>'turnos/sucursal/busqueda/', 'method'=> 'POST', 'class' => 'form-inline' ]) !!}
                  <div class="form-group">
                     {!! Form::text('asunto',null,['class' => 'form-control', 'placeholder' => 'Buscar...', 'aria-describedby' => 'search']) !!}
                  </div>

@@ -56,21 +56,21 @@ class TurnosController extends Controller
         if ($request->sub == "asunto") 
         {
             $tikets = Tiket::where('asunto','LIKE',"%$asunto%")->where('estado',1)
-            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->paginate(30);
+            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->get();
             //dd($tikets);
             return view('turnos.busqueda',compact('tikets'));   
         }
         elseif ($request->sub == "subasunto") 
         {
             $tikets = Tiket::where('subasunto','LIKE',"%$asunto%")->where('estado',1)
-            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->paginate(30);
+            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->get();
             //dd($tikets);
             return view('turnos.busqueda',compact('tikets'));   
         }
         elseif($request->sub == "ventanilla")
         {
             $tikets = Tiket::where('fk_caja','LIKE',"%$asunto%")->where('estado',1)
-            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->paginate(30);
+            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->get();
             //dd($tikets);
             return view('turnos.busqueda',compact('tikets'));   
 
@@ -78,7 +78,7 @@ class TurnosController extends Controller
         elseif($request->sub == "fecha")
         {
             $tikets = Tiket::where('created_at','LIKE',"%$asunto%")->where('estado',1)
-            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->paginate(30);
+            ->orderBy('created_at','DESC')->where('id_sucursal',$id)->get();
             //dd($tikets);
             return view('turnos.busqueda',compact('tikets'));   
         }

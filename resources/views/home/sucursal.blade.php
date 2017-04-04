@@ -508,6 +508,20 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
+					<div id="linealhoraid"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="linealabandonadoshoraid"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
 					<table id="datatable" class="table table-bordered">
 		    			<thead>
 		        			<tr>
