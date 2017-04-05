@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tiket extends Model
 {
     protected $table = 'tikets';
-	protected $fillable = ['id_sucursal','fk_caja', 'turno', 'estado', 'tiempo', 'asunto', 'subasunto'];
+	protected $fillable = ['id_sucursal','fk_caja', 'turno', 'estado', 'llegada', 'atendido', 'tiempo', 'asunto', 'subasunto'];
 
 	public function scopeSearch($query, $asunto)
 	{

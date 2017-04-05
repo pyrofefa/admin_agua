@@ -10,11 +10,12 @@
 	</div>
 </div>	
 @else	
-{!! Form::hidden('fecha',$f->created_at->format('Y-m-d'),['class'=>'form-control' , 'id' => 'fecha']) !!}<br>
+{!! Form::hidden('fecha',$fecha,['class'=>'form-control' , 'id' => 'fecha']) !!}<br>
+{!! Form::hidden('fecha_dos',$fecha_dos,['class'=>'form-control' , 'id' => 'fecha_dos']) !!}<br>
 <div class="container">
 	 <div class="row">
 		<div class="col-md-12">
-			<h1 style="text-align: center">General dia: {{ $f->created_at->format('d-m-Y')}}  </h1>
+			<h1 style="text-align: center">General del dia: {{ $fecha }} al dia: {{ $fecha_dos }}  </h1>
 		</div>
 	</div>
 	<div class="panel panel-default">
@@ -258,8 +259,8 @@
 		    			<tbody>
 					        <tr>
 					            <th>Global</th>
-					            <td>{{ $promedio->tiempo }}</td>
-					            <td>{{ $promedio_atendido->tiempo }}</td>
+					            <td>{{ $promedio }}</td>
+					            <td>{{ $promedio_atendido }}</td>
 					        </tr>
 					        <tr>
 					            <th>Tramites</th>

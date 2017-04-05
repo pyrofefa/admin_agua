@@ -1,11 +1,9 @@
 $(document).ready(function() {
     var id = $('#valor').val();
     var fecha = $('#fecha').val();
-
-    console.log(fecha);
+    var fecha_dos = $('#fecha_dos').val();
+    //console.log('fecha dos: '+fecha_dos);
     //console.log(id);
-
-
     var optionsasunto = {
         chart: {
             renderTo: 'subasunto',
@@ -183,7 +181,7 @@ $(document).ready(function() {
             plotShadow: false
         },
         title: {
-            text: 'Realizados',
+            text: 'Realizados prueba',
             x: -20 //center
         },
         tooltip: {
@@ -212,7 +210,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntosfecha/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntosfecha/"+fecha+'/'+fecha_dos, function(json) {
         optionsasuntofecha.series[0].data = json;
         chart = new Highcharts.Chart(optionsasuntofecha);
     });
@@ -254,7 +252,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntos_abandonados_fecha/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntos_abandonados_fecha/"+fecha+'/'+fecha_dos, function(json) {
         optionsasuntofechaaban.series[0].data = json;
         chart = new Highcharts.Chart(optionsasuntofechaaban);
     });
@@ -511,7 +509,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficatramitesfecha/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficatramitesfecha/"+fecha+'/'+fecha_dos, function(json) {
         optionstfecha.series[0].data = json;
         chart = new Highcharts.Chart(optionstfecha);
     });
@@ -553,7 +551,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficatramitesabandonadosfecha/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficatramitesabandonadosfecha/"+fecha+'/'+fecha_dos, function(json) {
         optionstfechaaban.series[0].data = json;
         chart = new Highcharts.Chart(optionstfechaaban);
     });
@@ -595,7 +593,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficaaclaracionesfecha/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficaaclaracionesfecha/"+fecha+'/'+fecha_dos, function(json) {
         optionsafecha.series[0].data = json;
         chart = new Highcharts.Chart(optionsafecha);
     });
@@ -637,7 +635,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficaaclaracionesabandonadosfecha/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficaaclaracionesabandonadosfecha/"+fecha+'/'+fecha_dos, function(json) {
         optionsafechaaban.series[0].data = json;
         chart = new Highcharts.Chart(optionsafechaaban);
     });
@@ -679,7 +677,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficapagosfecha/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficapagosfecha/"+fecha+'/'+fecha_dos, function(json) {
         optionspfecha.series[0].data = json;
         chart = new Highcharts.Chart(optionspfecha);
     });
@@ -720,7 +718,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficapagosabandonadosfecha/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficapagosabandonadosfecha/"+fecha+'/'+fecha_dos, function(json) {
         optionspfechaaban.series[0].data = json;
         chart = new Highcharts.Chart(optionspfechaaban);
     });

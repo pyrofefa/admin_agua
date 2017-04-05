@@ -39,10 +39,6 @@
                         <option value="fecha">Fecha</option>
 
                     </select>
-
-
-
-                     
                  </div>
                  <div class="form-group">
                         {!! Form::hidden('id_sucursal',$sucursal->id,['class'=>'form-control']) !!}

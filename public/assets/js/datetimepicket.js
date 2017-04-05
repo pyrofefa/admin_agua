@@ -4,5 +4,8 @@ $(document).ready(function()
 	$( "#fecha" ).datepicker({ 
 		dateFormat: 'yy-mm-dd' 
 	});
+	$( "#fecha_dos" ).datepicker({ 
+		dateFormat: 'yy-mm-dd' 
+	});
 	
 });

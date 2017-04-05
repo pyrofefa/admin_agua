@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'America/Chihuahua',
+    'timezone' => 'America/Hermosillo',
 
     /*
     |--------------------------------------------------------------------------

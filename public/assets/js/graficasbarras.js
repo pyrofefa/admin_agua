@@ -1,9 +1,8 @@
 $(document).ready(function() {
-	//alert();
     var id = $('#valor').val();
     var fecha = $('#fecha').val();
-    console.log(id);
-    
+    var fecha_dos = $('#fecha_dos').val();
+	console.log(id);
     var options = {
     	chart:{
     			renderTo: 'lineal',
@@ -1046,7 +1045,17 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafecha/"+fecha, function(data) {
+		console.log('entrando');
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafecha/"+fecha+'/'+fecha_dos, function(data) {
+        	 console.log('entrndo');
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha.series[0].data.push(data.numero);
+              	options_lineal_hora_fecha.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1055,20 +1064,11 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafecha/"+fecha, function(data) {
-        	 //console.log(data);
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafecha/"+fecha+'/'+fecha_dos, function(data) {
+        	 console.log(data);
         	 $.each(data, function(index, data)
              {
              	options_lineal_hora_fecha.series[2].data.push(data.numero);
-              	options_lineal_hora_fecha.xAxis.categories.push(data.x);
-			});
-			chart = new Highcharts.Chart(options_lineal_hora_fecha);
-    	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafecha/"+fecha, function(data) {
-        	 //console.log(data);
-        	 $.each(data, function(index, data)
-             {
-             	options_lineal_hora_fecha.series[3].data.push(data.numero);
               	options_lineal_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha);
@@ -1124,7 +1124,16 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafechaabandonados/"+fecha, function(data) {
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafechaabandonados/"+fecha+'/'+fecha_dos, function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_lineal_hora_fecha_aban.series[0].data.push(data.numero);
+              	options_lineal_hora_fecha_aban.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_lineal_hora_fecha_aban);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafechaabandonados/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1133,20 +1142,11 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_aban);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafechaabandonados/"+fecha, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafechaabandonados/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
              	options_lineal_hora_fecha_aban.series[2].data.push(data.numero);
-              	options_lineal_hora_fecha_aban.xAxis.categories.push(data.x);
-			});
-			chart = new Highcharts.Chart(options_lineal_hora_fecha_aban);
-    	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafechaabandonados/"+fecha, function(data) {
-        	 //console.log(data);
-        	 $.each(data, function(index, data)
-             {
-             	options_lineal_hora_fecha_aban.series[3].data.push(data.numero);
               	options_lineal_hora_fecha_aban.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_aban);
