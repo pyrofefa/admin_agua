@@ -85,6 +85,9 @@
  	{!! Html::script('https://code.highcharts.com/modules/data.js')!!}
    	{!! Html::script('assets/js/jquery-ui.min.js')!!}
    	{!! Html::script('assets/js/datetimepicket.js')!!}
+   	{!! Html::script('assets/js/graficatramites.js')!!}
+   	{!! Html::script('assets/js/graficaaclaraciones.js')!!}
+   	{!! Html::script('assets/js/graficapagos.js')!!}
 	{!! Html::script('http://code.highcharts.com/modules/exporting.js') !!}
 	{!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js') !!}
 </body>

@@ -16,7 +16,7 @@ $(document).ready(function() {
 	    yAxis: {
 	        allowDecimals: false,
 	        title: {
-	            text: 'Unidades'
+	            text: 'Minutos'
 	        }
 	    },
 	    tooltip: {

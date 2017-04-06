@@ -432,6 +432,25 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
+					<div id="tramiteshora"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="aclaracioneshora"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="pagoshora"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
 					<table id="datatable" class="table table-bordered">
 		    			<thead>
 		        			<tr>

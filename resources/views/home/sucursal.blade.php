@@ -18,17 +18,22 @@
 				<div class="col-md-4">
 				<br><br>
             	{!! Form::open((array( 'url' => 'home/sucursal/'.$sucursal->id.'/fecha', 'method' => 'GET' ))) !!}
-					<div class="input-group">
-    			{!! Form::text('fecha',null,['class' => 'form-control', 'placeholder' => 'Buscar fecha...','id' => 'fecha']) !!}
-    				<span class="input-group-btn">
-    					<button class="btn btn-default" type="submit">
-    						<span class="glyphicon glyphicon-search"></span>
-    					</button>
-    				</span>        
-        			</div>
-    			{!! Form::close() !!}
+     			    <div class="form-group" >
+						{!! Form::text('fecha',null,['class' => 'form-control', 'placeholder' => 'Buscar fecha...','id' => 'fecha']) !!}
+    				</div>
+    				<div class="form-group">
+    				{!! Form::text('fecha_dos',null,['class' => 'form-control', 'placeholder' => 'Buscar fecha...','id' => 'fecha_dos']) !!}
+					</div>
+					<div class="form-group">
+						<span class="input-group-btn" style="text-align: right;">
+    						<button class="btn btn-default" type="submit">
+    							<span class="glyphicon glyphicon-search"></span>
+    						</button>
+    					</span> 
+					</div>
     			</div>
- 				<div class="col-md-4">
+    			{!! Form::close() !!}
+			<div class="col-md-4">
 					<h5> Turnos atendidos: {{ $atendidos }}</h5>
 					<h5> Turnos en espera: {{ $espera }}</h5>
 					<h5> Turnos abandonados: {{ $abandonados }}</h5>	
@@ -265,13 +270,13 @@
 							<td><strong>Pagos</strong></td>
 							<td><strong>Numero</strong></td>
 						</tr>
+						@foreach($cajas_pago_sub as $c)
 						<tr>
-							@foreach($cajas_pago_sub as $c)
-								<td>{{ $c->caja }}</td>
-								<td>{{ $c->asunto }}</td>
-								<td>{{ $c->numero }}</td>
-							@endforeach
+							<td>{{ $c->caja }}</td>
+							<td>{{ $c->asunto }}</td>
+							<td>{{ $c->numero }}</td>
 						</tr>
+						@endforeach
 					</table>
 				</div>
 			</div>
@@ -514,6 +519,25 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div id="linealabandonadoshoraid"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="tramiteshoraid"></div>
+				</div>
+			</div>
+			<<div class="row">
+				<div class="col-md-12">
+					<div id="aclaracioneshoraid"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="pagoshoraid"></div>
 				</div>
 			</div>
 		</div>

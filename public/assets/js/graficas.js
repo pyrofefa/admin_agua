@@ -2,7 +2,7 @@ $(document).ready(function() {
     var id = $('#valor').val();
     var fecha = $('#fecha').val();
     var fecha_dos = $('#fecha_dos').val();
-    //console.log('fecha dos: '+fecha_dos);
+    console.log('fecha dos: '+fecha_dos);
     //console.log(id);
     var optionsasunto = {
         chart: {
@@ -1057,7 +1057,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntossucursalfecha/"+id+"/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntossucursalfecha/"+id+"/"+fecha+"/"+fecha_dos, function(json) {
         optionsubasuntosucursalfecha.series[0].data = json;
         chart = new Highcharts.Chart(optionsubasuntosucursalfecha);
     });
@@ -1100,7 +1100,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntossucursalfechaabandonados/"+id+"/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficasubasuntossucursalfechaabandonados/"+id+"/"+fecha+"/"+fecha_dos, function(json) {
         optionsubasuntosucursalfechaabandonados.series[0].data = json;
         chart = new Highcharts.Chart(optionsubasuntosucursalfechaabandonados);
     });
@@ -1143,7 +1143,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficatramitessucursalfecha/"+id+"/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficatramitessucursalfecha/"+id+"/"+fecha+"/"+fecha_dos, function(json) {
         options_tramites_sucursal_fecha.series[0].data = json;
         chart = new Highcharts.Chart(options_tramites_sucursal_fecha);
     });
@@ -1186,7 +1186,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficatramitessucursalfechaabandonados/"+id+"/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficatramitessucursalfechaabandonados/"+id+"/"+fecha+"/"+fecha_dos, function(json) {
         options_tramites_sucursal_fecha_abandonados.series[0].data = json;
         chart = new Highcharts.Chart(options_tramites_sucursal_fecha_abandonados);
     });
@@ -1229,7 +1229,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficaaclaracionessucursalfecha/"+id+"/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficaaclaracionessucursalfecha/"+id+"/"+fecha+"/"+fecha_dos, function(json) {
         options_aclaraciones_sucursal_fecha.series[0].data = json;
         chart = new Highcharts.Chart(options_aclaraciones_sucursal_fecha);
     });
@@ -1272,7 +1272,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficaaclaracionessucursalfechaabandonados/"+id+"/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficaaclaracionessucursalfechaabandonados/"+id+"/"+fecha+"/"+fecha_dos, function(json) {
         options_aclaraciones_sucursal_fecha_abandonados.series[0].data = json;
         chart = new Highcharts.Chart(options_aclaraciones_sucursal_fecha_abandonados);
     });
@@ -1314,7 +1314,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficapagossucursalfecha/"+id+"/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficapagossucursalfecha/"+id+"/"+fecha+"/"+fecha_dos, function(json) {
         options_pagos_sucursal_fecha.series[0].data = json;
         chart = new Highcharts.Chart(options_pagos_sucursal_fecha);
     });
@@ -1357,7 +1357,7 @@ $(document).ready(function() {
             data: []
         }]
     }
-    $.getJSON("http://localhost/turnomatic/public/graficas/graficapagossucursalfechaabandonados/"+id+"/"+fecha, function(json) {
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficapagossucursalfechaabandonados/"+id+"/"+fecha+"/"+fecha_dos, function(json) {
         options_pagos_sucursal_fecha_abandonados.series[0].data = json;
         chart = new Highcharts.Chart(options_pagos_sucursal_fecha_abandonados);
     });
