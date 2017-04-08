@@ -899,6 +899,7 @@ class HomeController extends Controller
         $promedio_pago=DB::table('tikets')
             ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
             ->where('subasunto','Pago')
+            ->where('estado',1)
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->first(); 
         
