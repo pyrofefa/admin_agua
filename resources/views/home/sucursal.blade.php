@@ -674,7 +674,7 @@
 			<div class="row">
 				<div class="col-md-12">
 				<h3 style="text-align: center;">Promedio de tiempo de espera meses</h3><br>
-				<table class="table table-bordered">
+				<!--<table class="table table-bordered">
 					<tr>
 						<td width="100px"></td>
 						@foreach($promedio_mes as $prom)
@@ -711,7 +711,7 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>
+				</table>-->
 				<table class="table table-bordered">
 					<tr>
 						<td width="100px"></td>
@@ -831,7 +831,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h3 style="text-align: center;">Promedio de tiempo de atencion meses</h3><br>
-					<table class="table table-bordered">
+					<!--<table class="table table-bordered">
 						<tr>
 							<td width="100px"></td>
 							@foreach($promedio_atendido_mes as $prom)
@@ -868,7 +868,7 @@
 								<td>{{$prom->tiempo}}</td>
 							@endforeach
 						</tr>
-					</table>
+					</table>-->
 					<table class="table table-bordered">
 						<tr>
 							<td width="100px"></td>

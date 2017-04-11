@@ -20,7 +20,7 @@
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<a href="../excelfecha/{{$f->created_at->format('Y-m-d')}}">
+			<a href="../excelfecha/{{ $fecha }}/{{ $fecha_dos }}">
 				<button type="button" class="btn btn-success">
   					<span class="glyphicon glyphicon-save"> Exportar</span>
 				</button>

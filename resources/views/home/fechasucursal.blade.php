@@ -21,7 +21,7 @@
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<a href="../excel/{{$sucursal->id}}/{{$f->created_at->format('Y-m-d')}}">
+			<a href="../excel/{{$sucursal->id}}/{{ $fecha }}/{{ $fecha_dos }}">
 				<button type="button" class="btn btn-success">
   					<span class="glyphicon glyphicon-save"> Exportar</span>
 				</button>
@@ -514,7 +514,7 @@
 			<div class="row">
 				<div class="col-md-12">
 				<h3 style="text-align: center;">Promedio de tiempo de espera cajeras</h3><br>
-				<table class="table table-bordered">
+				<!--<table class="table table-bordered">
 					<tr>
 						<td width="100px">Ventanillas</td>
 						@foreach($promedio_cajera as $prom)
@@ -527,7 +527,7 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>
+				</table>-->
 				<table class="table table-bordered">
 					<tr>
 						<td width="100px">Ventanillas</td>
@@ -575,7 +575,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h3 style="text-align: center;">Promedio de tiempo de atencion</h3><br>
-					<table class="table table-bordered">
+					<!--<table class="table table-bordered">
 						<tr>
 							<td width="100px">Ventanillas</td>
 							@foreach($promedio_atendido_cajera as $prom)
@@ -588,7 +588,7 @@
 								<td>{{$prom->tiempo}}</td>
 							@endforeach
 						</tr>
-					</table>
+					</table>-->
 					<table class="table table-bordered">
 						<tr>
 							<td width="100px">Ventanillas</td>

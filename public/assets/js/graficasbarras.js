@@ -867,7 +867,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhorafecha/"+fecha, function(data) {
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -876,7 +876,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshorafecha/"+fecha, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -885,7 +885,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaaclaracioneshora/"+fecha, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaaclaracioneshora/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -894,7 +894,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoespagoshorafecha/"+fecha, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoespagoshorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -957,7 +957,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhorafechaid/"+fecha+"/"+id, function(data) {
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhorafechaid/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -966,7 +966,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha_id);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshorafechaid/"+fecha+"/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshorafechaid/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -975,7 +975,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha_id);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaaclaracioneshoraid/"+fecha+"/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaaclaracioneshoraid/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -984,7 +984,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha_id);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoespagoshorafechaid/"+fecha+"/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoespagoshorafechaid/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1202,7 +1202,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafechaid/"+fecha+"/"+id, function(data) {
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafechaid/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1211,7 +1211,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafechaid/"+fecha+"/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafechaid/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1220,7 +1220,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafechaid/"+fecha+"/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafechaid/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1281,7 +1281,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafechaida/"+fecha+"/"+id, function(data) {
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtramiteshorafechaida/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1290,7 +1290,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id_a);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafechaida/"+fecha+"/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealaclaracioneshorafechaida/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1299,7 +1299,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id_a);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafechaida/"+fecha+"/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealpagohorafechaida/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1531,7 +1531,7 @@ $(document).ready(function() {
 		    	name: 'Global',
 		        data: []
 		    },{
-		    	name: 'Tramites',
+		    	name: 'Tramitees',
 		        data: []
 		    },{
 		    	name: 'Aclaraciones',
@@ -1541,7 +1541,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalhorafecha/"+fecha, function(data) {
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalhorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1550,7 +1550,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramiteshorafecha/"+fecha, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramiteshorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1559,7 +1559,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionaclaracioneshorafecha/"+fecha, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionaclaracioneshorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1568,7 +1568,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionpagohorafecha/"+fecha, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionpagohorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1989,7 +1989,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionglobalhoraidfecha/"+fecha+"/"+id, function(data) {
+		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionglobalhoraidfecha/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1998,7 +1998,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionhoratridfecha/"+fecha+"/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionhoratridfecha/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -2007,7 +2007,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionhoraaclaidfecha/"+fecha+"/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionhoraaclaidfecha/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -2016,7 +2016,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id_hora_fecha);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionhorapagosidfecha/"+fecha+"/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionhorapagosidfecha/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {

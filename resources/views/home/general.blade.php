@@ -581,7 +581,7 @@
 			<div class="row">
 				<div class="col-md-12">
 				<h3 style="text-align: center;">Promedio de tiempo de espera</h3><br>
-				<table class="table table-bordered">
+				<!--<table class="table table-bordered">
 					<tr>
 						<td width="100px"></td>
 						@foreach($promedio_mes as $prom)
@@ -618,7 +618,7 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>
+				</table>-->
 				<table class="table table-bordered">
 					<tr>
 						<td width="100px"></td>
@@ -738,7 +738,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h3 style="text-align: center;">Promedio de tiempo de atencion</h3><br>
-					<table class="table table-bordered">
+					<!--<table class="table table-bordered">
 						<tr>
 							<td width="100px"></td>
 							@foreach($promedio_atendido_mes as $prom)
@@ -775,7 +775,7 @@
 								<td>{{$prom->tiempo}}</td>
 							@endforeach
 						</tr>
-					</table>
+					</table>-->
 					<table class="table table-bordered">
 						<tr>
 							<td width="100px"></td>
@@ -899,5 +899,5 @@
 @endsection
 <script type="text/javascript" src="http://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="assets/js/exporting.js"></script>
 <script src="http://highcharts.github.io/export-csv/export-csv.js"></script>
