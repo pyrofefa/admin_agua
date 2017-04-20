@@ -475,4 +475,239 @@ $(document).ready(function() {
     	});
 
 
+    	var options_tramites_mes = {
+    	chart:{
+    			renderTo: 'atenciontramites',
+
+			}, 
+		    title: {
+		        text: 'Promedio tiempo de atencion tramites por mes',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Mes'
+		        },
+		         /*scrollbar: {
+            		enabled: true
+        		},*/
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Minutos'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Contrato',
+		        data: []
+		    },{
+		    	name: 'Convenio',
+		        data: []
+		    },{
+		    	name: 'Cambio de nombre',
+		        data: []
+			},{
+		    	name: 'Carta de no adeudo',
+		        data: []
+			},{
+		    	name: 'Factibilidad',
+		        data: []
+			},{
+		    	name: '2 o mas tramites',
+		        data: []
+			}
+			]
+		}
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/atencion_contrato", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_mes.series[0].data.push(data.numero);
+              	options_tramites_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_mes);
+    	});	
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/atencion_convenio", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_mes.series[1].data.push(data.numero);
+              	options_tramites_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_mes);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/atencion_cambio", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_mes.series[2].data.push(data.numero);
+              	options_tramites_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_mes);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/atencion_carta", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_mes.series[3].data.push(data.numero);
+              	options_tramites_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_mes);
+    	});	
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/atencion_factibilidad", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_mes.series[4].data.push(data.numero);
+              	options_tramites_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_mes);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/atencion_dosomas", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_mes.series[5].data.push(data.numero);
+              	options_tramites_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_mes);
+    	});
+
+    	var options_tramites_espera_mes = {
+    	chart:{
+    			renderTo: 'esperatramites',
+
+			}, 
+		    title: {
+		        text: 'Promedio tiempo de espera tramites por mes',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Meses'
+		        },
+		         /*scrollbar: {
+            		enabled: true
+        		},*/
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Minutos'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Contrato',
+		        data: []
+		    },{
+		    	name: 'Convenio',
+		        data: []
+		    },{
+		    	name: 'Cambio de nombre',
+		        data: []
+			},{
+		    	name: 'Carta de no adeudo',
+		        data: []
+			},{
+		    	name: 'Factibilidad',
+		        data: []
+			},{
+		    	name: '2 o mas tramites',
+		        data: []
+			}
+			]
+		}
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/espera_contrato", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_espera_mes.series[0].data.push(data.numero);
+              	options_tramites_espera_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_espera_mes);
+    	});	
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/espera_convenio", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_espera_mes.series[1].data.push(data.numero);
+              	options_tramites_espera_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_espera_mes);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/espera_cambio", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_espera_mes.series[2].data.push(data.numero);
+              	options_tramites_espera_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_espera_mes);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/espera_carta", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_espera_mes.series[3].data.push(data.numero);
+              	options_tramites_espera_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_espera_mes);
+    	});	
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/espera_factibilidad", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_espera_mes.series[4].data.push(data.numero);
+              	options_tramites_espera_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_espera_mes);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/espera_dosomas", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_tramites_espera_mes.series[5].data.push(data.numero);
+              	options_tramites_espera_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_tramites_espera_mes);
+    	});
+
+
 });

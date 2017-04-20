@@ -639,5 +639,5 @@
 @endif
 @endsection
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="assets/js/exporting.js"></script>
 <script src="http://highcharts.github.io/export-csv/export-csv.js"></script>

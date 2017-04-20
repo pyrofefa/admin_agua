@@ -441,4 +441,199 @@ class GraficaAclaraciones extends Controller
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
+    
+    public function promedio_atendido_altoconsumo()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Alto consumo (con y sin medidor)')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_reconexion()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Reconexion de servicio')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_errorenlectura()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Error en lectura')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_notoma()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','No toma lectura')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_noentrega()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','No entrega de recibo')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_cambiotarifa()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Cambio de tarifa')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_solicitud()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Solicitud de medidor')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_otros()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Otros tramites')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+
+    public function promedio_espera_altoconsumo()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Alto consumo (con y sin medidor)')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_reconexion()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Reconexion de servicio')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_errordelectura()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Error en lectura')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_notoma()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','No toma lectura')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_noentrega()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','No entrega de recibo')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_cambiodetarifa()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Cambio de tarifa')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_solicitu()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Solicitud de medidor')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_otros()
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Otros tramites')
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    
 }

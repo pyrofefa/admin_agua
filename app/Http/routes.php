@@ -189,6 +189,18 @@ Route::get('graficas/tramites/cambio/{id}','GraficaTramites@grafica_cambiodenomb
 Route::get('graficas/tramites/carta/{id}','GraficaTramites@grafica_cartadenoadeudo_id');
 Route::get('graficas/tramites/factibilidad/{id}','GraficaTramites@grafica_factibilidad_id');
 Route::get('graficas/tramites/dosomas/{id}','GraficaTramites@grafica_dosomastramites_id');
+Route::get('graficas/tramites/atencion_contrato','GraficaTramites@promedio_atendido_contrato');
+Route::get('graficas/tramites/atencion_convenio','GraficaTramites@promedio_atendido_convenio');
+Route::get('graficas/tramites/atencion_cambio','GraficaTramites@promedio_atendido_cambio');
+Route::get('graficas/tramites/atencion_carta','GraficaTramites@promedio_atendido_carta');
+Route::get('graficas/tramites/atencion_factibilidad','GraficaTramites@promedio_atendido_factibilidad');
+Route::get('graficas/tramites/atencion_dosomas','GraficaTramites@promedio_atendido_dosomas');
+Route::get('graficas/tramites/espera_contrato','GraficaTramites@promedio_espera_contrato');
+Route::get('graficas/tramites/espera_convenio','GraficaTramites@promedio_espera_convenio');
+Route::get('graficas/tramites/espera_cambio','GraficaTramites@promedio_espera_cambio');
+Route::get('graficas/tramites/espera_carta','GraficaTramites@promedio_espera_carta');
+Route::get('graficas/tramites/espera_factibilidad','GraficaTramites@promedio_espera_factibilidad');
+Route::get('graficas/tramites/espera_dosomas','GraficaTramites@promedio_espera_dosomas');
 
 //graficas aclaraciones
 Route::get('graficas/aclaraciones/altoconsumo/{fecha}/{fecha_dos}','GraficaAclaraciones@grafica_altoconsumo_fecha');
@@ -223,6 +235,22 @@ Route::get('graficas/aclaraciones/noentrega/{id}','GraficaAclaraciones@grafica_n
 Route::get('graficas/aclaraciones/cambiodetarifa/{id}','GraficaAclaraciones@grafica_cambiodetarifa_id');
 Route::get('graficas/aclaraciones/solicitud/{id}','GraficaAclaraciones@grafica_solicitud_id');
 Route::get('graficas/aclaraciones/otros/{id}','GraficaAclaraciones@grafica_otrostramites_id');
+Route::get('graficas/aclaraciones/atencion_altoconsumo','GraficaAclaraciones@promedio_atendido_altoconsumo');
+Route::get('graficas/aclaraciones/atencion_reconexion','GraficaAclaraciones@promedio_atendido_reconexion');
+Route::get('graficas/aclaraciones/atencion_errordelectura','GraficaAclaraciones@promedio_atendido_errorenlectura');
+Route::get('graficas/aclaraciones/atencion_notoma','GraficaAclaraciones@promedio_atendido_notoma');
+Route::get('graficas/aclaraciones/atencion_noentrega','GraficaAclaraciones@promedio_atendido_noentrega');
+Route::get('graficas/aclaraciones/atencion_cambiodetarifa','GraficaAclaraciones@promedio_atendido_cambiotarifa');
+Route::get('graficas/aclaraciones/atencion_solicitud','GraficaAclaraciones@promedio_atendido_solicitud');
+Route::get('graficas/aclaraciones/atencion_otros','GraficaAclaraciones@promedio_atendido_otros');
+Route::get('graficas/aclaraciones/espera_altoconsumo','GraficaAclaraciones@promedio_espera_altoconsumo');
+Route::get('graficas/aclaraciones/espera_reconexion','GraficaAclaraciones@promedio_espera_reconexion');
+Route::get('graficas/aclaraciones/espera_errordelectura','GraficaAclaraciones@promedio_espera_errordelectura');
+Route::get('graficas/aclaraciones/espera_notoma','GraficaAclaraciones@promedio_espera_notoma');
+Route::get('graficas/aclaraciones/espera_noentrega','GraficaAclaraciones@promedio_espera_noentrega');
+Route::get('graficas/aclaraciones/espera_cambiodetarifa','GraficaAclaraciones@promedio_espera_cambiodetarifa');
+Route::get('graficas/aclaraciones/espera_solicitud','GraficaAclaraciones@promedio_espera_solicitu');
+Route::get('graficas/aclaraciones/espera_otros','GraficaAclaraciones@promedio_espera_otros');
 
 //graficas pagos
 Route::get('graficas/pago/recibo/{fecha}/{fecha_dos}','GraficaPagos@grafica_recibo_fecha');

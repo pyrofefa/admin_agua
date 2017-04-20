@@ -568,4 +568,289 @@ $(document).ready(function() {
 			chart = new Highcharts.Chart(options_aclaraciones_hora_id);
     	});
 
+
+
+
+    	var options_aclaraciones_mes = {
+    	chart:{
+    			renderTo: 'atencionaclaraciones',
+
+			}, 
+		    title: {
+		        text: 'Promedio tiempo de atencion aclaraciones por mes',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Mes'
+		        },
+		         /*scrollbar: {
+            		enabled: true
+        		},*/
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Alto Consumo (con y sin medidor)',
+		        data: []
+		    },{
+		    	name: 'Reconexion de servicio',
+		        data: []
+		    },{
+		    	name: 'Error en lectura',
+		        data: []
+			},{
+		    	name: 'No toma de lectura',
+		        data: []
+			},{
+		    	name: 'No entrega de recibo',
+		        data: []
+			},{
+		    	name: 'Cambio de tarifa',
+		        data: []
+			},{
+		    	name: 'Solicitud de medidor',
+		        data: []
+			},{
+		    	name: 'Otros tramites',
+		        data: []
+			}
+			]
+		}
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_altoconsumo", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes.series[0].data.push(data.numero);
+              	options_aclaraciones_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes);
+    	});	
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_reconexion", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes.series[1].data.push(data.numero);
+              	options_aclaraciones_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_errordelectura", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes.series[2].data.push(data.numero);
+              	options_aclaraciones_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_notoma", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes.series[3].data.push(data.numero);
+              	options_aclaraciones_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes);
+    	});	
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_noentrega", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes.series[4].data.push(data.numero);
+              	options_aclaraciones_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_cambiodetarifa", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes.series[5].data.push(data.numero);
+              	options_aclaraciones_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes);
+    	});
+    		$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_solicitud", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes.series[6].data.push(data.numero);
+              	options_aclaraciones_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_otros", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes.series[7].data.push(data.numero);
+              	options_aclaraciones_mes.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes);
+    	});
+
+
+    	var options_aclaraciones_mes_espera = {
+    	chart:{
+    			renderTo: 'esperaaclaraciones',
+
+			}, 
+		    title: {
+		        text: 'Promedio tiempo de espera aclaraciones por mes',
+		        x: -20 //center
+		    },
+		    subtitle: {
+		        //text: 'Source: WorldClimate.com',
+		        //x: -20
+		    },
+		    xAxis:  {
+		    	title: {
+		            text: 'Mes'
+		        },
+		         /*scrollbar: {
+            		enabled: true
+        		},*/
+		        categories: []
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'Promedio'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        valueSuffix: ''
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'right',
+		        verticalAlign: 'middle',
+		        borderWidth: 0
+		    },
+		    series: [{
+		    	name: 'Alto Consumo (con y sin medidor)',
+		        data: []
+		    },{
+		    	name: 'Reconexion de servicio',
+		        data: []
+		    },{
+		    	name: 'Error en lectura',
+		        data: []
+			},{
+		    	name: 'No toma de lectura',
+		        data: []
+			},{
+		    	name: 'No entrega de recibo',
+		        data: []
+			},{
+		    	name: 'Cambio de tarifa',
+		        data: []
+			},{
+		    	name: 'Solicitud de medidor',
+		        data: []
+			},{
+		    	name: 'Otros tramites',
+		        data: []
+			}
+			]
+		}
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_altoconsumo", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes_espera.series[0].data.push(data.numero);
+              	options_aclaraciones_mes_espera.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
+    	});	
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_reconexion", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes_espera.series[1].data.push(data.numero);
+              	options_aclaraciones_mes_espera.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_errordelectura", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes_espera.series[2].data.push(data.numero);
+              	options_aclaraciones_mes_espera.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_notoma", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes_espera.series[3].data.push(data.numero);
+              	options_aclaraciones_mes_espera.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
+    	});	
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_noentrega", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes_espera.series[4].data.push(data.numero);
+              	options_aclaraciones_mes_espera.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_cambiodetarifa", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes_espera.series[5].data.push(data.numero);
+              	options_aclaraciones_mes_espera.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
+    	});
+    		$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_solicitud", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes_espera.series[6].data.push(data.numero);
+              	options_aclaraciones_mes_espera.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
+    	});
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_otros", function(data) {
+        	 //console.log(data);
+        	 $.each(data, function(index, data)
+             {
+             	options_aclaraciones_mes_espera.series[7].data.push(data.numero);
+              	options_aclaraciones_mes_espera.xAxis.categories.push(data.x);
+			});
+			chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
+    	});
 });

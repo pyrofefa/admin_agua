@@ -894,7 +894,34 @@
 			</div>
 		</div>	
 	</div>
-																			
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="atenciontramites"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="esperatramites"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="atencionaclaraciones"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="esperaaclaraciones"></div>
+				</div>
+			</div>
+		</div>
+	</div>																					
 </div>
 @endsection
 <script type="text/javascript" src="http://code.highcharts.com/stock/highstock.js"></script>

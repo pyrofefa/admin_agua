@@ -1112,9 +1112,37 @@
 				</div>
 			</div>
 		</div>	
-	</div>													
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="atenciontramitesid"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="esperatramitesid"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="atencionaclaracionesid"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="esperaaclaracionesid"></div>
+				</div>
+			</div>
+		</div>
+	</div>																				
 </div>
 @endsection
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="assets/js/exporting.js"></script>
 <script src="http://highcharts.github.io/export-csv/export-csv.js"></script>

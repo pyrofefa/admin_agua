@@ -675,10 +675,10 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
+		    },*/{
 		    	name: 'Tramites',
 		        data: []
 		    },{
@@ -689,7 +689,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobal", function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobal", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -697,7 +697,7 @@ $(document).ready(function() {
               	optionspromedio.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(optionspromedio);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramites", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
@@ -764,10 +764,10 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
+		    },*/{
 		    	name: 'Tramites',
 		        data: []
 		    },{
@@ -778,7 +778,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhora", function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhora", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -786,7 +786,7 @@ $(document).ready(function() {
               	options_promedio_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshora", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
@@ -853,10 +853,10 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
+		    },*/{
 		    	name: 'Tramites',
 		        data: []
 		    },{
@@ -867,7 +867,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhorafecha/"+fecha+'/'+fecha_dos, function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -875,7 +875,7 @@ $(document).ready(function() {
               	options_promedio_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
@@ -943,10 +943,10 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
+		    },*/{
 		    	name: 'Tramites',
 		        data: []
 		    },{
@@ -957,7 +957,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhorafechaid/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalhorafechaid/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -965,7 +965,7 @@ $(document).ready(function() {
               	options_promedio_hora_fecha_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha_id);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshorafechaid/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
@@ -1348,10 +1348,10 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
+		    },*/{
 		    	name: 'Tramites',
 		        data: []
 		    },{
@@ -1362,7 +1362,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobal", function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobal", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1370,7 +1370,7 @@ $(document).ready(function() {
               	options_promedio_atencion.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramites", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
@@ -1437,10 +1437,10 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
+		    },*/{
 		    	name: 'Tramites',
 		        data: []
 		    },{
@@ -1451,7 +1451,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalhora", function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalhora", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1459,7 +1459,7 @@ $(document).ready(function() {
               	options_promedio_atencion_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramiteshora", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
@@ -1527,11 +1527,11 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
-		    	name: 'Tramitees',
+		    },*/{
+		    	name: 'Tramites',
 		        data: []
 		    },{
 		    	name: 'Aclaraciones',
@@ -1541,7 +1541,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalhorafecha/"+fecha+'/'+fecha_dos, function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalhorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1549,7 +1549,7 @@ $(document).ready(function() {
               	options_promedio_atencion_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora_fecha);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramiteshorafecha/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
@@ -1617,10 +1617,10 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
+		    },*/{
 		    	name: 'Tramites',
 		        data: []
 		    },{
@@ -1631,7 +1631,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalid/"+id, function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionsid/"+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1639,7 +1639,7 @@ $(document).ready(function() {
               	options_promedio_atencion_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_id);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramitesid/"+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
@@ -1706,10 +1706,10 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
+		    },*/{
 		    	name: 'Tramites',
 		        data: []
 		    },{
@@ -1720,7 +1720,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalhoraid/"+id, function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatencionglobalhoraid/"+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1728,7 +1728,7 @@ $(document).ready(function() {
               	options_promedio_atencion_hora_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora_id);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoatenciontramiteshoraid/"+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
@@ -1796,10 +1796,10 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
+		    },*/{
 		    	name: 'Tramites',
 		        data: []
 		    },{
@@ -1810,7 +1810,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalid/"+id, function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperaglobalid/"+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1818,7 +1818,7 @@ $(document).ready(function() {
               	options_promedio_espera_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramitesid/"+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
@@ -1886,10 +1886,10 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
+		    },*/{
 		    	name: 'Tramites',
 		        data: []
 		    },{
@@ -1900,7 +1900,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linelpromedioesperaglobalid/"+id, function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linelpromedioesperaglobalid/"+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1908,7 +1908,7 @@ $(document).ready(function() {
               	options_promedio_espera_id_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id_hora);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linelpromedioesperatramitesid/"+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
@@ -1975,10 +1975,10 @@ $(document).ready(function() {
 		        verticalAlign: 'middle',
 		        borderWidth: 0
 		    },
-		    series: [{
+		    series: [/*{
 		    	name: 'Global',
 		        data: []
-		    },{
+		    },*/{
 		    	name: 'Tramites',
 		        data: []
 		    },{
@@ -1989,7 +1989,7 @@ $(document).ready(function() {
 		        data: []
 			}]
 		}
-		$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionglobalhoraidfecha/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
+		/*$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionglobalhoraidfecha/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
@@ -1997,7 +1997,7 @@ $(document).ready(function() {
               	options_promedio_espera_id_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id_hora_fecha);
-    	});
+    	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempodeatencionhoratridfecha/"+fecha+"/"+fecha_dos+'/'+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
