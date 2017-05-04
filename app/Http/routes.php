@@ -202,6 +202,21 @@ Route::get('graficas/tramites/espera_carta','GraficaTramites@promedio_espera_car
 Route::get('graficas/tramites/espera_factibilidad','GraficaTramites@promedio_espera_factibilidad');
 Route::get('graficas/tramites/espera_dosomas','GraficaTramites@promedio_espera_dosomas');
 
+
+
+Route::get('graficas/tramites/atencion_contrato/{id}','GraficaTramites@promedio_atendido_contrato_id');
+Route::get('graficas/tramites/atencion_convenio/{id}','GraficaTramites@promedio_atendido_convenio_id');
+Route::get('graficas/tramites/atencion_cambio/{id}','GraficaTramites@promedio_atendido_cambio_id');
+Route::get('graficas/tramites/atencion_carta/{id}','GraficaTramites@promedio_atendido_carta_id');
+Route::get('graficas/tramites/atencion_factibilidad/{id}','GraficaTramites@promedio_atendido_factibilidad_id');
+Route::get('graficas/tramites/atencion_dosomas/{id}','GraficaTramites@promedio_atendido_dosomas_id');
+Route::get('graficas/tramites/espera_contrato/{id}','GraficaTramites@promedio_espera_contrato_id');
+Route::get('graficas/tramites/espera_convenio/{id}','GraficaTramites@promedio_espera_convenio_id');
+Route::get('graficas/tramites/espera_cambio/{id}','GraficaTramites@promedio_espera_cambio_id');
+Route::get('graficas/tramites/espera_carta/{id}','GraficaTramites@promedio_espera_carta_id');
+Route::get('graficas/tramites/espera_factibilidad/{id}','GraficaTramites@promedio_espera_factibilidad_id');
+Route::get('graficas/tramites/espera_dosomas/{id}','GraficaTramites@promedio_espera_dosomas_id');
+
 //graficas aclaraciones
 Route::get('graficas/aclaraciones/altoconsumo/{fecha}/{fecha_dos}','GraficaAclaraciones@grafica_altoconsumo_fecha');
 Route::get('graficas/aclaraciones/reconexion/{fecha}/{fecha_dos}','GraficaAclaraciones@grafica_reconexion_fecha');
@@ -251,6 +266,26 @@ Route::get('graficas/aclaraciones/espera_noentrega','GraficaAclaraciones@promedi
 Route::get('graficas/aclaraciones/espera_cambiodetarifa','GraficaAclaraciones@promedio_espera_cambiodetarifa');
 Route::get('graficas/aclaraciones/espera_solicitud','GraficaAclaraciones@promedio_espera_solicitu');
 Route::get('graficas/aclaraciones/espera_otros','GraficaAclaraciones@promedio_espera_otros');
+
+Route::get('graficas/aclaraciones/atencion_altoconsumo/{id}','GraficaAclaraciones@promedio_atendido_altoconsumo_id');
+Route::get('graficas/aclaraciones/atencion_reconexion/{id}','GraficaAclaraciones@promedio_atendido_reconexion_id');
+Route::get('graficas/aclaraciones/atencion_errordelectura/{id}','GraficaAclaraciones@promedio_atendido_errorenlectura_id');
+Route::get('graficas/aclaraciones/atencion_notoma/{id}','GraficaAclaraciones@promedio_atendido_notoma_id');
+Route::get('graficas/aclaraciones/atencion_noentrega/{id}','GraficaAclaraciones@promedio_atendido_noentrega_id');
+Route::get('graficas/aclaraciones/atencion_cambiodetarifa/{id}','GraficaAclaraciones@promedio_atendido_cambiotarifa_id');
+Route::get('graficas/aclaraciones/atencion_solicitud/{id}','GraficaAclaraciones@promedio_atendido_solicitud_id');
+Route::get('graficas/aclaraciones/atencion_otros/{id}','GraficaAclaraciones@promedio_atendido_otros_id');
+Route::get('graficas/aclaraciones/espera_altoconsumo/{id}','GraficaAclaraciones@promedio_espera_altoconsumo_id');
+Route::get('graficas/aclaraciones/espera_reconexion/{id}','GraficaAclaraciones@promedio_espera_reconexion_id');
+Route::get('graficas/aclaraciones/espera_errordelectura/{id}','GraficaAclaraciones@promedio_espera_errordelectura_id');
+Route::get('graficas/aclaraciones/espera_notoma/{id}','GraficaAclaraciones@promedio_espera_notoma_id');
+Route::get('graficas/aclaraciones/espera_noentrega/{id}','GraficaAclaraciones@promedio_espera_noentrega_id');
+Route::get('graficas/aclaraciones/espera_cambiodetarifa/{id}','GraficaAclaraciones@promedio_espera_cambiodetarifa_id');
+Route::get('graficas/aclaraciones/espera_solicitud/{id}','GraficaAclaraciones@promedio_espera_solicitu_id');
+Route::get('graficas/aclaraciones/espera_otros/{id}','GraficaAclaraciones@promedio_espera_otros_id');
+
+
+
 
 //graficas pagos
 Route::get('graficas/pago/recibo/{fecha}/{fecha_dos}','GraficaPagos@grafica_recibo_fecha');

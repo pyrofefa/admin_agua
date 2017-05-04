@@ -476,4 +476,163 @@ class GraficaTramites extends Controller
         $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
         return $json;
     }
+
+
+    public function promedio_atendido_contrato_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Contrato')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_convenio_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Convenio')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_cambio_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Cambio de nombre')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_carta_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Carta de adeudo')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_factibilidad_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Factibilidad')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_dosomas_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','2 o mas tramites')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+
+    public function promedio_espera_contrato_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Contrato')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_convenio_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Convenio')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_cambio_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Cambio de nombre')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_carta_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Carta de adeudo')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_factibilidad_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','Factibilidad')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_dosomas_id($id)
+    {
+        $promedio_atendido=DB::table('tikets')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->where('estado',1)
+            ->where('asunto','2 o mas tramites')
+            ->where('id_sucursal',$id)
+            ->groupBy('x')
+            ->orderBy('x','ASC')->get();
+        
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
 }
