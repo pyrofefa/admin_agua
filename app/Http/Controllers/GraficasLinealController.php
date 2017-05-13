@@ -299,7 +299,7 @@ class GraficasLinealController extends Controller
             ->groupBy('x')
             ->orderBy('x','ASC')
             ->get();
-        //dd($tiket); 
+        //dd($promedio_tramites); 
         $json = json_encode($promedio_tramites,JSON_NUMERIC_CHECK);
         return $json;
     }
@@ -314,7 +314,7 @@ class GraficasLinealController extends Controller
             ->orderBy('x','ASC')
             ->get();
 
-        //dd($tiket); 
+        //dd($promedio_aclaraciones); 
         $json = json_encode($promedio_aclaraciones,JSON_NUMERIC_CHECK);
         return $json;
     }
@@ -329,7 +329,7 @@ class GraficasLinealController extends Controller
             ->orderBy('x','ASC')
             ->get();
         
-        //dd($tiket); 
+        //dd($promedio_pago); 
         $json = json_encode($promedio_pago,JSON_NUMERIC_CHECK);
         return $json;
     }

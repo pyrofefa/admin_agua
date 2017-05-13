@@ -315,6 +315,8 @@ Route::post('api/iniciar/{id}','apiController@iniciar');
 Route::get('api/mostrarpagos/{id}','apiController@mostrar_pagos');
 Route::get('api/mostraraclaraciones/{id}','apiController@mostrar_aclaraciones');
 Route::put('api/tikets/actualizar/{id}','apiController@actualizar_tiket');
+Route::put('api/tikets/actualizartiempo/{id}','apiController@actualizar_tiempo');
+
 
 Route::resource('home','HomeController');
 Route::get('turnos/sucursal/{id}','TurnosController@sucursal');

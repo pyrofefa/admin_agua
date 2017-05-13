@@ -7,12 +7,14 @@ use App\Folios;
 use App\Tiket;
 use App\User;
 use App\Comercial;
+use Carbon\Carbon;
 
 class apiController extends Controller
 {
     public function __construct()
     {
         $this->middleware('cors');
+        Carbon::setLocale('es');
     }
     /******
         Turnomatic
@@ -47,10 +49,17 @@ class apiController extends Controller
     //agregando nuevo tiket
     public function agregar_tiket_pagos(Request $request)
     {
-
+        //dd($request->all());
         $id = $request->id_sucursal;
+        $date = Carbon::now('America/Hermosillo');
         
-        $tiket = new Tiket($request->all());
+        $tiket = new Tiket;
+        $tiket->turno = $request->turno;
+        $tiket->id_sucursal = $request->id_sucursal;
+        $tiket->asunto = $request->asunto;
+        $tiket->estado = '0';
+        $tiket->subasunto = "Pago";
+        $tiket->llegada =  $date->toTimeString();
         $tiket->save();
 
         $folio = Folios::where('tipo','=','pagos')->where('id_sucursal','=', $id)->first();
@@ -64,8 +73,15 @@ class apiController extends Controller
     {
 
         $id = $request->id_sucursal;
-
-        $tiket = new Tiket($request->all());
+        $date = Carbon::now('America/Hermosillo');
+        
+        $tiket = new Tiket;
+        $tiket->turno = $request->turno;
+        $tiket->id_sucursal = $request->id_sucursal;
+        $tiket->asunto = $request->asunto;
+        $tiket->estado = '0';
+        $tiket->subasunto = $request->subasunto;
+        $tiket->llegada =  $date->toTimeString();
         $tiket->save();
 
         $folio = Folios::where('tipo','=','aclaraciones')->where('id_sucursal','=', $id)->first();
@@ -103,8 +119,31 @@ class apiController extends Controller
     }
     public function actualizar_tiket(Request $request, $id)
     {
+        //dd($request->all());
+        $date = Carbon::now('America/Hermosillo');
+
         $tiket = Tiket::find($id);
-        $tiket -> update($request->all());
+        $tiket->estado = '1';
+        $tiket->fk_caja = $request->fk_caja;
+        $tiket->atendido = $date->toTimeString();
+        $tiket->tiempo = $request->tiempo;
+        $tiket->save();
+
+        //$tiket -> update($request->all());
+        return response()->json($tiket);
+    }
+    public function actualizar_tiempo(Request $request, $id)
+    {
+        //dd($request->all());
+        $date = Carbon::now('America/Hermosillo');
+
+        $tiket = Tiket::find($id);
+        $tiket->tiempo = $request->tiempo;
+        $tiket->estado = $request->estado;
+        $tiket->asunto = $request->asunto;
+        $tiket->save();
+
+        //$tiket -> update($request->all());
         return response()->json($tiket);
     }
     public function mostrar_aclaraciones($id)

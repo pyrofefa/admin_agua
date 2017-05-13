@@ -155,6 +155,7 @@ class HomeController extends Controller
        $promedio_tramites=DB::table('tikets')
             ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
             ->where('subasunto','Trámites')
+            ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
             ->where('id_sucursal',$id)
             ->first(); 
@@ -162,6 +163,7 @@ class HomeController extends Controller
         $promedio_aclaraciones=DB::table('tikets')
             ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
             ->where('subasunto','Aclaraciones y Otros')
+            ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
             ->where('id_sucursal',$id)
             ->first();    
@@ -169,6 +171,7 @@ class HomeController extends Controller
         $promedio_pago=DB::table('tikets')
             ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
             ->where('subasunto','Pago')
+            ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
             ->where('id_sucursal',$id)
             ->first(); 

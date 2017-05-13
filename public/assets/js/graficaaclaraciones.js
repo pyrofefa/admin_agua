@@ -833,7 +833,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
     	});
-    		$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_solicitud", function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_solicitud", function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {

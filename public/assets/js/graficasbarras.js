@@ -702,7 +702,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	optionspromedio.series[1].data.push(data.numero);
+             	optionspromedio.series[0].data.push(data.numero);
               	optionspromedio.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(optionspromedio);
@@ -711,7 +711,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	optionspromedio.series[2].data.push(data.numero);
+             	optionspromedio.series[1].data.push(data.numero);
               	optionspromedio.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(optionspromedio);
@@ -720,7 +720,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	optionspromedio.series[3].data.push(data.numero);
+             	optionspromedio.series[2].data.push(data.numero);
               	optionspromedio.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(optionspromedio);
@@ -791,7 +791,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_hora.series[1].data.push(data.numero);
+             	options_promedio_hora.series[0].data.push(data.numero);
               	options_promedio_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora);
@@ -800,7 +800,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_hora.series[2].data.push(data.numero);
+             	options_promedio_hora.series[1].data.push(data.numero);
               	options_promedio_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora);
@@ -809,7 +809,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_hora.series[3].data.push(data.numero);
+             	options_promedio_hora.series[2].data.push(data.numero);
               	options_promedio_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora);
@@ -880,7 +880,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_hora_fecha.series[1].data.push(data.numero);
+             	options_promedio_hora_fecha.series[0].data.push(data.numero);
               	options_promedio_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha);
@@ -889,7 +889,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_hora_fecha.series[2].data.push(data.numero);
+             	options_promedio_hora_fecha.series[1].data.push(data.numero);
               	options_promedio_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha);
@@ -898,7 +898,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_hora_fecha.series[3].data.push(data.numero);
+             	options_promedio_hora_fecha.series[2].data.push(data.numero);
               	options_promedio_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha);
@@ -970,7 +970,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_hora_fecha_id.series[1].data.push(data.numero);
+             	options_promedio_hora_fecha_id.series[0].data.push(data.numero);
               	options_promedio_hora_fecha_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha_id);
@@ -979,7 +979,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_hora_fecha_id.series[2].data.push(data.numero);
+             	options_promedio_hora_fecha_id.series[1].data.push(data.numero);
               	options_promedio_hora_fecha_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha_id);
@@ -988,7 +988,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_hora_fecha_id.series[3].data.push(data.numero);
+             	options_promedio_hora_fecha_id.series[2].data.push(data.numero);
               	options_promedio_hora_fecha_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_hora_fecha_id);
@@ -1375,7 +1375,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion.series[1].data.push(data.numero);
+             	options_promedio_atencion.series[0].data.push(data.numero);
               	options_promedio_atencion.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion);
@@ -1384,7 +1384,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion.series[2].data.push(data.numero);
+             	options_promedio_atencion.series[1].data.push(data.numero);
               	options_promedio_atencion.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion);
@@ -1393,7 +1393,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion.series[3].data.push(data.numero);
+             	options_promedio_atencion.series[2].data.push(data.numero);
               	options_promedio_atencion.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion);
@@ -1464,7 +1464,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_hora.series[1].data.push(data.numero);
+             	options_promedio_atencion_hora.series[0].data.push(data.numero);
               	options_promedio_atencion_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora);
@@ -1473,7 +1473,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_hora.series[2].data.push(data.numero);
+             	options_promedio_atencion_hora.series[1].data.push(data.numero);
               	options_promedio_atencion_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora);
@@ -1482,7 +1482,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_hora.series[3].data.push(data.numero);
+             	options_promedio_atencion_hora.series[2].data.push(data.numero);
               	options_promedio_atencion_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora);
@@ -1554,7 +1554,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_hora_fecha.series[1].data.push(data.numero);
+             	options_promedio_atencion_hora_fecha.series[0].data.push(data.numero);
               	options_promedio_atencion_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora_fecha);
@@ -1563,7 +1563,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_hora_fecha.series[2].data.push(data.numero);
+             	options_promedio_atencion_hora_fecha.series[1].data.push(data.numero);
               	options_promedio_atencion_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora_fecha);
@@ -1572,7 +1572,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_hora_fecha.series[3].data.push(data.numero);
+             	options_promedio_atencion_hora_fecha.series[2].data.push(data.numero);
               	options_promedio_atencion_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora_fecha);
@@ -1644,7 +1644,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_id.series[1].data.push(data.numero);
+             	options_promedio_atencion_id.series[0].data.push(data.numero);
               	options_promedio_atencion_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_id);
@@ -1653,7 +1653,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_id.series[2].data.push(data.numero);
+             	options_promedio_atencion_id.series[1].data.push(data.numero);
               	options_promedio_atencion_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_id);
@@ -1662,7 +1662,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_id.series[3].data.push(data.numero);
+             	options_promedio_atencion_id.series[2].data.push(data.numero);
               	options_promedio_atencion_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_id);
@@ -1733,7 +1733,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_hora_id.series[1].data.push(data.numero);
+             	options_promedio_atencion_hora_id.series[0].data.push(data.numero);
               	options_promedio_atencion_hora_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora_id);
@@ -1742,7 +1742,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_hora_id.series[2].data.push(data.numero);
+             	options_promedio_atencion_hora_id.series[1].data.push(data.numero);
               	options_promedio_atencion_hora_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora_id);
@@ -1751,7 +1751,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_atencion_hora_id.series[3].data.push(data.numero);
+             	options_promedio_atencion_hora_id.series[2].data.push(data.numero);
               	options_promedio_atencion_hora_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_atencion_hora_id);
@@ -1823,7 +1823,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_espera_id.series[1].data.push(data.numero);
+             	options_promedio_espera_id.series[0].data.push(data.numero);
               	options_promedio_espera_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id);
@@ -1832,7 +1832,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_espera_id.series[2].data.push(data.numero);
+             	options_promedio_espera_id.series[1].data.push(data.numero);
               	options_promedio_espera_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id);
@@ -1841,7 +1841,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_espera_id.series[3].data.push(data.numero);
+             	options_promedio_espera_id.series[2].data.push(data.numero);
               	options_promedio_espera_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id);
@@ -1913,7 +1913,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_espera_id_hora.series[1].data.push(data.numero);
+             	options_promedio_espera_id_hora.series[0].data.push(data.numero);
               	options_promedio_espera_id_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id_hora);
@@ -1922,7 +1922,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_espera_id_hora.series[2].data.push(data.numero);
+             	options_promedio_espera_id_hora.series[1].data.push(data.numero);
               	options_promedio_espera_id_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id_hora);
@@ -1931,7 +1931,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_espera_id_hora.series[3].data.push(data.numero);
+             	options_promedio_espera_id_hora.series[2].data.push(data.numero);
               	options_promedio_espera_id_hora.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id_hora);
@@ -2002,7 +2002,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_espera_id_hora_fecha.series[1].data.push(data.numero);
+             	options_promedio_espera_id_hora_fecha.series[0].data.push(data.numero);
               	options_promedio_espera_id_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id_hora_fecha);
@@ -2011,7 +2011,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_espera_id_hora_fecha.series[2].data.push(data.numero);
+             	options_promedio_espera_id_hora_fecha.series[1].data.push(data.numero);
               	options_promedio_espera_id_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id_hora_fecha);
@@ -2020,7 +2020,7 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	options_promedio_espera_id_hora_fecha.series[3].data.push(data.numero);
+             	options_promedio_espera_id_hora_fecha.series[2].data.push(data.numero);
               	options_promedio_espera_id_hora_fecha.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_promedio_espera_id_hora_fecha);

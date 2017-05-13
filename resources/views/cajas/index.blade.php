@@ -11,7 +11,7 @@
       <tr>
         <td>{{$s->nombre}}</td>
         <td>
-            <a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].'/turnomatic/public/cajas/sucursal/'.$s->id; ?>" class="btn btn-info">Ver</a>
+            <a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].':8080/turnomatic/public/cajas/sucursal/'.$s->id; ?>" class="btn btn-info">Ver</a>
         </td>
     </tr>
       @endforeach

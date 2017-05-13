@@ -236,7 +236,7 @@ class GraficaTramites extends Controller
     }
     public function grafica_dosomastramites()
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, CAST(AVG(TIMESTAMPDIFF(MINUTE,atendido,llegada)) as DECIMAL(10,0)) as numero')
             ->where('estado',1)
             ->where('asunto','2 o mas tramites')
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -407,11 +407,12 @@ class GraficaTramites extends Controller
     public function promedio_espera_contrato()
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIME_TO_SEC(TIMEDIFF(atendido,llegada))) / 60  as DECIMAL (10,0)) as numero ')
             ->where('estado',1)
             ->where('asunto','Contrato')
             ->groupBy('x')
             ->orderBy('x','ASC')->get();
+         //dd($promedio_atendido);   
         
         $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
         return $json;
@@ -419,7 +420,7 @@ class GraficaTramites extends Controller
     public function promedio_espera_convenio()
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIME_TO_SEC(TIMEDIFF(atendido,llegada))) / 60  as DECIMAL (10,0)) as numero ')
             ->where('estado',1)
             ->where('asunto','Convenio')
             ->groupBy('x')
@@ -431,7 +432,7 @@ class GraficaTramites extends Controller
     public function promedio_espera_cambio()
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIME_TO_SEC(TIMEDIFF(atendido,llegada))) / 60  as DECIMAL (10,0)) as numero ')
             ->where('estado',1)
             ->where('asunto','Cambio de nombre')
             ->groupBy('x')
@@ -443,7 +444,7 @@ class GraficaTramites extends Controller
     public function promedio_espera_carta()
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIME_TO_SEC(TIMEDIFF(atendido,llegada))) / 60  as DECIMAL (10,0)) as numero ')
             ->where('estado',1)
             ->where('asunto','Carta de adeudo')
             ->groupBy('x')
@@ -455,7 +456,7 @@ class GraficaTramites extends Controller
     public function promedio_espera_factibilidad()
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIME_TO_SEC(TIMEDIFF(atendido,llegada))) / 60  as DECIMAL (10,0)) as numero ')
             ->where('estado',1)
             ->where('asunto','Factibilidad')
             ->groupBy('x')
@@ -467,7 +468,7 @@ class GraficaTramites extends Controller
     public function promedio_espera_dosomas()
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIME_TO_SEC(TIMEDIFF(atendido,llegada))) / 60  as DECIMAL (10,0)) as numero ')
             ->where('estado',1)
             ->where('asunto','2 o mas tramites')
             ->groupBy('x')
@@ -560,7 +561,7 @@ class GraficaTramites extends Controller
     public function promedio_espera_contrato_id($id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,atendido,llegada)) as DECIMAL(10,0)) as numero')
             ->where('estado',1)
             ->where('asunto','Contrato')
             ->where('id_sucursal',$id)
@@ -573,7 +574,7 @@ class GraficaTramites extends Controller
     public function promedio_espera_convenio_id($id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,atendido,llegada)) as DECIMAL(10,0)) as numero')
             ->where('estado',1)
             ->where('asunto','Convenio')
             ->where('id_sucursal',$id)
@@ -586,7 +587,7 @@ class GraficaTramites extends Controller
     public function promedio_espera_cambio_id($id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,atendido,llegada)) as DECIMAL(10,0)) as numero')
             ->where('estado',1)
             ->where('asunto','Cambio de nombre')
             ->where('id_sucursal',$id)
@@ -599,7 +600,7 @@ class GraficaTramites extends Controller
     public function promedio_espera_carta_id($id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,atendido,llegada)) as DECIMAL(10,0)) as numero')
             ->where('estado',1)
             ->where('asunto','Carta de adeudo')
             ->where('id_sucursal',$id)
@@ -612,7 +613,7 @@ class GraficaTramites extends Controller
     public function promedio_espera_factibilidad_id($id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,atendido,llegada)) as DECIMAL(10,0)) as numero')
             ->where('estado',1)
             ->where('asunto','Factibilidad')
             ->where('id_sucursal',$id)
@@ -625,7 +626,7 @@ class GraficaTramites extends Controller
     public function promedio_espera_dosomas_id($id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as numero')
+            ->selectRaw('MONTH(created_at) as x, CAST(AVG(TIMESTAMPDIFF(MINUTE,atendido,llegada)) as DECIMAL(10,0)) as numero')
             ->where('estado',1)
             ->where('asunto','2 o mas tramites')
             ->where('id_sucursal',$id)
