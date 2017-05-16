@@ -244,7 +244,7 @@
 						</tr>
 						@foreach($cajas_tramites_sub as $c)
 						<tr>
-							<td>{{ $c->caja }}</td>
+							<td>{{ $c->fk_caja }}</td>
 							<td>{{ $c->asunto }}</td>
 							<td>{{ $c->numero }}</td>
 						</tr>
@@ -258,7 +258,7 @@
 						</tr>
 						@foreach($cajas_aclaraciones_sub as $c)
 						<tr>
-							<td>{{ $c->caja }}</td>
+							<td>{{ $c->fk_caja }}</td>
 							<td>{{ $c->asunto }}</td>
 							<td>{{ $c->numero }}</td>
 						</tr>
@@ -282,6 +282,23 @@
 			</div>
 		</div>
 	</div><br>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<table class="table table-bordered">
+				<tr>
+					<td><strong>Ventanilla</strong></td>
+					<td><strong>Promedio de atencion</strong></td>
+				</tr>
+				@foreach($cajas_promedio as $c)
+				<tr>
+					<td>{{$c->caja}}</td>
+					<td>{{ $c->numero }}</td>
+				</tr>
+				@endforeach
+
+			</table>	
+		</div>
+	</div>	
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="row">
@@ -403,43 +420,113 @@
 					<table class="table table-bordered">
 						<tr>
 							<td><strong>Mes</strong></td>
-							<td><strong>Pago</strong></td>
-							<td><strong>Numero</strong></td>
+ 							@foreach($pago_mes as $pm)
+	 							@if($pm->mes == '1')
+									<td>Enero</td>
+								@elseif($pm->mes == '2')
+									<td>Febrero</td>
+								@elseif($pm->mes == '3')
+									<td>Marzo</td>
+								@elseif($pm->mes == '4')
+									<td>Abril</td>
+								@elseif($pm->mes == '5')
+									<td>Mayo</td>
+								@elseif($pm->mes == '6')
+									<td>Junio</td>
+								@elseif($pm->mes == '7')
+									<td>Julio</td>
+								@elseif($pm->mes == '8')
+									<td>Agosto</td>
+								@elseif($pm->mes == '9')
+									<td>Septiembre</td>
+								@elseif($pm->mes == '10')
+									<td>Octubre</td>
+								@elseif($pm->mes == '11')
+									<td>Noviembre</td>
+								@elseif($pm->mes == '12')
+									<td>Diciembre</td>
+								@endif			
+							@endforeach
 						</tr>
-						@foreach($pago_mes as $pm)
 						<tr>
-							@if($pm->mes == '1')
-								<td>Enero</td>
-							@elseif($pm->mes == '2')
-								<td>Febrero</td>
-							@elseif($pm->mes == '3')
-								<td>Marzo</td>
-							@elseif($pm->mes == '4')
-								<td>Abril</td>
-							@elseif($pm->mes == '5')
-								<td>Mayo</td>
-							@elseif($pm->mes == '6')
-								<td>Junio</td>
-							@elseif($pm->mes == '7')
-								<td>Julio</td>
-							@elseif($pm->mes == '8')
-								<td>Agosto</td>
-							@elseif($pm->mes == '9')
-								<td>Septiembre</td>
-							@elseif($pm->mes == '10')
-								<td>Octubre</td>
-							@elseif($pm->mes == '11')
-								<td>Noviembre</td>
-							@elseif($pm->mes == '12')
-								<td>Diciembre</td>
-							@endif			
-							<td>
-								{{$pm->asunto}}
-							</td>
+							<td>Pago de recivo</td>
+							@foreach($pago_mes as $pm)
 							<td>{{$pm->numero}}</td>
+							@endforeach
 						</tr>
-						@endforeach
-						
+						<tr>
+							<td><strong>Mes: </strong></td>
+ 							@foreach($pago_mes_convenio as $pm)
+	 							@if($pm->mes == '1')
+									<td>Enero</td>
+								@elseif($pm->mes == '2')
+									<td>Febrero</td>
+								@elseif($pm->mes == '3')
+									<td>Marzo</td>
+								@elseif($pm->mes == '4')
+									<td>Abril</td>
+								@elseif($pm->mes == '5')
+									<td>Mayo</td>
+								@elseif($pm->mes == '6')
+									<td>Junio</td>
+								@elseif($pm->mes == '7')
+									<td>Julio</td>
+								@elseif($pm->mes == '8')
+									<td>Agosto</td>
+								@elseif($pm->mes == '9')
+									<td>Septiembre</td>
+								@elseif($pm->mes == '10')
+									<td>Octubre</td>
+								@elseif($pm->mes == '11')
+									<td>Noviembre</td>
+								@elseif($pm->mes == '12')
+									<td>Diciembre</td>
+								@endif			
+							@endforeach
+						</tr>
+						<tr>
+							<td>Pago de convenio</td>
+							@foreach($pago_mes_convenio as $pm)
+							<td>{{$pm->numero}}</td>
+							@endforeach
+						</tr>
+						<tr>
+							<td><strong>Mes: </strong></td>
+ 							@foreach($pago_mes_carta as $pm)
+	 							@if($pm->mes == '1')
+									<td>Enero</td>
+								@elseif($pm->mes == '2')
+									<td>Febrero</td>
+								@elseif($pm->mes == '3')
+									<td>Marzo</td>
+								@elseif($pm->mes == '4')
+									<td>Abril</td>
+								@elseif($pm->mes == '5')
+									<td>Mayo</td>
+								@elseif($pm->mes == '6')
+									<td>Junio</td>
+								@elseif($pm->mes == '7')
+									<td>Julio</td>
+								@elseif($pm->mes == '8')
+									<td>Agosto</td>
+								@elseif($pm->mes == '9')
+									<td>Septiembre</td>
+								@elseif($pm->mes == '10')
+									<td>Octubre</td>
+								@elseif($pm->mes == '11')
+									<td>Noviembre</td>
+								@elseif($pm->mes == '12')
+									<td>Diciembre</td>
+								@endif			
+							@endforeach
+						</tr>
+						<tr>
+							<td>Pago carta de no adeudo</td>
+							@foreach($pago_mes_carta as $pm)
+							<td>{{$pm->numero}}</td>
+							@endforeach
+						</tr>
+
 					</table>
 				</div>
 			</div>
@@ -749,8 +836,7 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>
-				<table class="table table-bordered">
+				
 					<tr>
 						<td width="100px"></td>
 						@foreach($promedio_aclaraciones_mes as $prom)
@@ -787,9 +873,7 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>
-				<table class="table table-bordered">
-					<tr>
+ 					<tr>
 						<td width="100px"></td>
 						@foreach($promedio_pago_mes as $prom)
 							@if($prom->mes=='1')
@@ -906,9 +990,7 @@
 								<td>{{$prom->tiempo}}</td>
 							@endforeach
 						</tr>
-					</table>
-					<table class="table table-bordered">
-						<tr>
+					 	<tr>
 							<td width="100px"></td>
 							@foreach($promedio_aclaracionesa_mes as $prom)
 								@if($prom->mes=='1')
@@ -944,9 +1026,7 @@
 								<td>{{$prom->tiempo}}</td>
 							@endforeach
 						</tr>
-					</table>
-					<table class="table table-bordered">
-						<tr>
+ 						<tr>
 							<td width="100px"></td>
 							@foreach($promedio_pagoa_mes as $prom)
 								@if($prom->mes=='1')
@@ -993,10 +1073,10 @@
 				<div class="col-md-12">
 				<h3 style="text-align: center;">Promedio de tiempo de espera cajeras al dia</h3><br>
 				<table class="table table-bordered">
-					<tr>
-						<td width="100px">Ventanillas</td>
+					<!--<tr>
+						<td width="100px"> </td>
 						@foreach($promedio_cajera as $prom)
-						<td>{{ $prom->caja }}</td>	
+						<td>Ventanilla. {{ $prom->caja }}</td>	
 						@endforeach
 					</tr>
 					<tr>
@@ -1004,13 +1084,11 @@
 						@foreach($promedio_cajera as $prom)
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
-					</tr>
-				</table>
-				<table class="table table-bordered">
-					<tr>
-						<td width="100px">Ventanillas</td>
+					</tr>-->
+  					<tr>
+						<td width="100px"> </td>
 						@foreach($promedio_tramites_cajera as $prom)
-						<td>{{ $prom->caja }}</td>	
+						<td>Ventanilla. {{ $prom->caja }}</td>	
 						@endforeach
 					</tr>
 					<tr>
@@ -1019,12 +1097,10 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>
-				<table class="table table-bordered">
-					<tr>
-						<td width="100px">Ventanillas</td>
+ 					<tr>
+						<td width="100px"> </td>
 						@foreach($promedio_aclaraciones_cajera as $prom)
-						<td>{{ $prom->caja }}</td>	
+						<td>Ventanilla. {{ $prom->caja }}</td>	
 						@endforeach
 					</tr>
 					<tr>
@@ -1033,12 +1109,10 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>
-				<table class="table table-bordered">
-					<tr>
-						<td width="100px">Ventanillas</td>
+  					<tr>
+						<td width="100px"></td>
 						@foreach($promedio_pago_cajera as $prom)
-						<td>{{ $prom->caja }}</td>	
+						<td>Ventanilla. {{ $prom->caja }}</td>	
 						@endforeach
 					</tr>
 					<tr>
