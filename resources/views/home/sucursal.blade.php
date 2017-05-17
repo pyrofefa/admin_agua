@@ -278,6 +278,7 @@
 						</tr>
 						@endforeach
 					</table>
+					
 				</div>
 			</div>
 		</div>
@@ -286,7 +287,9 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
-				<h3 style="text-align: center;">Promedio de tiempo de espera cajeras al dia</h3><br>
+				<h4 style="text-align: center;">Promedio de tiempo de espera cajeras
+					<br>dia: {{$carbon}}
+				</h4><br>
 				<table class="table table-bordered">
 					<tr>
 						<td width="100px"> </td>
@@ -341,7 +344,10 @@
 			</div>
  			<div class="row">
 				<div class="col-md-12">
-					<h3 style="text-align: center;">Promedio de tiempo de atencion cajeras al dia</h3><br>
+					<h4 style="text-align: center;">Promedio de tiempo de atencion cajeras
+						<br>dia: {{$carbon}}
+					</h4>
+					<br>
 					<table class="table table-bordered">
 						<tr>
 							<td width="100px"></td>

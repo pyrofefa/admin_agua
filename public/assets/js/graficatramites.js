@@ -849,6 +849,11 @@ $(document).ready(function() {
 		         /*scrollbar: {
             		enabled: true
         		},*/
+        		type: 'datetime',
+        			dateTimeLabelFormats: { // don't display the dummy year
+            			month: '%e. %b',
+            			year: '%b'
+        			},
 		        categories: []
 		    },
 		    yAxis: {

@@ -643,7 +643,7 @@ $(document).ready(function() {
 
 			}, 
 		    title: {
-		        text: 'Promedio de tiempo de espeeeera fecha',
+		        text: 'Promedio de tiempo de espera fecha',
 		        x: -20 //center
 		    },
 		    subtitle: {

@@ -787,6 +787,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_tramites_hora_id($id)
     {
         $promedio_atendido=DB::table('tikets')
+        //->selectRaw('HOUR(llegada) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS numero')
         ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
         ->where('estado',1)
         ->where('subasunto','Tramites')
@@ -797,6 +798,7 @@ class GraficasLinealController extends Controller
         ->get();
         
         $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        
         return $json;
     }
     public function promedio_tiempo_atencion_aclaraciones_hora_id($id)
