@@ -787,7 +787,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_tramites_hora_id($id)
     {
         $promedio_atendido=DB::table('tikets')
-        ->selectRaw('HOUR(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+        ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
         ->where('estado',1)
         ->where('subasunto','Tramites')
         ->whereRaw('Date(tikets.created_at) = CURDATE()')

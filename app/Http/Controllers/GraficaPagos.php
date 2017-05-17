@@ -56,7 +56,6 @@ class GraficaPagos extends Controller
             ->groupBy('asunto')
             ->groupBy('x')
             ->orderBy('x','ASC')->get();   
-        //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }

@@ -549,7 +549,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_aclaraciones_hora_id);
     	});
-    		$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/solicitud/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/solicitud/"+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {

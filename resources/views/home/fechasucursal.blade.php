@@ -514,11 +514,11 @@
 			<div class="row">
 				<div class="col-md-12">
 				<h3 style="text-align: center;">Promedio de tiempo de espera cajeras</h3><br>
-				<!--<table class="table table-bordered">
+				<table class="table table-bordered">
 					<tr>
-						<td width="100px">Ventanillas</td>
+						<td width="100px"></td>
 						@foreach($promedio_cajera as $prom)
-						<td>{{ $prom->caja }}</td>	
+						<td>Ventanilla. {{ $prom->caja }}</td>	
 						@endforeach
 					</tr>
 					<tr>
@@ -527,12 +527,10 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>-->
-				<table class="table table-bordered">
-					<tr>
-						<td width="100px">Ventanillas</td>
+ 					<tr>
+						<td width="100px"></td>
 						@foreach($promedio_tramites_cajera as $prom)
-						<td>{{ $prom->caja }}</td>	
+						<td>Ventanilla. {{ $prom->caja }}</td>	
 						@endforeach
 					</tr>
 					<tr>
@@ -541,12 +539,10 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>
-				<table class="table table-bordered">
-					<tr>
-						<td width="100px">Ventanillas</td>
+ 					<tr>
+						<td width="100px"></td>
 						@foreach($promedio_aclaraciones_cajera as $prom)
-						<td>{{ $prom->caja }}</td>	
+						<td>Ventanilla. {{ $prom->caja }}</td>	
 						@endforeach
 					</tr>
 					<tr>
@@ -555,12 +551,10 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>
-				<table class="table table-bordered">
-					<tr>
-						<td width="100px">Ventanillas</td>
+  					<tr>
+						<td width="100px"></td>
 						@foreach($promedio_pago_cajera as $prom)
-						<td>{{ $prom->caja }}</td>	
+						<td>Ventanilla. {{ $prom->caja }}</td>	
 						@endforeach
 					</tr>
 					<tr>
@@ -575,11 +569,11 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h3 style="text-align: center;">Promedio de tiempo de atencion</h3><br>
-					<!--<table class="table table-bordered">
+					<table class="table table-bordered">
 						<tr>
-							<td width="100px">Ventanillas</td>
+							<td width="100px"></td>
 							@foreach($promedio_atendido_cajera as $prom)
-							<td>{{ $prom->caja }}</td>	
+							<td>Ventanilla. {{ $prom->caja }}</td>	
 							@endforeach
 						</tr>
 						<tr>
@@ -588,12 +582,10 @@
 								<td>{{$prom->tiempo}}</td>
 							@endforeach
 						</tr>
-					</table>-->
-					<table class="table table-bordered">
-						<tr>
-							<td width="100px">Ventanillas</td>
+ 						<tr>
+							<td width="100px"></td>
 							@foreach($promedio_tramitesa_cajera as $prom)
-							<td>{{ $prom->caja }}</td>	
+							<td>Ventanilla. {{ $prom->caja }}</td>	
 							@endforeach
 						</tr>
 						<tr>
@@ -602,12 +594,10 @@
 								<td>{{$prom->tiempo}}</td>
 							@endforeach
 						</tr>
-					</table>
-					<table class="table table-bordered">
-						<tr>
-							<td width="100px">Ventanillas</td>
+ 						<tr>
+							<td width="100px"></td>
 							@foreach($promedio_aclaracionesa_cajera as $prom)
-							<td>{{ $prom->caja }}</td>	
+							<td>Ventanilla. {{ $prom->caja }}</td>	
 							@endforeach
 						</tr>
 						<tr>
@@ -616,12 +606,10 @@
 								<td>{{$prom->tiempo}}</td>
 							@endforeach
 						</tr>
-					</table>
-					<table class="table table-bordered">
-						<tr>
-							<td width="100px">Ventanillas</td>
+ 						<tr>
+							<td width="100px"></td>
 							@foreach($promedio_pagoa_cajera as $prom)
-							<td>{{ $prom->caja }}</td>	
+							<td>Ventanilla. {{ $prom->caja }}</td>	
 							@endforeach
 						</tr>
 						<tr>

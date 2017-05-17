@@ -14,7 +14,7 @@ $(document).ready(function() {
 	        text: 'Promedio'
 	    },
 	    yAxis: {
-	        allowDecimals: false,
+	        allowDecimals: true,
 	        title: {
 	            text: 'Minutos'
 	        }
@@ -38,7 +38,7 @@ $(document).ready(function() {
 	        text: 'Promedio'
 	    },
 	    yAxis: {
-	        allowDecimals: false,
+	        allowDecimals: true,
 	        title: {
 	            text: 'Minutos'
 	        }

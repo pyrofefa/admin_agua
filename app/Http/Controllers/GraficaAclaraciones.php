@@ -331,7 +331,7 @@ class GraficaAclaraciones extends Controller
 
     public function grafica_altoconsumo_id($id)
     {
-       $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, COUNT(turno) as numero')
+       $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, asunto as name, COUNT(turno) as numero')
             ->where('estado',1)
             ->where('asunto','Alto consumo (con y sin medidor)')
             ->where('id_sucursal',$id)
@@ -345,7 +345,7 @@ class GraficaAclaraciones extends Controller
     }
     public function grafica_reconexion_id($id)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, COUNT(turno) as numero')
+        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, asunto as name, COUNT(turno) as numero')
             ->where('estado',1)
             ->where('asunto','Reconexión de servicio')
             ->where('id_sucursal',$id)
@@ -359,7 +359,7 @@ class GraficaAclaraciones extends Controller
     }
     public function grafica_errorenlectura_id($id)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, COUNT(turno) as numero')
+        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, asunto as name, COUNT(turno) as numero')
             ->where('estado',1)
             ->where('asunto','Error en lectura')
             ->where('id_sucursal',$id)
@@ -373,7 +373,7 @@ class GraficaAclaraciones extends Controller
     }
     public function grafica_notoma_id($id)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, COUNT(turno) as numero')
+        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, asunto as name, COUNT(turno) as numero')
             ->where('estado',1)
             ->where('asunto','No toma lectura')
             ->where('id_sucursal',$id)
@@ -387,7 +387,7 @@ class GraficaAclaraciones extends Controller
     }
     public function grafica_noentrega_id($id)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, COUNT(turno) as numero')
+        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, asunto as name, COUNT(turno) as numero')
             ->where('estado',1)
             ->where('asunto','No entrega de recibo')
             ->where('id_sucursal',$id)
@@ -401,7 +401,7 @@ class GraficaAclaraciones extends Controller
     }
     public function grafica_cambiodetarifa_id($id)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, COUNT(turno) as numero')
+        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, asunto as name, COUNT(turno) as numero')
             ->where('estado',1)
             ->where('asunto','Cambio de tarifa')
             ->where('id_sucursal',$id)
@@ -415,7 +415,7 @@ class GraficaAclaraciones extends Controller
     }
     public function grafica_solicitud_id($id)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, COUNT(turno) as numero')
+        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, asunto as name, COUNT(turno) as numero')
             ->where('estado',1)
             ->where('asunto','Solicitud de medidor')
             ->where('id_sucursal',$id)
@@ -429,7 +429,7 @@ class GraficaAclaraciones extends Controller
     }
     public function grafica_otrostramites_id($id)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, COUNT(turno) as numero')
+        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, asunto as name, COUNT(turno) as numero')
             ->where('estado',1)
             ->where('asunto','Otros tramites')
             ->where('id_sucursal',$id)

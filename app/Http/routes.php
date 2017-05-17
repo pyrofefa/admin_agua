@@ -291,9 +291,9 @@ Route::get('graficas/aclaraciones/espera_otros/{id}','GraficaAclaraciones@promed
 Route::get('graficas/pago/recibo/{fecha}/{fecha_dos}','GraficaPagos@grafica_recibo_fecha');
 Route::get('graficas/pago/convenio/{fecha}/{fecha_dos}','GraficaPagos@grafica_pagoconvenio_fecha');
 Route::get('graficas/pago/carta/{fecha}/{fecha_dos}','GraficaPagos@grafica_pagocarta_fecha');
-Route::get('graficas/pago/recibo_id/{id}/{fecha}/{fecha_dos}','GraficaPagos@grafica_recibo_fecha');
-Route::get('graficas/pago/convenio_id/{id}/{fecha}/{fecha_dos}','GraficaPagos@grafica_pagoconvenio_fecha');
-Route::get('graficas/pago/carta_id/{id}/{fecha}/{fecha_dos}','GraficaPagos@grafica_pagocarta_fecha');
+Route::get('graficas/pago/recibo_id/{id}/{fecha}/{fecha_dos}','GraficaPagos@grafica_recibo_id_fecha');
+Route::get('graficas/pago/convenio_id/{id}/{fecha}/{fecha_dos}','GraficaPagos@grafica_pagoconvenio_id_fecha');
+Route::get('graficas/pago/carta_id/{id}/{fecha}/{fecha_dos}','GraficaPagos@grafica_pagocarta_id_fecha');
 Route::get('graficas/pago/recibo','GraficaPagos@grafica_recibo');
 Route::get('graficas/pago/convenio','GraficaPagos@grafica_pagoconvenio');
 Route::get('graficas/pago/carta','GraficaPagos@grafica_pagocarta');

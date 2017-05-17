@@ -446,7 +446,7 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_tramites_id);
     	});
-    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/carta_id/"+id, function(data) {
+    	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/carta/"+id, function(data) {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
