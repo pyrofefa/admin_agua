@@ -2,7 +2,6 @@ $(document).ready(function() {
     var id = $('#valor').val();
     var fecha = $('#fecha').val();
     var fecha_dos = $('#fecha_dos').val();
-    console.log('fecha dos: '+fecha_dos);
     //console.log(id);
     var optionsasunto = {
         chart: {

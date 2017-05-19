@@ -236,7 +236,7 @@ class GraficaTramites extends Controller
     }
     public function grafica_dosomastramites()
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, CAST(AVG(TIMESTAMPDIFF(MINUTE,atendido,llegada)) as DECIMAL(10,0)) as numero')
+        $tiket = DB::table('tikets')->selectRaw('HOUR(created_at) as x, asunto as name, COUNT(turno) as numero')
             ->where('estado',1)
             ->where('asunto','2 o mas tramites')
             ->whereRaw('Date(tikets.created_at) = CURDATE()')

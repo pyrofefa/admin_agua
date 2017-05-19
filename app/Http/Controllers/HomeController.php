@@ -153,15 +153,17 @@ class HomeController extends Controller
 
         //promedios
        $promedio_tramites=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
-            ->where('subasunto','Trámites')
+            ->selectRaw('CAST(AVG(timestampdiff(SECOND, llegada, atendido )) / 60  as DECIMAL(10,2)) as tiempo')
+            //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            ->where('subasunto','Tramites')
             ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
             ->where('id_sucursal',$id)
             ->first(); 
         
         $promedio_aclaraciones=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            ->selectRaw('CAST(AVG(timestampdiff(SECOND, llegada, atendido )) / 60  as DECIMAL(10,2)) as tiempo')
+            //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
             ->where('subasunto','Aclaraciones y Otros')
             ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -169,7 +171,8 @@ class HomeController extends Controller
             ->first();    
         
         $promedio_pago=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            ->selectRaw('CAST(AVG(timestampdiff(SECOND, llegada, atendido )) / 60  as DECIMAL(10,2)) as tiempo')
+            //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
             ->where('subasunto','Pago')
             ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -179,14 +182,15 @@ class HomeController extends Controller
         $promedio = round(($promedio_tramites->tiempo + $promedio_aclaraciones->tiempo + $promedio_pago->tiempo ) / 3 );
     
         $promedio_tramitesa=DB::table('tikets')
-            ->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0))  as tiempo')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
             ->where('subasunto','Tramites')
             ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
             ->first();
         
         $promedio_aclaracionesa=DB::table('tikets')
-            ->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0))  as tiempo')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+            //->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0))  as tiempo')
             ->where('subasunto','Aclaraciones y Otros')
             ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -194,7 +198,7 @@ class HomeController extends Controller
             ->first();
         
         $promedio_pagoa=DB::table('tikets')
-            ->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0))  as tiempo')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
             ->where('subasunto','Pago')
             ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -283,14 +287,14 @@ class HomeController extends Controller
             ->get();    
 
         $promedio_mes=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo, MONTH(created_at) as mes')
+            ->selectRaw('CAST(AVG(timestampdiff(SECOND, llegada, atendido )) / 60  as DECIMAL(10,2)) as tiempo, MONTH(created_at) as mes')
             ->where('estado',1)
             ->where('id_sucursal',$id)
             ->groupBy('mes')
             ->get();
         
         $promedio_tramites_mes=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo, MONTH(created_at) as mes')
+            ->selectRaw('CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, MONTH(created_at) as mes')
             ->where('subasunto','Tramites')
             ->where('estado',1)
             ->where('id_sucursal',$id)
@@ -298,7 +302,7 @@ class HomeController extends Controller
             ->get();
         
         $promedio_aclaraciones_mes=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo, MONTH(created_at) as mes')
+            ->selectRaw('CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, MONTH(created_at) as mes')
             ->where('subasunto','Aclaraciones y Otros')
             ->where('estado',1)
             ->where('id_sucursal',$id)
@@ -306,22 +310,24 @@ class HomeController extends Controller
             ->get();
         
         $promedio_pago_mes=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo, MONTH(created_at) as mes')
+            ->selectRaw('CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, MONTH(created_at) as mes')
             ->where('subasunto','Pago')
             ->where('estado',1)
             ->where('id_sucursal',$id)
             ->groupBy('mes')
-            ->get();      
+            ->get();
+
+            //dd($promedio_pago_mes);      
         
         $promedio_atendido_mes=DB::table('tikets')
-            ->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0))  as tiempo, MONTH(created_at) as mes')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) As TIME) AS tiempo, MONTH(created_at) as mes')
             ->where('estado',1)
             ->where('id_sucursal',$id)
             ->groupBy('mes')
             ->get();
         
         $promedio_tramitesa_mes=DB::table('tikets')
-            ->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0))  as tiempo, MONTH(created_at) as mes')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) As TIME) AS tiempo, MONTH(created_at) as mes')
             ->where('subasunto','Trámites')
             ->where('estado',1)
             ->where('id_sucursal',$id)
@@ -329,7 +335,7 @@ class HomeController extends Controller
             ->get();
         
         $promedio_aclaracionesa_mes=DB::table('tikets')
-            ->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0))  as tiempo, MONTH(created_at) as mes')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) As TIME) AS tiempo, MONTH(created_at) as mes')
             ->where('subasunto','Aclaraciones y Otros')
             ->where('estado',1)
             ->where('id_sucursal',$id)
@@ -337,7 +343,7 @@ class HomeController extends Controller
             ->get();
         
         $promedio_pagoa_mes=DB::table('tikets')
-            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo, MONTH(created_at) as mes')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) As TIME) AS tiempo, MONTH(created_at) as mes')
             ->where('subasunto','Pago')
             ->where('estado',1)
             ->where('id_sucursal',$id)
@@ -428,15 +434,15 @@ class HomeController extends Controller
 
 
         $promedio_contrato=DB::table('tikets')
-            //->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as tiempo')
-            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+            //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
             ->where('asunto','Contrato')
             ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
             ->first();
 
         $promedio_convenio=DB::table('tikets')
-            ->selectRaw('AVG(  TIME_TO_SEC(tiempo) / 60  ) AS tiempo')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
             //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
             ->where('asunto','Convenio')
             ->where('estado',1)
@@ -445,8 +451,8 @@ class HomeController extends Controller
             ->first(); 
             
         $promedio_cambio=DB::table('tikets')
-            //->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as tiempo')
-            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+            //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
             ->where('asunto','Convenio')
             ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -455,8 +461,8 @@ class HomeController extends Controller
             
             
         $promedio_carta=DB::table('tikets')
-            //->selectRaw('AVG(  TIME_TO_SEC(tiempo) / 60  ) AS tiempo')
-            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+            //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
             ->where('asunto','Carta de adeudo')
             ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -465,8 +471,8 @@ class HomeController extends Controller
 
 
         $promedio_factibilidad=DB::table('tikets')
-            //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
-            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+            //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
             ->where('asunto','Factibilidad')
             ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -477,8 +483,8 @@ class HomeController extends Controller
             //dd($promedio_factibilidad);
             
         $promedio_dosomas=DB::table('tikets')
-            //->selectRaw('CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as tiempo')
-            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+            ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+            //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
             ->where('asunto','2 o mas tramites')
             ->where('estado',1)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -487,7 +493,8 @@ class HomeController extends Controller
 
 
         $promedio_contrato_espera=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+            ->selectRaw('CAST(TIME_TO_SEC(avg(TIMEDIFF(atendido,llegada))) /60  as DECIMAL(10,2) )  as tiempo')
             ->where('asunto','Contrato')
             ->where('estado',1)
             ->where('id_sucursal',$id)
@@ -495,15 +502,18 @@ class HomeController extends Controller
             ->first();
 
         $promedio_convenio_espera=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            ->selectRaw('CAST(AVG(timestampdiff(SECOND, llegada, atendido )) / 60  as DECIMAL(10,2)) as tiempo')
             ->where('asunto','Convenio')
             ->where('estado',1)
             ->where('id_sucursal',$id)
             ->whereRaw('Date(tikets.created_at) = CURDATE()')
             ->first(); 
 
+
         $promedio_cambio_espera=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            ->selectRaw('CAST(AVG(timestampdiff(SECOND, llegada, atendido )) / 60  as DECIMAL(10,2)) as tiempo')
             ->where('asunto','Cambio de nombre')
             ->where('estado',1)
             ->where('id_sucursal',$id)
@@ -511,7 +521,8 @@ class HomeController extends Controller
             ->first(); 
 
         $promedio_carta_espera=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            ->selectRaw('CAST(AVG(timestampdiff(SECOND, llegada, atendido )) / 60  as DECIMAL(10,2)) as tiempo')
             ->where('asunto','Carta de adeudo')
             ->where('estado',1)
             ->where('id_sucursal',$id)
@@ -519,7 +530,8 @@ class HomeController extends Controller
             ->first(); 
             
         $promedio_factibilidad_espera=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            ->selectRaw('CAST(AVG(timestampdiff(SECOND, llegada, atendido )) / 60  as DECIMAL(10,2)) as tiempo')
             ->where('asunto','Factibilidad')
             ->where('estado',1)
             ->where('id_sucursal',$id)
@@ -527,7 +539,8 @@ class HomeController extends Controller
             ->first(); 
             
         $promedio_dosomas_espera=DB::table('tikets')
-            ->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,0)) as tiempo')
+            ->selectRaw('CAST(AVG(timestampdiff(SECOND, llegada, atendido )) / 60  as DECIMAL(10,2)) as tiempo')
             ->where('asunto','2 o mas tramites')
             ->where('estado',1)
             ->where('id_sucursal',$id)

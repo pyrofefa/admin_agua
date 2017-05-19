@@ -518,11 +518,11 @@
 		        			</tr>
 		    			</thead>
 		    			<tbody>
-					        <tr>
+					        <!--<tr>
 					            <th>Global</th>
 					            <td>{{ $promedio }}</td>
 					            <td>{{ $promedio_atendido }}</td>
-					        </tr>
+					        </tr>-->
 					        <tr>
 					            <th>Tramites</th>
 					            <td>{{ $promedio_tramites->tiempo }}</td>
