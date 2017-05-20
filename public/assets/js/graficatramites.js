@@ -594,7 +594,7 @@ $(document).ready(function() {
 
     	var options_tramites_espera_mes = {
     	chart:{
-    			renderTo: 'esperatramitesid',
+    			renderTo: 'esperatramites',
 
 			}, 
 		    title: {
@@ -831,7 +831,7 @@ $(document).ready(function() {
 
     	var options_tramites_espera_mes_id = {
     	chart:{
-    			renderTo: 'esperatramites',
+    			renderTo: 'esperatramitesid',
 
 			}, 
 		    title: {
@@ -849,11 +849,7 @@ $(document).ready(function() {
 		         /*scrollbar: {
             		enabled: true
         		},*/
-        		type: 'datetime',
-        			dateTimeLabelFormats: { // don't display the dummy year
-            			month: '%e. %b',
-            			year: '%b'
-        			},
+        		
 		        categories: []
 		    },
 		    yAxis: {

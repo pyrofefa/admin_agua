@@ -628,7 +628,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_global()
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('DATE(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->selectRaw('DATE(created_at) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
             ->where('estado',1)->whereRaw('MONTH(created_at) = MONTH(NOW())')
             ->groupBy('x')
             ->orderBy('x','ASC')->get();
@@ -640,7 +640,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_tramites()
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('DATE(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->selectRaw('DATE(created_at) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
             ->where('estado',1)->where('subasunto','Tramites')->whereRaw('MONTH(created_at) = MONTH(NOW())')
             ->groupBy('x')
             ->orderBy('x','ASC')->get();
@@ -651,7 +651,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_aclaraciones()
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('DATE(created_at) as x,CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->selectRaw('DATE(created_at) as x,CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
             ->where('estado',1)->where('subasunto','Aclaraciones y Otros')->whereRaw('MONTH(created_at) = MONTH(NOW())')
             ->groupBy('x')
             ->orderBy('x','ASC')->get();
@@ -662,7 +662,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_pago()
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('DATE(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->selectRaw('DATE(created_at) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
             ->where('estado',1)->where('subasunto','Pago')->whereRaw('MONTH(created_at) = MONTH(NOW())')
             ->groupBy('x')
             ->orderBy('x','ASC')->get();
@@ -673,7 +673,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_global_hora()
     {
         $promedio_atendido=DB::table('tikets')
-        ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+        ->selectRaw('HOUR(llegada) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
         ->where('estado',1)->whereRaw('Date(tikets.created_at) = CURDATE()')
         ->groupBy('x')->orderBy('x','ASC')->get();
         
@@ -684,7 +684,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_tramites_hora()
     {
         $promedio_atendido=DB::table('tikets')
-        ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+        ->selectRaw('HOUR(llegada) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
         ->where('estado',1)
         ->where('subasunto','Tramites')->whereRaw('Date(tikets.created_at) = CURDATE()')
         ->groupBy('x')->orderBy('x','ASC')->get();
@@ -695,7 +695,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_aclaraciones_hora()
     {
          $promedio_atendido=DB::table('tikets')
-        ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+        ->selectRaw('HOUR(llegada) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
         ->where('estado',1)
         ->where('subasunto','Aclaraciones y Otros')->whereRaw('Date(tikets.created_at) = CURDATE()')
         ->groupBy('x')->orderBy('x','ASC')->get();
@@ -706,7 +706,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_pago_hora()
     {
         $promedio_atendido=DB::table('tikets')
-        ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+        ->selectRaw('HOUR(llegada) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
         ->where('estado',1)
         ->where('subasunto','Pago')->whereRaw('Date(tikets.created_at) = CURDATE()')
         ->groupBy('x')->orderBy('x','ASC')->get();
@@ -717,7 +717,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_global_hora_fecha($fecha, $fecha_dos)
     {
         $promedio_atendido=DB::table('tikets')
-        ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+        ->selectRaw('HOUR(llegada) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
         ->where('estado',1)
         ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
         ->groupBy('x')
@@ -731,7 +731,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_tramites_hora_fecha($fecha, $fecha_dos)
     {
         $promedio_atendido=DB::table('tikets')
-        ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+        ->selectRaw('HOUR(llegada) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
         ->where('estado',1)
         ->where('subasunto','Tramites')
         ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
@@ -745,7 +745,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_acla_hora_fecha($fecha, $fecha_dos)
     {
          $promedio_atendido=DB::table('tikets')
-        ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+        ->selectRaw('HOUR(llegada) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
         ->where('estado',1)
         ->where('subasunto','Aclaraciones y Otros')
         ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
@@ -759,7 +759,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_pago_hora_fecha($fecha, $fecha_dos)
     {
         $promedio_atendido=DB::table('tikets')
-        ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+        ->selectRaw('HOUR(llegada) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
         ->where('estado',1)
         ->where('subasunto','Pago')
         ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
@@ -833,7 +833,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_global_id($id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('DATE(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->selectRaw('DATE(created_at) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
             ->where('estado',1)
             ->where('id_sucursal',$id)
             ->whereRaw('MONTH(created_at) = MONTH(NOW())')
@@ -847,7 +847,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_tramites_id($id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('DATE(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->selectRaw('DATE(created_at) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
             ->where('estado',1)
             ->where('subasunto','Tramites')
             ->where('id_sucursal',$id)
@@ -861,7 +861,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_aclaraciones_id($id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('DATE(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->selectRaw('DATE(created_at) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
             ->where('estado',1)
             ->where('subasunto','Aclaraciones y Otros')
             ->where('id_sucursal',$id)
@@ -876,7 +876,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_pago_id($id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('DATE(created_at) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0)) as numero')
+            ->selectRaw('DATE(created_at) as x, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS  as numero')
             ->where('estado',1)
             ->where('subasunto','Pago')
             ->where('id_sucursal',$id)
@@ -1014,7 +1014,7 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_aten_global_hora_fecha_id($fecha, $fecha_dos, $id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('HOUR(llegada) as x,  CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0))  as numero')
+            ->selectRaw('HOUR(llegada) as x,  CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS   as numero')
             ->where('estado',1)
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
             ->where('id_sucursal',$id)
@@ -1029,27 +1029,27 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_aten_tramites_hora_fechaid($fecha, $fecha_dos, $id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0))  as numero')
+            ->selectRaw('HOUR(llegada) as x_tramites, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS   as numero')
             ->where('estado',1)
             ->where('subasunto','Tramites')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
             ->where('id_sucursal',$id)
-            ->groupBy('x')->orderBy('x','ASC')
+            ->groupBy('x_tramites')->orderBy('x_tramites','ASC')
             ->get();
-        
+
         $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function promedio_tiempo_atencion_acla_hora_fechaid($fecha, $fecha_dos, $id)
     {
          $promedio_atendido=DB::table('tikets')
-            ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0))  as numero')
+            ->selectRaw('HOUR(llegada) as x_aclaraciones, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS   as numero')
             ->where('estado',1)
             ->where('subasunto','Aclaraciones y Otros')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
             ->where('id_sucursal',$id)
-            ->groupBy('x')
-            ->orderBy('x','ASC')
+            ->groupBy('x_aclaraciones')
+            ->orderBy('x_aclaraciones','ASC')
             ->get();
         
         $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
@@ -1058,13 +1058,13 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_pago_hora_fechaid($fecha, $fecha_dos, $id)
     {
         $promedio_atendido=DB::table('tikets')
-            ->selectRaw('HOUR(llegada) as x, CAST(AVG(time_to_sec(tiempo)/ 60) AS decimal(10,0))  as numero')
+            ->selectRaw('HOUR(llegada) as x_pago, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS   as numero')
             ->where('estado',1)
             ->where('subasunto','Pago')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
             ->where('id_sucursal',$id)
-            ->groupBy('x')
-            ->orderBy('x','ASC')
+            ->groupBy('x_pago')
+            ->orderBy('x_pago','ASC')
             ->get();
         
         $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);

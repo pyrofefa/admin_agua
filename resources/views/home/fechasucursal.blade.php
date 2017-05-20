@@ -211,6 +211,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">Tramites por cajeras dia: 19-05-2017</h4><br> 
 					<table class="table table-bordered">
   						<tr>
   							<th>Ventanilla:</th>
@@ -298,9 +299,126 @@
 				</div>
 			</div>
 		</div>
-	</div><br>
+	</div>
 	<div class="panel panel-default">
 		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+				<h4 style="text-align: center;">Promedio de tiempo de espera cajeras dia: {{ $fecha }} al dia: {{ $fecha_dos }} </h4><br>
+				<table class="table table-bordered">
+					<tr>
+						<td width="100px"></td>
+						@foreach($promedio_cajera as $prom)
+						<td>Ventanilla. {{ $prom->caja }}</td>	
+						@endforeach
+					</tr>
+					<tr>
+						<td><strong>Global</strong></td>
+						@foreach($promedio_cajera as $prom)
+							<td>{{$prom->tiempo}}</td>
+						@endforeach
+					</tr>
+ 					<tr>
+						<td width="100px"></td>
+						@foreach($promedio_tramites_cajera as $prom)
+						<td>Ventanilla. {{ $prom->caja }}</td>	
+						@endforeach
+					</tr>
+					<tr>
+						<td><strong>Tramites</strong></td>
+						@foreach($promedio_tramites_cajera as $prom)
+							<td>{{$prom->tiempo}}</td>
+						@endforeach
+					</tr>
+ 					<tr>
+						<td width="100px"></td>
+						@foreach($promedio_aclaraciones_cajera as $prom)
+						<td>Ventanilla. {{ $prom->caja }}</td>	
+						@endforeach
+					</tr>
+					<tr>
+						<td><strong>Aclaraciones</strong></td>
+						@foreach($promedio_aclaraciones_cajera as $prom)
+							<td>{{$prom->tiempo}}</td>
+						@endforeach
+					</tr>
+  					<tr>
+						<td width="100px"></td>
+						@foreach($promedio_pago_cajera as $prom)
+						<td>Ventanilla. {{ $prom->caja }}</td>	
+						@endforeach
+					</tr>
+					<tr>
+						<td><strong>Pago</strong></td>
+						@foreach($promedio_pago_cajera as $prom)
+							<td>{{$prom->tiempo}}</td>
+						@endforeach
+					</tr>
+				</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">Promedio de tiempo de atencion {{ $fecha }} al dia: {{ $fecha_dos }}</h4><br>
+					<table class="table table-bordered">
+						<tr>
+							<td width="100px"></td>
+							@foreach($promedio_atendido_cajera as $prom)
+							<td>Ventanilla. {{ $prom->caja }}</td>	
+							@endforeach
+						</tr>
+						<tr>
+							<td><strong>Global</strong></td>
+							@foreach($promedio_atendido_cajera as $prom)
+								<td>{{$prom->tiempo}}</td>
+							@endforeach
+						</tr>
+ 						<tr>
+							<td width="100px"></td>
+							@foreach($promedio_tramitesa_cajera as $prom)
+							<td>Ventanilla. {{ $prom->caja }}</td>	
+							@endforeach
+						</tr>
+						<tr>
+							<td><strong>Tramites</strong></td>
+							@foreach($promedio_tramitesa_cajera as $prom)
+								<td>{{$prom->tiempo}}</td>
+							@endforeach
+						</tr>
+ 						<tr>
+							<td width="100px"></td>
+							@foreach($promedio_aclaracionesa_cajera as $prom)
+							<td>Ventanilla. {{ $prom->caja }}</td>	
+							@endforeach
+						</tr>
+						<tr>
+							<td><strong>Aclaraciones</strong></td>
+							@foreach($promedio_aclaracionesa_cajera as $prom)
+								<td>{{$prom->tiempo}}</td>
+							@endforeach
+						</tr>
+ 						<tr>
+							<td width="100px"></td>
+							@foreach($promedio_pagoa_cajera as $prom)
+							<td>Ventanilla. {{ $prom->caja }}</td>	
+							@endforeach
+						</tr>
+						<tr>
+							<td><strong>Pagos</strong></td>
+							@foreach($promedio_pagoa_cajera as $prom)
+								<td>{{$prom->tiempo}}</td>
+							@endforeach
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h4 style="text-align: center;">
+				dia: {{ $fecha }} al dia: {{ $fecha_dos }} 
+			</h4>
 			<div class="row">
 				<div class="col-md-6">
 					<div id="subasuntofechasucursal"></div>
@@ -314,7 +432,9 @@
 	<br>
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<h3 style="text-align: center;">Realizados</h3>
+			<h4 style="text-align: center;">Realizados<br>
+				dia: {{ $fecha }} al dia: {{ $fecha_dos }} 
+			</h4>
 			<br><br>
 			<div class="row">
 				<div class="col-md-6">
@@ -329,10 +449,12 @@
 			</div>
 		</div>
 	</div>
-	<br><br>
+	<br><br>	
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<h3 style="text-align: center;">Abandonados</h3>
+			<h4 style="text-align: center;">Abandonados <br>
+				{{ $fecha }} al dia: {{ $fecha_dos }}
+			</h4>
 			<br><br>
 			<div class="row">
 				<div class="col-md-6">
@@ -351,11 +473,13 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
 					<div id="linealfechasucursal"></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
 					<div id="linealabandonadosfechasucursal"></div>
 				</div>
 			</div>
@@ -365,16 +489,19 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
 					<div id="tramiteshorafechaid"></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
 					<div id="aclaracioneshorafechaid"></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
 					<div id="pagoshorafechaid"></div>
 				</div>
 			</div>
@@ -384,6 +511,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
 					<table id="datatable" class="table table-bordered">
 		    			<thead>
 		        			<tr>
@@ -393,11 +521,11 @@
 		        			</tr>
 		    			</thead>
 		    			<tbody>
-					        <tr>
+					        <!--<tr>
 					            <th>Global</th>
 					            <td>{{ $promedio }}</td>
 					            <td>{{ $promedio_atendido }}</td>
-					        </tr>
+					        </tr>-->
 					        <tr>
 					            <th>Tramites</th>
 								<td>{{ $promedio_tramites->tiempo }}</td>
@@ -430,6 +558,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h4 style="text-align: center;">Tramites</h4>
+					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
 					<table id="datatabletramites" class="table table-bordered">
 		    			<thead>
 		        			<tr>
@@ -490,6 +619,7 @@
 			</div>-->
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
 					<div id="linealpromediohorafechaid"></div>
 				</div>
 			</div>
@@ -504,125 +634,12 @@
 			</div>-->
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
 					<div id="linealpromediohoraatencionfechaid"></div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-12">
-				<h3 style="text-align: center;">Promedio de tiempo de espera cajeras</h3><br>
-				<table class="table table-bordered">
-					<tr>
-						<td width="100px"></td>
-						@foreach($promedio_cajera as $prom)
-						<td>Ventanilla. {{ $prom->caja }}</td>	
-						@endforeach
-					</tr>
-					<tr>
-						<td><strong>Global</strong></td>
-						@foreach($promedio_cajera as $prom)
-							<td>{{$prom->tiempo}}</td>
-						@endforeach
-					</tr>
- 					<tr>
-						<td width="100px"></td>
-						@foreach($promedio_tramites_cajera as $prom)
-						<td>Ventanilla. {{ $prom->caja }}</td>	
-						@endforeach
-					</tr>
-					<tr>
-						<td><strong>Tramites</strong></td>
-						@foreach($promedio_tramites_cajera as $prom)
-							<td>{{$prom->tiempo}}</td>
-						@endforeach
-					</tr>
- 					<tr>
-						<td width="100px"></td>
-						@foreach($promedio_aclaraciones_cajera as $prom)
-						<td>Ventanilla. {{ $prom->caja }}</td>	
-						@endforeach
-					</tr>
-					<tr>
-						<td><strong>Aclaraciones</strong></td>
-						@foreach($promedio_aclaraciones_cajera as $prom)
-							<td>{{$prom->tiempo}}</td>
-						@endforeach
-					</tr>
-  					<tr>
-						<td width="100px"></td>
-						@foreach($promedio_pago_cajera as $prom)
-						<td>Ventanilla. {{ $prom->caja }}</td>	
-						@endforeach
-					</tr>
-					<tr>
-						<td><strong>Pago</strong></td>
-						@foreach($promedio_pago_cajera as $prom)
-							<td>{{$prom->tiempo}}</td>
-						@endforeach
-					</tr>
-				</table>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<h3 style="text-align: center;">Promedio de tiempo de atencion</h3><br>
-					<table class="table table-bordered">
-						<tr>
-							<td width="100px"></td>
-							@foreach($promedio_atendido_cajera as $prom)
-							<td>Ventanilla. {{ $prom->caja }}</td>	
-							@endforeach
-						</tr>
-						<tr>
-							<td><strong>Global</strong></td>
-							@foreach($promedio_atendido_cajera as $prom)
-								<td>{{$prom->tiempo}}</td>
-							@endforeach
-						</tr>
- 						<tr>
-							<td width="100px"></td>
-							@foreach($promedio_tramitesa_cajera as $prom)
-							<td>Ventanilla. {{ $prom->caja }}</td>	
-							@endforeach
-						</tr>
-						<tr>
-							<td><strong>Tramites</strong></td>
-							@foreach($promedio_tramitesa_cajera as $prom)
-								<td>{{$prom->tiempo}}</td>
-							@endforeach
-						</tr>
- 						<tr>
-							<td width="100px"></td>
-							@foreach($promedio_aclaracionesa_cajera as $prom)
-							<td>Ventanilla. {{ $prom->caja }}</td>	
-							@endforeach
-						</tr>
-						<tr>
-							<td><strong>Aclaraciones</strong></td>
-							@foreach($promedio_aclaracionesa_cajera as $prom)
-								<td>{{$prom->tiempo}}</td>
-							@endforeach
-						</tr>
- 						<tr>
-							<td width="100px"></td>
-							@foreach($promedio_pagoa_cajera as $prom)
-							<td>Ventanilla. {{ $prom->caja }}</td>	
-							@endforeach
-						</tr>
-						<tr>
-							<td><strong>Pagos</strong></td>
-							@foreach($promedio_pagoa_cajera as $prom)
-								<td>{{$prom->tiempo}}</td>
-							@endforeach
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>	
-	</div>														
 </div>
 @endif
 @endsection

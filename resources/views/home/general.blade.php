@@ -189,6 +189,242 @@
 		</div>
 	</div>
 	<br>
+		
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h4 style="text-align: center;">{{$carbon}}</h4>
+			<div class="row">
+				<div class="col-md-6">
+					<div id="subasunto"></div>
+				</div>
+				<div class="col-md-6">
+					<div id="subasuntoabandonado"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h4 style="text-align: center;">Realizados</h4>
+			<h4 style="text-align: center;">{{$carbon}}</h4>
+			<br><br>
+			<div class="row">
+				<div class="col-md-6">
+					<div id="tramites"></div>
+				</div>
+				<div class="col-md-6">
+					<div id="aclaraciones"></div>
+				</div>
+				<div class="col-md-6">
+					<div id="pagos"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br><br>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h4 style="text-align: center;">Abandonados</h4>
+			<h4 style="text-align: center;">{{$carbon}}</h4>
+			<br><br>
+			<div class="row">
+				<div class="col-md-6">
+					<div id="tramitesbandonados"></div>
+				</div>
+				<div class="col-md-6">
+					<div id="aclaracionesabandonados"></div>
+				</div>
+				<div class="col-md-6">
+					<div id="pagosabandonados"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
+					<div id="lineal"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
+					<div id="linealabandonados"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
+					<div id="linealhora"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
+					<div id="linealabandonadoshora"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
+					<div id="tramiteshora"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
+					<div id="aclaracioneshora"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
+					<div id="pagoshora"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
+					<table id="datatable" class="table table-bordered">
+		    			<thead>
+		        			<tr>
+					            <th></th>
+					            <th>Promedio de tiempo de espera</th>
+					            <th>Promedio de tiempo de atencion</th>
+		        			</tr>
+		    			</thead>
+		    			<tbody>
+					        <!--<tr>
+					            <th>Global</th>
+					            <td>{{ $promedio }}</td>
+					            <td>{{ $promedio_atendido }}</td>
+					        </tr>-->
+					        <tr>
+					            <th>Tramites</th>
+					            <td>{{ $promedio_tramites->tiempo }}</td>
+					            <td>{{ $promedio_tramitesa->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Aclaraciones</th>
+					            <td>{{ $promedio_aclaraciones->tiempo }}</td>
+					            <td>{{ $promedio_aclaracionesa->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Pago</th>
+					            <td>{{ $promedio_pago->tiempo }}</td>
+					            <td>{{ $promedio_pagoa->tiempo }}</td>
+					        </tr>
+					        
+		    			</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="barraspromedio"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">Tramites</h4>
+					<h4 style="text-align: center;">{{$carbon}}</h4>
+					<table id="datatabletramites" class="table table-bordered">
+		    			<thead>
+		        			<tr>
+					            <th></th>
+					            <th>Promedio de tiempo de espera</th>
+					            <th>Promedio de tiempo de atencion</th>
+		        			</tr>
+		    			</thead>
+		    			<tbody>
+					        <tr>
+					            <th>Contrato</th>
+					            <td>{{ $promedio_contrato_espera->tiempo }}</td>
+					            <td>{{ $promedio_contrato->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Convenio</th>
+					            <td>{{ $promedio_convenio_espera->tiempo }}</td>
+					            <td>{{ $promedio_convenio->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Cambio de nombre</th>
+					            <td>{{ $promedio_cambio_espera->tiempo }}</td>
+					            <td>{{ $promedio_cambio->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Carta de no adeudo</th>
+					            <td>{{ $promedio_carta_espera->tiempo }}</td>
+					            <td>{{ $promedio_carta->tiempo }}</td>
+					        </tr>
+					        <tr>
+					            <th>Factibilidad de servicio</th>
+					            <td>{{ $promedio_factibilidad_espera->tiempo }}</td>
+					            <td>{{ $promedio_factibilidad->tiempo }}</td>
+					        </tr>
+					         <tr>
+					            <th>2 o mas tramites</th>
+					            <td>{{ $promedio_dosomas_espera->tiempo }}</td>
+					            <td>{{ $promedio_dosomas->tiempo }}</td>
+					        </tr>
+					        
+		    			</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="barraspromediotramites"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
+					<div id="linealpromediohora"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
+					<div id="linealpromediohoraatencion"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<h1 style="text-align: center">Reporte General Global</h1>
+		</div>
+	</div>
+	<br>
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="row">
@@ -351,236 +587,12 @@
 				</div>
 			</div>
 		</div>
-	</div>	
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-6">
-					<div id="subasunto"></div>
-				</div>
-				<div class="col-md-6">
-					<div id="subasuntoabandonado"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<br>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<h3 style="text-align: center;">Realizados</h3>
-			<br><br>
-			<div class="row">
-				<div class="col-md-6">
-					<div id="tramites"></div>
-				</div>
-				<div class="col-md-6">
-					<div id="aclaraciones"></div>
-				</div>
-				<div class="col-md-6">
-					<div id="pagos"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<br><br>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<h3 style="text-align: center;">Abandonados</h3>
-			<br><br>
-			<div class="row">
-				<div class="col-md-6">
-					<div id="tramitesbandonados"></div>
-				</div>
-				<div class="col-md-6">
-					<div id="aclaracionesabandonados"></div>
-				</div>
-				<div class="col-md-6">
-					<div id="pagosabandonados"></div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
-					<div id="lineal"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div id="linealabandonados"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-12">
-					<div id="linealhora"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div id="linealabandonadoshora"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-12">
-					<div id="tramiteshora"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div id="aclaracioneshora"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div id="pagoshora"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-12">
-					<table id="datatable" class="table table-bordered">
-		    			<thead>
-		        			<tr>
-					            <th></th>
-					            <th>Promedio de tiempo de espera</th>
-					            <th>Promedio de tiempo de atencion</th>
-		        			</tr>
-		    			</thead>
-		    			<tbody>
-					        <tr>
-					            <th>Global</th>
-					            <td>{{ $promedio }}</td>
-					            <td>{{ $promedio_atendido }}</td>
-					        </tr>
-					        <tr>
-					            <th>Tramites</th>
-					            <td>{{ $promedio_tramites->tiempo }}</td>
-					            <td>{{ $promedio_tramitesa->tiempo }}</td>
-					        </tr>
-					        <tr>
-					            <th>Aclaraciones</th>
-					            <td>{{ $promedio_aclaraciones->tiempo }}</td>
-					            <td>{{ $promedio_aclaracionesa->tiempo }}</td>
-					        </tr>
-					        <tr>
-					            <th>Pago</th>
-					            <td>{{ $promedio_pago->tiempo }}</td>
-					            <td>{{ $promedio_pagoa->tiempo }}</td>
-					        </tr>
-					        
-		    			</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div id="barraspromedio"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-12">
-					<h4 style="text-align: center;">Tramites</h4>
-					<table id="datatabletramites" class="table table-bordered">
-		    			<thead>
-		        			<tr>
-					            <th></th>
-					            <th>Promedio de tiempo de espera</th>
-					            <th>Promedio de tiempo de atencion</th>
-		        			</tr>
-		    			</thead>
-		    			<tbody>
-					        <tr>
-					            <th>Contrato</th>
-					            <td>{{ $promedio_contrato_espera->tiempo }}</td>
-					            <td>{{ $promedio_contrato->tiempo }}</td>
-					        </tr>
-					        <tr>
-					            <th>Convenio</th>
-					            <td>{{ $promedio_convenio_espera->tiempo }}</td>
-					            <td>{{ $promedio_convenio->tiempo }}</td>
-					        </tr>
-					        <tr>
-					            <th>Cambio de nombre</th>
-					            <td>{{ $promedio_cambio_espera->tiempo }}</td>
-					            <td>{{ $promedio_cambio->tiempo }}</td>
-					        </tr>
-					        <tr>
-					            <th>Carta de no adeudo</th>
-					            <td>{{ $promedio_carta_espera->tiempo }}</td>
-					            <td>{{ $promedio_carta->tiempo }}</td>
-					        </tr>
-					        <tr>
-					            <th>Factibilidad de servicio</th>
-					            <td>{{ $promedio_factibilidad_espera->tiempo }}</td>
-					            <td>{{ $promedio_factibilidad->tiempo }}</td>
-					        </tr>
-					         <tr>
-					            <th>2 o mas tramites</th>
-					            <td>{{ $promedio_dosomas_espera->tiempo }}</td>
-					            <td>{{ $promedio_dosomas->tiempo }}</td>
-					        </tr>
-					        
-		    			</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div id="barraspromediotramites"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-12">
-					<div id="linealpromedio"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div id="linealpromediohora"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-12">
-					<div id="linealpromedioatencion"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div id="linealpromediohoraatencion"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-12">
-				<h3 style="text-align: center;">Promedio de tiempo de espera</h3><br>
+				<h3 style="text-align: center;">Promedio de tiempo de espera mes</h3><br>
 				<!--<table class="table table-bordered">
 					<tr>
 						<td width="100px"></td>
@@ -656,9 +668,7 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>
-				<table class="table table-bordered">
-					<tr>
+  					<tr>
 						<td width="100px"></td>
 						@foreach($promedio_aclaraciones_mes as $prom)
 							@if($prom->mes=='1')
@@ -694,9 +704,7 @@
 							<td>{{$prom->tiempo}}</td>
 						@endforeach
 					</tr>
-				</table>
-				<table class="table table-bordered">
-					<tr>
+  					<tr>
 						<td width="100px"></td>
 						@foreach($promedio_pago_mes as $prom)
 							@if($prom->mes=='1')
@@ -813,8 +821,6 @@
 								<td>{{$prom->tiempo}}</td>
 							@endforeach
 						</tr>
-					</table>
-					<table class="table table-bordered">
 						<tr>
 							<td width="100px"></td>
 							@foreach($promedio_aclaracionesa_mes as $prom)
@@ -851,8 +857,6 @@
 								<td>{{$prom->tiempo}}</td>
 							@endforeach
 						</tr>
-					</table>
-					<table class="table table-bordered">
 						<tr>
 							<td width="100px"></td>
 							@foreach($promedio_pagoa_mes as $prom)
@@ -893,6 +897,20 @@
 				</div>
 			</div>
 		</div>	
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="linealpromedioatencion"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="linealpromedio"></div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-body">

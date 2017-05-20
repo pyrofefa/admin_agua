@@ -194,6 +194,10 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">Tramites por cajeras
+						<br>dia: {{$carbon}}
+					</h4>
+					<br>
 					<table class="table table-bordered">
   						<tr>
   							<th>Ventanilla:</th>
@@ -429,7 +433,9 @@
 	<br>
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<h3 style="text-align: center;">Realizados</h3>
+ 			<h4 style="text-align: center;">Realizados
+				<br>{{$carbon}}
+			</h4>
 			<br><br>
 			<div class="row">
 				<div class="col-md-6">
@@ -447,7 +453,9 @@
 	<br><br>
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<h3 style="text-align: center;">Abandonados</h3>
+			<h4 style="text-align: center;">Abandonados
+				<br>{{$carbon}}
+			</h4>
 			<br><br>
 			<div class="row">
 				<div class="col-md-6">
@@ -466,11 +474,13 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
 					<div id="linealhoraid"></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
 					<div id="linealabandonadoshoraid"></div>
 				</div>
 			</div>
@@ -480,28 +490,33 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
 					<div id="tramiteshoraid"></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
 					<div id="aclaracioneshoraid"></div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
 					<div id="pagoshoraid"></div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
+				<h4 style="text-align: center;">{{$carbon}}</h4>
 				<div id="linealpromediohoraid"></div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<div id="linealpromediohoraatencionid"></div>
+				<h4 style="text-align: center;">{{$carbon}}</h4>
+			<div id="linealpromediohoraatencionid"></div>
 			</div>
 		</div>
 	</div>
@@ -509,6 +524,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
+					<h4 style="text-align: center;">{{$carbon}}</h4>
 					<table id="datatable" class="table table-bordered">
 		    			<thead>
 		        			<tr>
@@ -554,7 +570,7 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
-					<h4 style="text-align: center;">Tramites</h4>
+					<h4 style="text-align: center;">Tramites {{$carbon}}</h4>
 					<table id="datatabletramites" class="table table-bordered">
 		    			<thead>
 		        			<tr>
