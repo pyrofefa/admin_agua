@@ -202,8 +202,6 @@ Route::get('graficas/tramites/espera_carta','GraficaTramites@promedio_espera_car
 Route::get('graficas/tramites/espera_factibilidad','GraficaTramites@promedio_espera_factibilidad');
 Route::get('graficas/tramites/espera_dosomas','GraficaTramites@promedio_espera_dosomas');
 
-
-
 Route::get('graficas/tramites/atencion_contrato/{id}','GraficaTramites@promedio_atendido_contrato_id');
 Route::get('graficas/tramites/atencion_convenio/{id}','GraficaTramites@promedio_atendido_convenio_id');
 Route::get('graficas/tramites/atencion_cambio/{id}','GraficaTramites@promedio_atendido_cambio_id');

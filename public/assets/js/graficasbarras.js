@@ -1195,7 +1195,7 @@ $(document).ready(function() {
          	 $.each(data, function(index, data)
              {
              	options_lineal_hora_fecha_id.series[0].data.push(data.numero);
-              	options_lineal_hora_fecha_id.xAxis.categories.push(data.x_tramites);
+              	options_lineal_hora_fecha_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id);
     	});
@@ -1204,7 +1204,7 @@ $(document).ready(function() {
              {
              	//console.log(data);
              	options_lineal_hora_fecha_id.series[1].data.push(data.numero);
-              	options_lineal_hora_fecha_id.xAxis.categories.push(data.x_aclaraciones);
+              	options_lineal_hora_fecha_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id);
     	});
@@ -1212,7 +1212,7 @@ $(document).ready(function() {
          	 $.each(data, function(index, data)
              {
              	options_lineal_hora_fecha_id.series[2].data.push(data.numero);
-              	options_lineal_hora_fecha_id.xAxis.categories.push(data.x_pago);
+              	options_lineal_hora_fecha_id.xAxis.categories.push(data.x);
 			});
 			chart = new Highcharts.Chart(options_lineal_hora_fecha_id);
     	});
@@ -1977,7 +1977,6 @@ $(document).ready(function() {
         	 //console.log(data);
         	 $.each(data, function(index, data)
              {
-             	console.log(data);
              	options_promedio_espera_id_hora_fecha.series[0].data.push(data.numero);
               	options_promedio_espera_id_hora_fecha.xAxis.categories.push(data.x_tramites);
 			});

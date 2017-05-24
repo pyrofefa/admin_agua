@@ -51,4 +51,54 @@ $(document).ready(function() {
 	    }
 	});
 
+
+	Highcharts.chart('barraspromedioaclaraciones', {
+	    data: {
+	        table: 'datatableaclaraciones'
+	    },
+	    chart: {
+	        type: 'column'
+	    },
+	    title: {
+	        text: 'Promedio'
+	    },
+	    yAxis: {
+	        allowDecimals: true,
+	        title: {
+	            text: 'Minutos'
+	        }
+	    },
+	    tooltip: {
+	        formatter: function () {
+	            return '<b>' + this.series.name + '</b><br/>' +
+	                this.point.y + ' ' + this.point.name.toLowerCase();
+	        }
+	    }
+	});
+
+	Highcharts.chart('barraspromediopago', {
+	    data: {
+	        table: 'datatablepago'
+	    },
+	    chart: {
+	        type: 'column'
+	    },
+	    title: {
+	        text: 'Promedio'
+	    },
+	    yAxis: {
+	        allowDecimals: true,
+	        title: {
+	            text: 'Minutos'
+	        }
+	    },
+	    tooltip: {
+	        formatter: function () {
+	            return '<b>' + this.series.name + '</b><br/>' +
+	                this.point.y + ' ' + this.point.name.toLowerCase();
+	        }
+	    }
+	});
+
+
 });

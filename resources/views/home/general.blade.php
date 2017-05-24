@@ -241,22 +241,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-12">
-					<h4 style="text-align: center;">{{$carbon}}</h4>
-					<div id="lineal"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<h4 style="text-align: center;">{{$carbon}}</h4>
-					<div id="linealabandonados"></div>
-				</div>
-			</div>
-		</div>
-	</div>
+
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="row">
@@ -588,6 +573,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="row">
@@ -897,6 +883,20 @@
 				</div>
 			</div>
 		</div>	
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+ 			<div class="row">
+				<div class="col-md-12">
+ 					<div id="lineal"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+ 					<div id="linealabandonados"></div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-body">
