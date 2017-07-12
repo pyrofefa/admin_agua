@@ -54,7 +54,7 @@
                 <tr>
                     <th>Turno</th>
                     <th>Ventanilla</th>
-                    <th>Tiempo</th>
+                    <!--<th>Tiempo</th>-->
                     <th>Asunto</th>
                     <th>Sub Asunto</th>
                     <th>Fecha</th>
@@ -72,7 +72,7 @@
                         <td>A{{ $t->turno }}</td>    
                     @endif    
                     <td>Ventanilla: {{ $t->fk_caja }}</td>
-                    <td>{{ $t->tiempo }}</td>
+                    <!--<td>{{ $t->tiempo }}</td>-->
                     <td>{{ $t->asunto }}</td>
                     <td>{{ $t->subasunto }}</td>
                     <td>{{ $t->created_at->format('d-m-Y') }}</td>

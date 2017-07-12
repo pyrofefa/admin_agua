@@ -131,6 +131,10 @@ Route::get('graficas/linealtramiteshoraidabandonados/{id}','GraficasLinealContro
 Route::get('graficas/linealaclaracioneshoraidabandonados/{id}','GraficasLinealController@lineal_subasunto_aclaraciones_hora_id_aban');
 
 //Graficas Pastel
+Route::get('graficas/graficatotales','GraficasPieController@grafica_totales');
+Route::get('graficas/graficatotalesid/{id}','GraficasPieController@grafica_totales_id');
+Route::get('graficas/graficatotalesfecha/{fecha}/{fecha_dos}','GraficasPieController@grafica_totales_fecha');
+Route::get('graficas/graficatotalesidfecha/{id}/{fecha}/{fecha_dos}','GraficasPieController@grafica_totales_fecha_id');
 Route::get('graficas/graficasubasuntos','GraficasPieController@grafica_subasunto');
 Route::get('graficas/graficasubasuntos_abandonados','GraficasPieController@grafica_subasunto_abandonado');
 Route::get('graficas/graficasubasuntos/{id}','GraficasPieController@grafica_subasunto_id');
@@ -283,8 +287,6 @@ Route::get('graficas/aclaraciones/espera_solicitud/{id}','GraficaAclaraciones@pr
 Route::get('graficas/aclaraciones/espera_otros/{id}','GraficaAclaraciones@promedio_espera_otros_id');
 
 
-
-
 //graficas pagos
 Route::get('graficas/pago/recibo/{fecha}/{fecha_dos}','GraficaPagos@grafica_recibo_fecha');
 Route::get('graficas/pago/convenio/{fecha}/{fecha_dos}','GraficaPagos@grafica_pagoconvenio_fecha');
@@ -314,6 +316,8 @@ Route::get('api/mostrarpagos/{id}','apiController@mostrar_pagos');
 Route::get('api/mostraraclaraciones/{id}','apiController@mostrar_aclaraciones');
 Route::put('api/tikets/actualizar/{id}','apiController@actualizar_tiket');
 Route::put('api/tikets/actualizartiempo/{id}','apiController@actualizar_tiempo');
+Route::put('api/tikets/actualizartiempoabandonado/{id}','apiController@actualizar_tiempo_abandonado');
+
 
 
 Route::resource('home','HomeController');

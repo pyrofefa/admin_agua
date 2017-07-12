@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	alert('');
     var id = $('#valor').val();
     var fecha = $('#fecha').val();
     var fecha_dos = $('#fecha_dos').val();

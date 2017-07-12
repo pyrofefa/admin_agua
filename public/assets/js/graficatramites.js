@@ -359,8 +359,8 @@ $(document).ready(function() {
 
     	var options_tramites_id = {
     	chart:{
-    			renderTo: 'tramiteshoraid',
-
+    			renderTo: 'tramiteshoraid'
+    			//type: 'spline'
 			}, 
 		    title: {
 		        text: 'Tramites por hora',
@@ -374,6 +374,7 @@ $(document).ready(function() {
 		    	title: {
 		            text: 'Hora'
 		        },
+
 		         /*scrollbar: {
             		enabled: true
         		},*/

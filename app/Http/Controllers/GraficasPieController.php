@@ -7,7 +7,76 @@ use DB;
 
 class GraficasPieController extends Controller
 {
-    
+    public function grafica_totales()
+    {
+        $tiket = DB::table('tikets')->selectRaw('count(turno) as y')->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->where('estado',1)->first(); 
+
+        $tiket_dos = DB::table('tikets')->selectRaw(' count(turno) as y')->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->where('estado',2)->first();   
+
+        $arreglo = array(['name' => 'Realizados', 'y' => $tiket->y] , ['name' => 'Abandonados', 'y' => $tiket_dos->y ]);
+        
+
+        $json = json_encode($arreglo,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_totales_id($id)
+    {
+        $tiket = DB::table('tikets')->selectRaw('count(turno) as y')->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->where('estado',1)
+            ->where('id_sucursal',$id)
+            ->first(); 
+
+        $tiket_dos = DB::table('tikets')->selectRaw(' count(turno) as y')->whereRaw('Date(tikets.created_at) = CURDATE()')
+            ->where('estado',2)
+            ->where('id_sucursal',$id)
+            ->first();   
+
+        $arreglo = array(['name' => 'Realizados', 'y' => $tiket->y] , ['name' => 'Abandonados', 'y' => $tiket_dos->y ]);
+        
+
+        $json = json_encode($arreglo,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_totales_fecha_id($id, $fecha, $fecha_dos)
+    {
+         $tiket = DB::table('tikets')->selectRaw('count(turno) as y')
+            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+            ->where('id_sucursal',$id)
+            ->where('estado',1)
+            ->first(); 
+
+        $tiket_dos = DB::table('tikets')->selectRaw('count(turno) as y')
+            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+            ->where('id_sucursal',$id)
+            ->where('estado',2)
+            ->first();   
+
+        $arreglo = array(['name' => 'Realizados', 'y' => $tiket->y] , ['name' => 'Abandonados', 'y' => $tiket_dos->y ]);
+        
+
+        $json = json_encode($arreglo,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_totales_fecha($fecha, $fecha_dos)
+    {
+        $tiket = DB::table('tikets')->selectRaw('count(turno) as y')
+            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+            ->where('estado',1)
+            ->first(); 
+
+        $tiket_dos = DB::table('tikets')->selectRaw('count(turno) as y')
+            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+            ->where('estado',2)
+            ->first();   
+
+        $arreglo = array(['name' => 'Realizados', 'y' => $tiket->y] , ['name' => 'Abandonados', 'y' => $tiket_dos->y ]);
+        
+
+        $json = json_encode($arreglo,JSON_NUMERIC_CHECK);
+        return $json;
+    }
     public function grafica_subasunto()
     {
         $tiket = DB::table('tikets')->selectRaw('subasunto as name, count(subasunto) as y, created_at')

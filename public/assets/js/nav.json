@@ -1,1 +1,3 @@
 [{"name":"Alto consumo (con y sin medidor)","y":1},{"name":"Cambio de tarifa","y":1},{"name":"Error en lectura","y":1},{"name":"No entrega de recibo","y":1},{"name":"No toma lectura","y":1},{"name":"Otros tramites","y":1},{"name":"Reconexion de servicio","y":1},{"name":"Solicitud de medidor","y":1}]
+[{"name":"Realizados","y":0},{"Name":"Abandonados"}]
+{"Realizados":0,"Abandonados":0}

@@ -151,60 +151,60 @@ class ExcelController extends Controller
                 $carbon =  Carbon::today()->format('d-m-Y');
 
                 $promedio_tramites=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Tramites')
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                      ->first();
 
                 $promedio_tramitesa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Tramites')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                      ->first();
 
                 $promedio_aclaraciones=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Aclaraciones y Otros')
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                      ->first();
 
                 $promedio_aclaracionesa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Aclaraciones y Otros')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                      ->first();    
 
                 $promedio_pago=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw('CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Pago')
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                      ->first();
 
                 $promedio_pagoa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Pago')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                      ->first();     
 
                 $promedio_contrato=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Contrato')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->first();
 
                 $promedio_convenio=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Convenio')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                      ->first(); 
                     
                 $promedio_cambio=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Cambio de nombre')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -212,76 +212,255 @@ class ExcelController extends Controller
                     
                     
                 $promedio_carta=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Carta de adeudo')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                      ->first(); 
                     
                 $promedio_factibilidad=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Factibilidad')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                      ->first(); 
                     
                 $promedio_dosomas=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','2 o mas tramites')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                      ->first();
 
                 $promedio_contrato_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Contrato')
                     ->where('estado',1)
                      ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->first();
 
                 $promedio_convenio_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Convenio')
                     ->where('estado',1)
                      ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->first(); 
 
                 $promedio_cambio_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Cambio de nombre')
                     ->where('estado',1)
                      ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->first(); 
 
                 $promedio_carta_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Carta de adeudo')
                     ->where('estado',1)
                      ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->first(); 
                     
                 $promedio_factibilidad_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Factibilidad')
                     ->where('estado',1)
                      ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->first(); 
                     
                 $promedio_dosomas_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','2 o mas tramites')
                     ->where('estado',1)
                      ->whereRaw('Date(tikets.created_at) = CURDATE()')
-                    ->first();     
+                    ->first(); 
 
+
+
+                //Promedio espera aclaraciones
+                $promedio_alto_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Alto consumo (con y sin medidor)')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
                 
+                $promedio_reconexion_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Reconexion de servicio')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
                 
-                $promedio = round(($promedio_tramites->tiempo + $promedio_aclaraciones->tiempo + $promedio_pago->tiempo ) / 3 );
-                $promedio_atendido = round(($promedio_tramitesa->tiempo + $promedio_aclaracionesa->tiempo + $promedio_pagoa->tiempo ) / 3 );    
+                $promedio_error_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Error en lectura')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_notoma_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','No toma lectura')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_noentrega_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','No entrega de recibo')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_cambiotarifa_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Cambio de tarifa')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_solicitud_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Solicitud de medidor')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+
+                $promedio_otros_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Otros tramites')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+
+                 //aclaraciones tiempo de atencion
+                 $promedio_alto=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Alto consumo (con y sin medidor)')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first(); 
+                
+                $promedio_reconexion=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Reconexion de servicio')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first(); 
+                
+                $promedio_error=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Error en lectura')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first(); 
+                
+                $promedio_notoma=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','No toma lectura')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first(); 
+                
+                $promedio_noentega=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','No entrega de recibo')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first(); 
+                
+                $promedio_cambiotarifa=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Cambio de tarifa')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first(); 
+                
+                $promedio_solicitud=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Solicitud de medidor')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first(); 
+
+                $promedio_otros=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Otros tramites')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+
+
+                //Promedio espera pago
+                $promedio_pago_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_pago_convenio_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago de convenio')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_pago_carta_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago carta no adeudo')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+
+                //pago tiempo de atencion
+                 $promedio_pago_recibo=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first(); 
+                
+                $promedio_pago_convenio=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago de convenio')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                     ->first(); 
+                
+                $promedio_pago_carta=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago carta no adeudo')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();          
+                
+                //fin promedio
                 $sheet->appendRow(array('Reporte de actividad a:',$carbon, 'General'));
                 $sheet->appendRow(array('','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
-                $sheet->appendRow(array('Global',$promedio,$promedio_atendido));
-                    
+                     
                 foreach ($promedio_tramites as $p) 
                 {
                     foreach ($promedio_tramitesa as $pt) 
@@ -349,23 +528,124 @@ class ExcelController extends Controller
                         $sheet->appendRow(array('2 o mas tramites',$p,$pt));
                     }
                 }
+
+
+                $sheet->appendRow(array('','  ',''));
+                $sheet->appendRow(array('Aclaraciones','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
+
+                if (is_null($promedio_alto->tiempo) && is_null($promedio_alto_espera->tiempo)) 
+                {
+                    $sheet->appendRow(array('Alto consumo (con y sin medidor)','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Alto consumo (con y sin medidor)',$promedio_alto_espera->tiempo,$promedio_alto->tiempo));
+                }
+                if (is_null($promedio_alto->tiempo) && is_null($promedio_alto_espera->tiempo)) 
+                {
+                    $sheet->appendRow(array('Reconexion de servicios','0.00','0.00'));
+                }
+                else
+                {                    
+                    $sheet->appendRow(array('Reconexion de servicios',$promedio_reconexion_espera->tiempo,$promedio_reconexion->tiempo));
+                }    
+                if (is_null($promedio_error_espera->tiempo) && is_null($promedio_error->tiempo)) 
+                {
+                    $sheet->appendRow(array('Error en lectura','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Error en lectura',$promedio_error_espera->tiempo,$promedio_error->tiempo));
+                }    
+                if (is_null($promedio_notoma_espera->tiempo) && is_null($promedio_notoma->tiempo)) 
+                {
+                    $sheet->appendRow(array('No toma de lectura','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('No toma de lectura',$promedio_notoma_espera->tiempo,$promedio_notoma->tiempo));
+
+                }
+                if (is_null($promedio_noentrega_espera->tiempo) && is_null($promedio_noentega->tiempo)) 
+                {
+                    $sheet->appendRow(array('No entrega de recibo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('No entrega de recibo',$promedio_noentrega_espera->tiempo,$promedio_noentega->tiempo));
+                }
+                if (is_null($promedio_cambiotarifa_espera->tiempo) && is_null($promedio_cambiotarifa->tiempo)) 
+                {
+                    $sheet->appendRow(array('Cambio de tarifa','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Cambio de tarifa',$promedio_cambiotarifa_espera->tiempo,$promedio_cambiotarifa->tiempo));
+                }
+                if (is_null($promedio_solicitud_espera->tiempo) && is_null($promedio_solicitud->tiempo)) 
+                {
+                    $sheet->appendRow(array('Solicitud de medidor','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Solicitud de medidor',$promedio_solicitud_espera->tiempo,$promedio_solicitud->tiempo));
+                }
+                if (is_null($promedio_otros_espera->tiempo) && is_null($promedio_otros->tiempo)) 
+                {
+                    $sheet->appendRow(array('Otros tramites','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Otros tramites',$promedio_otros_espera->tiempo,$promedio_otros->tiempo));
+                }
+
+
+                $sheet->appendRow(array('','  ',''));
+                $sheet->appendRow(array('Pagos','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
+
+                if (is_null($promedio_pago_espera->tiempo) && is_null($promedio_pago_recibo->tiempo)) 
+                {
+                    $sheet->appendRow(array('Recibo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Recibo',$promedio_pago_espera->tiempo,$promedio_pago_recibo->tiempo));
+                }
+                if (is_null($promedio_pago_convenio_espera->tiempo) && is_null($promedio_pago_convenio->tiempo)) 
+                {
+                    $sheet->appendRow(array('Convenio','0.00','0.00'));
+                }
+                else
+                {                    
+                    $sheet->appendRow(array('Convenio',$promedio_pago_convenio_espera->tiempo,$promedio_pago_convenio->tiempo));
+                }    
+                if (is_null($promedio_pago_carta_espera->tiempo) && is_null($promedio_pago_carta->tiempo)) 
+                {
+                    $sheet->appendRow(array('Carta de no adeudo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Carta de no adeudo',$promedio_pago_carta_espera->tiempo,$promedio_pago_carta->tiempo));
+                } 
+
+
                 
                 $promedio_tramites_mes=DB::table('tikets')
-                ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion, CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, MONTH(created_at) as mes')
+                ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion, CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, MONTH(created_at) as mes')
                 ->where('subasunto','Trámites')
                 ->where('estado',1)
                 ->groupBy('mes')
                 ->get();
         
                 $promedio_aclaraciones_mes=DB::table('tikets')
-                ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion,  CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, MONTH(created_at) as mes')
+                ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion,  CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, MONTH(created_at) as mes')
                 ->where('subasunto','Aclaraciones y Otros')
                 ->where('estado',1)
                 ->groupBy('mes')
                 ->get();
         
                 $promedio_pago_mes=DB::table('tikets')
-                ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion,  CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, MONTH(created_at) as mes')
+                ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion,  CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, MONTH(created_at) as mes')
                 ->where('subasunto','Pago')
                 ->where('estado',1)
                 ->groupBy('mes')
@@ -1049,14 +1329,14 @@ class ExcelController extends Controller
                 $sucursal = Sucursal::where('id', $id)->first();
 
                 $promedio_tramites=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Tramites')
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->where('id_sucursal', $id)
                     ->first();
 
                 $promedio_tramitesa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Tramites')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -1064,14 +1344,14 @@ class ExcelController extends Controller
                     ->first();
 
                 $promedio_aclaraciones=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Aclaraciones y Otros')
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->where('id_sucursal', $id)
                     ->first();
 
                 $promedio_aclaracionesa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Aclaraciones y Otros')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -1079,22 +1359,23 @@ class ExcelController extends Controller
                     ->first();    
 
                 $promedio_pago=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Pago')
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->where('id_sucursal', $id)
                     ->first();
 
                 $promedio_pagoa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Pago')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->where('id_sucursal', $id)
                     ->first();     
 
+                //promedio atencion tramites
                 $promedio_contrato=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Contrato')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -1102,7 +1383,7 @@ class ExcelController extends Controller
                     ->first();
 
                 $promedio_convenio=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Convenio')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -1110,7 +1391,7 @@ class ExcelController extends Controller
                     ->first(); 
                     
                 $promedio_cambio=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Cambio de nombre')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -1119,7 +1400,7 @@ class ExcelController extends Controller
                     
                     
                 $promedio_carta=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Carta de adeudo')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -1127,7 +1408,7 @@ class ExcelController extends Controller
                     ->first(); 
                     
                 $promedio_factibilidad=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Factibilidad')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -1135,15 +1416,17 @@ class ExcelController extends Controller
                     ->first(); 
                     
                 $promedio_dosomas=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','2 o mas tramites')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->where('id_sucursal',$id)            
                     ->first();
 
+
+                 //promedio espera tramites   
                 $promedio_contrato_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Contrato')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
@@ -1151,7 +1434,7 @@ class ExcelController extends Controller
                     ->first();
 
                 $promedio_convenio_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Convenio')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
@@ -1159,7 +1442,7 @@ class ExcelController extends Controller
                     ->first(); 
 
                 $promedio_cambio_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Cambio de nombre')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
@@ -1167,7 +1450,7 @@ class ExcelController extends Controller
                     ->first(); 
 
                 $promedio_carta_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Carta de adeudo')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
@@ -1175,7 +1458,7 @@ class ExcelController extends Controller
                     ->first(); 
                     
                 $promedio_factibilidad_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Factibilidad')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
@@ -1183,15 +1466,219 @@ class ExcelController extends Controller
                     ->first(); 
                     
                 $promedio_dosomas_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','2 o mas tramites')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
-                    ->first();     
+                    ->first();   
 
-                 $promedio_tramites_cajera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo_atencion, fk_caja as caja')
+                 //Promedio espera aclaraciones
+                $promedio_alto_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Alto consumo (con y sin medidor)')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_reconexion_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Reconexion de servicio')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_error_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Error en lectura')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_notoma_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','No toma lectura')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_noentrega_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','No entrega de recibo')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_cambiotarifa_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Cambio de tarifa')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_solicitud_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Solicitud de medidor')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+
+                $promedio_otros_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Otros tramites')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+
+                 //aclaraciones tiempo de atencion
+                 $promedio_alto=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Alto consumo (con y sin medidor)')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_reconexion=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Reconexion de servicio')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_error=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Error en lectura')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_notoma=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','No toma lectura')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_noentega=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','No entrega de recibo')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_cambiotarifa=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Cambio de tarifa')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_solicitud=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Solicitud de medidor')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+
+                $promedio_otros=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Otros tramites')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal',$id)            
+                    ->first();
+
+
+                //Promedio espera pago
+                $promedio_pago_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_pago_convenio_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago de convenio')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+                
+                $promedio_pago_carta_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago carta no adeudo')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->first();
+
+                //pago tiempo de atencion
+                 $promedio_pago_recibo=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_pago_convenio=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago de convenio')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_pago_carta=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago carta no adeudo')
+                    ->where('estado',1)
+                    ->whereRaw('Date(tikets.created_at) = CURDATE()')
+                    ->where('id_sucursal',$id)            
+                    ->first();          
+                //fin promedio
+
+                $promedio_tramites_cajera=DB::table('tikets')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo_atencion, fk_caja as caja')
                     ->where('subasunto','Trámites')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -1200,7 +1687,7 @@ class ExcelController extends Controller
                     ->get();
 
                 $promedio_aclaraciones_cajera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo_atencion, fk_caja as caja')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo_atencion, fk_caja as caja')
                     ->where('subasunto','Aclaraciones y Otros')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -1209,7 +1696,7 @@ class ExcelController extends Controller
                     ->get();
                 
                 $promedio_pago_cajera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo_atencion, fk_caja as caja')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo_atencion, fk_caja as caja')
                     ->where('subasunto','Pago')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
@@ -1218,12 +1705,9 @@ class ExcelController extends Controller
                     ->get();   
 
 
-                $promedio = round(($promedio_tramites->tiempo + $promedio_aclaraciones->tiempo + $promedio_pago->tiempo ) / 3 );
-                $promedio_atendido = round(($promedio_tramitesa->tiempo + $promedio_aclaracionesa->tiempo + $promedio_pagoa->tiempo ) / 3 );    
                 $sheet->appendRow(array('Reporte de actividad a:',$carbon, $sucursal->nombre));
                 $sheet->appendRow(array('','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
-                $sheet->appendRow(array('Global',$promedio,$promedio_atendido));
-                    
+                     
                 foreach ($promedio_tramites as $p) 
                 {
                     foreach ($promedio_tramitesa as $pt) 
@@ -1291,6 +1775,106 @@ class ExcelController extends Controller
                         $sheet->appendRow(array('2 o mas tramites',$p,$pt));
                     }
                 }
+
+                $sheet->appendRow(array('','  ',''));
+                $sheet->appendRow(array('Aclaraciones','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
+
+                if (is_null($promedio_alto->tiempo) && is_null($promedio_alto_espera->tiempo)) 
+                {
+                    $sheet->appendRow(array('Alto consumo (con y sin medidor)','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Alto consumo (con y sin medidor)',$promedio_alto_espera->tiempo,$promedio_alto->tiempo));
+                }
+                if (is_null($promedio_alto->tiempo) && is_null($promedio_alto_espera->tiempo)) 
+                {
+                    $sheet->appendRow(array('Reconexion de servicios','0.00','0.00'));
+                }
+                else
+                {                    
+                    $sheet->appendRow(array('Reconexion de servicios',$promedio_reconexion_espera->tiempo,$promedio_reconexion->tiempo));
+                }    
+                if (is_null($promedio_error_espera->tiempo) && is_null($promedio_error->tiempo)) 
+                {
+                    $sheet->appendRow(array('Error en lectura','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Error en lectura',$promedio_error_espera->tiempo,$promedio_error->tiempo));
+                }    
+                if (is_null($promedio_notoma_espera->tiempo) && is_null($promedio_notoma->tiempo)) 
+                {
+                    $sheet->appendRow(array('No toma de lectura','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('No toma de lectura',$promedio_notoma_espera->tiempo,$promedio_notoma->tiempo));
+
+                }
+                if (is_null($promedio_noentrega_espera->tiempo) && is_null($promedio_noentega->tiempo)) 
+                {
+                    $sheet->appendRow(array('No entrega de recibo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('No entrega de recibo',$promedio_noentrega_espera->tiempo,$promedio_noentega->tiempo));
+                }
+                if (is_null($promedio_cambiotarifa_espera->tiempo) && is_null($promedio_cambiotarifa->tiempo)) 
+                {
+                    $sheet->appendRow(array('Cambio de tarifa','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Cambio de tarifa',$promedio_cambiotarifa_espera->tiempo,$promedio_cambiotarifa->tiempo));
+                }
+                if (is_null($promedio_solicitud_espera->tiempo) && is_null($promedio_solicitud->tiempo)) 
+                {
+                    $sheet->appendRow(array('Solicitud de medidor','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Solicitud de medidor',$promedio_solicitud_espera->tiempo,$promedio_solicitud->tiempo));
+                }
+                if (is_null($promedio_otros_espera->tiempo) && is_null($promedio_otros->tiempo)) 
+                {
+                    $sheet->appendRow(array('Otros tramites','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Otros tramites',$promedio_otros_espera->tiempo,$promedio_otros->tiempo));
+                }
+
+
+                $sheet->appendRow(array('','  ',''));
+                $sheet->appendRow(array('Pagos','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
+
+                if (is_null($promedio_pago_espera->tiempo) && is_null($promedio_pago_recibo->tiempo)) 
+                {
+                    $sheet->appendRow(array('Recibo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Recibo',$promedio_pago_espera->tiempo,$promedio_pago_recibo->tiempo));
+                }
+                if (is_null($promedio_pago_convenio_espera->tiempo) && is_null($promedio_pago_convenio->tiempo)) 
+                {
+                    $sheet->appendRow(array('Convenio','0.00','0.00'));
+                }
+                else
+                {                    
+                    $sheet->appendRow(array('Convenio',$promedio_pago_convenio_espera->tiempo,$promedio_pago_convenio->tiempo));
+                }    
+                if (is_null($promedio_pago_carta_espera->tiempo) && is_null($promedio_pago_carta->tiempo)) 
+                {
+                    $sheet->appendRow(array('Carta de no adeudo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Carta de no adeudo',$promedio_pago_carta_espera->tiempo,$promedio_pago_carta->tiempo));
+                }    
+                
+                
                 
                 $sheet->appendRow(array('','  ',''));
                 $sheet->appendRow(array('Promedio Tramites por agentes'));
@@ -1320,29 +1904,29 @@ class ExcelController extends Controller
                 }
 
           
-            $promedio_tramites_mes=DB::table('tikets')
-                ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion, CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, MONTH(created_at) as mes')
-                ->where('subasunto','Trámites')
-                ->where('estado',1)
-                ->where('id_sucursal',$id)
-                ->groupBy('mes')
-                ->get();
-        
-            $promedio_aclaraciones_mes=DB::table('tikets')
-                ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion,  CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, MONTH(created_at) as mes')
-                ->where('subasunto','Aclaraciones y Otros')
-                ->where('estado',1)
-                ->where('id_sucursal',$id)
-                ->groupBy('mes')
-                ->get();
-        
-            $promedio_pago_mes=DB::table('tikets')
-                ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion,  CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, MONTH(created_at) as mes')
-                ->where('subasunto','Pago')
-                ->where('estado',1)
-                ->where('id_sucursal',$id)
-                ->groupBy('mes')
-                ->get();
+                $promedio_tramites_mes=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion, CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, MONTH(created_at) as mes')
+                    ->where('subasunto','Trámites')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->groupBy('mes')
+                    ->get();
+            
+                $promedio_aclaraciones_mes=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion,  CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, MONTH(created_at) as mes')
+                    ->where('subasunto','Aclaraciones y Otros')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->groupBy('mes')
+                    ->get();
+            
+                $promedio_pago_mes=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME)  as tiempo_atencion,  CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, MONTH(created_at) as mes')
+                    ->where('subasunto','Pago')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->groupBy('mes')
+                    ->get();
 
                 $sheet->appendRow(array('','  ',''));
                 $sheet->appendRow(array('Promedio tiempo tramites por mes'));
@@ -2258,60 +2842,60 @@ class ExcelController extends Controller
             {
 
                 $promedio_tramites=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Tramites')
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                      ->first();
 
                 $promedio_tramitesa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Tramites')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                      ->first();
 
                 $promedio_aclaraciones=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Aclaraciones y Otros')
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                      ->first();
 
                 $promedio_aclaracionesa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Aclaraciones y Otros')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                      ->first();    
 
                 $promedio_pago=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Pago')
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                      ->first();
 
                 $promedio_pagoa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Pago')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                      ->first();     
 
                 $promedio_contrato=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Contrato')
                     ->where('estado',1)
                     ->whereRaw('Date(tikets.created_at) = CURDATE()')
                     ->first();
 
                 $promedio_convenio=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Convenio')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                      ->first(); 
                     
                 $promedio_cambio=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Cambio de nombre')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -2319,76 +2903,254 @@ class ExcelController extends Controller
                     
                     
                 $promedio_carta=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Carta de adeudo')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                      ->first(); 
                     
                 $promedio_factibilidad=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Factibilidad')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                      ->first(); 
                     
                 $promedio_dosomas=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','2 o mas tramites')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                      ->first();
 
                 $promedio_contrato_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Contrato')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                     ->first();
 
                 $promedio_convenio_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Convenio')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                     ->first(); 
 
                 $promedio_cambio_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Cambio de nombre')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                     ->first(); 
 
                 $promedio_carta_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Carta de adeudo')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                     ->first(); 
                     
                 $promedio_factibilidad_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Factibilidad')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                     ->first(); 
                     
                 $promedio_dosomas_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','2 o mas tramites')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
-                    ->first();     
+                    ->first();
+
+                //Promedio espera aclaraciones
+                $promedio_alto_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Alto consumo (con y sin medidor)')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_reconexion_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Reconexion de servicio')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_error_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Error en lectura')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_notoma_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','No toma lectura')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_noentrega_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','No entrega de recibo')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_cambiotarifa_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Cambio de tarifa')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_solicitud_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Solicitud de medidor')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+
+                $promedio_otros_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Otros tramites')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+
+                   //aclaraciones tiempo de atencion
+                 $promedio_alto=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Alto consumo (con y sin medidor)')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first(); 
+                
+                $promedio_reconexion=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Reconexion de servicio')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first(); 
+                
+                $promedio_error=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Error en lectura')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first(); 
+                
+                $promedio_notoma=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','No toma lectura')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first(); 
+                
+                $promedio_noentega=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','No entrega de recibo')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first(); 
+                
+                $promedio_cambiotarifa=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Cambio de tarifa')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first(); 
+                
+                $promedio_solicitud=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Solicitud de medidor')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first(); 
+
+                $promedio_otros=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Otros tramites')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+
+
+                //Promedio espera pago
+                $promedio_pago_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_pago_convenio_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago de convenio')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_pago_carta_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago carta no adeudo')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+
+                //pago tiempo de atencion
+                 $promedio_pago=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first(); 
+                
+                $promedio_pago_convenio=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago de convenio')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first(); 
+                
+                $promedio_pago_carta=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago carta no adeudo')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();          
 
                 
                 
-                $promedio = round(($promedio_tramites->tiempo + $promedio_aclaraciones->tiempo + $promedio_pago->tiempo ) / 3 );
-                $promedio_atendido = round(($promedio_tramitesa->tiempo + $promedio_aclaracionesa->tiempo + $promedio_pagoa->tiempo ) / 3 );    
                 $sheet->appendRow(array('Reporte de actividad de:',$fecha,'a:',$fecha_dos,'General'));
                 $sheet->appendRow(array('','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
-                $sheet->appendRow(array('Global',$promedio,$promedio_atendido));
-                    
+                     
                 foreach ($promedio_tramites as $p) 
                 {
                     foreach ($promedio_tramitesa as $pt) 
@@ -2456,6 +3218,105 @@ class ExcelController extends Controller
                         $sheet->appendRow(array('2 o mas tramites',$p,$pt));
                     }
                 }
+
+                $sheet->appendRow(array('','  ',''));
+                $sheet->appendRow(array('Aclaraciones','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
+
+                if (is_null($promedio_alto->tiempo) && is_null($promedio_alto_espera->tiempo)) 
+                {
+                    $sheet->appendRow(array('Alto consumo (con y sin medidor)','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Alto consumo (con y sin medidor)',$promedio_alto_espera->tiempo,$promedio_alto->tiempo));
+                }
+                if (is_null($promedio_alto->tiempo) && is_null($promedio_alto_espera->tiempo)) 
+                {
+                    $sheet->appendRow(array('Reconexion de servicios','0.00','0.00'));
+                }
+                else
+                {                    
+                    $sheet->appendRow(array('Reconexion de servicios',$promedio_reconexion_espera->tiempo,$promedio_reconexion->tiempo));
+                }    
+                if (is_null($promedio_error_espera->tiempo) && is_null($promedio_error->tiempo)) 
+                {
+                    $sheet->appendRow(array('Error en lectura','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Error en lectura',$promedio_error_espera->tiempo,$promedio_error->tiempo));
+                }    
+                if (is_null($promedio_notoma_espera->tiempo) && is_null($promedio_notoma->tiempo)) 
+                {
+                    $sheet->appendRow(array('No toma de lectura','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('No toma de lectura',$promedio_notoma_espera->tiempo,$promedio_notoma->tiempo));
+
+                }
+                if (is_null($promedio_noentrega_espera->tiempo) && is_null($promedio_noentega->tiempo)) 
+                {
+                    $sheet->appendRow(array('No entrega de recibo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('No entrega de recibo',$promedio_noentrega_espera->tiempo,$promedio_noentega->tiempo));
+                }
+                if (is_null($promedio_cambiotarifa_espera->tiempo) && is_null($promedio_cambiotarifa->tiempo)) 
+                {
+                    $sheet->appendRow(array('Cambio de tarifa','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Cambio de tarifa',$promedio_cambiotarifa_espera->tiempo,$promedio_cambiotarifa->tiempo));
+                }
+                if (is_null($promedio_solicitud_espera->tiempo) && is_null($promedio_solicitud->tiempo)) 
+                {
+                    $sheet->appendRow(array('Solicitud de medidor','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Solicitud de medidor',$promedio_solicitud_espera->tiempo,$promedio_solicitud->tiempo));
+                }
+                if (is_null($promedio_otros_espera->tiempo) && is_null($promedio_otros->tiempo)) 
+                {
+                    $sheet->appendRow(array('Otros tramites','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Otros tramites',$promedio_otros_espera->tiempo,$promedio_otros->tiempo));
+                }
+
+
+                $sheet->appendRow(array('','  ',''));
+                $sheet->appendRow(array('Pagos','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
+
+                if (is_null($promedio_pago_espera->tiempo) && is_null($promedio_pago->tiempo)) 
+                {
+                    $sheet->appendRow(array('Recibo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Recibo',$promedio_pago_espera->tiempo,$promedio_pago->tiempo));
+                }
+                if (is_null($promedio_pago_convenio_espera->tiempo) && is_null($promedio_pago_convenio->tiempo)) 
+                {
+                    $sheet->appendRow(array('Convenio','0.00','0.00'));
+                }
+                else
+                {                    
+                    $sheet->appendRow(array('Convenio',$promedio_pago_convenio_espera->tiempo,$promedio_pago_convenio->tiempo));
+                }    
+                if (is_null($promedio_pago_carta_espera->tiempo) && is_null($promedio_pago_carta->tiempo)) 
+                {
+                    $sheet->appendRow(array('Carta de no adeudo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Carta de no adeudo',$promedio_pago_carta_espera->tiempo,$promedio_pago_carta->tiempo));
+                }
+
             });
             $excel->sheet('Horas', function($sheet) use($fecha, $fecha_dos)
             {
@@ -2866,14 +3727,15 @@ class ExcelController extends Controller
                 $sucursal = Sucursal::where('id', $id)->first();
 
                 $promedio_tramites=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Tramites')
+                    ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                     ->where('id_sucursal', $id)
                     ->first();
 
                 $promedio_tramitesa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Tramites')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -2881,14 +3743,15 @@ class ExcelController extends Controller
                     ->first();
 
                 $promedio_aclaraciones=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Aclaraciones y Otros')
+                    ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                     ->where('id_sucursal', $id)
                     ->first();
 
                 $promedio_aclaracionesa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Aclaraciones y Otros')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -2896,14 +3759,15 @@ class ExcelController extends Controller
                     ->first();    
 
                 $promedio_pago=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('subasunto','Pago')
+                    ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
                     ->where('id_sucursal', $id)
                     ->first();
 
                 $promedio_pagoa=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('subasunto','Pago')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -2911,7 +3775,7 @@ class ExcelController extends Controller
                     ->first();     
 
                 $promedio_contrato=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Contrato')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -2919,7 +3783,7 @@ class ExcelController extends Controller
                     ->first();
 
                 $promedio_convenio=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Convenio')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -2927,7 +3791,7 @@ class ExcelController extends Controller
                     ->first(); 
                     
                 $promedio_cambio=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Cambio de nombre')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -2936,7 +3800,7 @@ class ExcelController extends Controller
                     
                     
                 $promedio_carta=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Carta de adeudo')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -2944,7 +3808,7 @@ class ExcelController extends Controller
                     ->first(); 
                     
                 $promedio_factibilidad=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','Factibilidad')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -2952,7 +3816,7 @@ class ExcelController extends Controller
                     ->first(); 
                     
                 $promedio_dosomas=DB::table('tikets')
-                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
                     ->where('asunto','2 o mas tramites')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -2960,7 +3824,7 @@ class ExcelController extends Controller
                     ->first();
 
                 $promedio_contrato_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Contrato')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
@@ -2968,7 +3832,7 @@ class ExcelController extends Controller
                     ->first();
 
                 $promedio_convenio_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Convenio')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
@@ -2976,7 +3840,7 @@ class ExcelController extends Controller
                     ->first(); 
 
                 $promedio_cambio_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Cambio de nombre')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
@@ -2984,7 +3848,7 @@ class ExcelController extends Controller
                     ->first(); 
 
                 $promedio_carta_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Carta de adeudo')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
@@ -2992,7 +3856,7 @@ class ExcelController extends Controller
                     ->first(); 
                     
                 $promedio_factibilidad_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','Factibilidad')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
@@ -3000,7 +3864,7 @@ class ExcelController extends Controller
                     ->first(); 
                     
                 $promedio_dosomas_espera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
                     ->where('asunto','2 o mas tramites')
                     ->where('estado',1)
                     ->where('id_sucursal',$id)
@@ -3008,7 +3872,7 @@ class ExcelController extends Controller
                     ->first();     
 
                  $promedio_tramites_cajera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo_atencion, fk_caja as caja')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo_atencion, fk_caja as caja')
                     ->where('subasunto','Trámites')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -3017,7 +3881,7 @@ class ExcelController extends Controller
                     ->get();
 
                 $promedio_aclaraciones_cajera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo_atencion, fk_caja as caja')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo_atencion, fk_caja as caja')
                     ->where('subasunto','Aclaraciones y Otros')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -3026,7 +3890,7 @@ class ExcelController extends Controller
                     ->get();
                 
                 $promedio_pago_cajera=DB::table('tikets')
-                    ->selectRaw(' CAST(AVG( timestampdiff(SECOND, llegada, atendido ) ) / 60  as TIME) AS tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo))) AS TIME) AS tiempo_atencion, fk_caja as caja')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo, CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo_atencion, fk_caja as caja')
                     ->where('subasunto','Pago')
                     ->where('estado',1)
                     ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -3034,6 +3898,211 @@ class ExcelController extends Controller
                     ->groupBy('caja')
                     ->get();    
                     //dd($promedio_pago_cajera);
+
+
+                 //Promedio espera aclaraciones
+                $promedio_alto_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Alto consumo (con y sin medidor)')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_reconexion_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Reconexion de servicio')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_error_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Error en lectura')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_notoma_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','No toma lectura')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_noentrega_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','No entrega de recibo')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_cambiotarifa_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Cambio de tarifa')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_solicitud_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Solicitud de medidor')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+
+                $promedio_otros_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Otros tramites')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+
+                 //aclaraciones tiempo de atencion
+                 $promedio_alto=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Alto consumo (con y sin medidor)')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_reconexion=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Reconexion de servicio')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_error=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Error en lectura')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_notoma=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','No toma lectura')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_noentega=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','No entrega de recibo')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_cambiotarifa=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Cambio de tarifa')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_solicitud=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Solicitud de medidor')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+
+                $promedio_otros=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Otros tramites')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->where('id_sucursal',$id)            
+                    ->first();
+
+
+                //Promedio espera pago
+                $promedio_pago_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_pago_convenio_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago de convenio')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+                
+                $promedio_pago_carta_espera=DB::table('tikets')
+                    //->selectRaw('CAST(AVG(TIMESTAMPDIFF(MINUTE,llegada,atendido)) as DECIMAL(10,2)) as tiempo')
+                    ->selectRaw(' CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
+                    ->where('asunto','Pago carta no adeudo')
+                    ->where('estado',1)
+                    ->where('id_sucursal',$id)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->first();
+
+                //pago tiempo de atencion
+                 $promedio_pago_recibo=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_pago_convenio=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago de convenio')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->where('id_sucursal',$id)            
+                    ->first(); 
+                
+                $promedio_pago_carta=DB::table('tikets')
+                    ->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    //->selectRaw('CAST(SEC_TO_TIME(AVG(TIME_TO_SEC(tiempo) / 60 )) As decimal(10,2)) AS tiempo')
+                    ->where('asunto','Pago carta no adeudo')
+                    ->where('estado',1)
+                    ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                    ->where('id_sucursal',$id)            
+                    ->first();              
+
                 
                 $promedio = round(($promedio_tramites->tiempo + $promedio_aclaraciones->tiempo + $promedio_pago->tiempo ) / 3 );
                 $promedio_atendido = round(($promedio_tramitesa->tiempo + $promedio_aclaracionesa->tiempo + $promedio_pagoa->tiempo ) / 3 );    
@@ -3108,6 +4177,108 @@ class ExcelController extends Controller
                         $sheet->appendRow(array('2 o mas tramites',$p,$pt));
                     }
                 }
+
+                $sheet->appendRow(array('','  ',''));
+                $sheet->appendRow(array('Aclaraciones','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
+
+                if (is_null($promedio_alto->tiempo) && is_null($promedio_alto_espera->tiempo)) 
+                {
+                    $sheet->appendRow(array('Alto consumo (con y sin medidor)','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Alto consumo (con y sin medidor)',$promedio_alto_espera->tiempo,$promedio_alto->tiempo));
+                }
+                if (is_null($promedio_alto->tiempo) && is_null($promedio_alto_espera->tiempo)) 
+                {
+                    $sheet->appendRow(array('Reconexion de servicios','0.00','0.00'));
+                }
+                else
+                {                    
+                    $sheet->appendRow(array('Reconexion de servicios',$promedio_reconexion_espera->tiempo,$promedio_reconexion->tiempo));
+                }    
+                if (is_null($promedio_error_espera->tiempo) && is_null($promedio_error->tiempo)) 
+                {
+                    $sheet->appendRow(array('Error en lectura','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Error en lectura',$promedio_error_espera->tiempo,$promedio_error->tiempo));
+                }    
+                if (is_null($promedio_notoma_espera->tiempo) && is_null($promedio_notoma->tiempo)) 
+                {
+                    $sheet->appendRow(array('No toma de lectura','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('No toma de lectura',$promedio_notoma_espera->tiempo,$promedio_notoma->tiempo));
+
+                }
+                if (is_null($promedio_noentrega_espera->tiempo) && is_null($promedio_noentega->tiempo)) 
+                {
+                    $sheet->appendRow(array('No entrega de recibo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('No entrega de recibo',$promedio_noentrega_espera->tiempo,$promedio_noentega->tiempo));
+                }
+                if (is_null($promedio_cambiotarifa_espera->tiempo) && is_null($promedio_cambiotarifa->tiempo)) 
+                {
+                    $sheet->appendRow(array('Cambio de tarifa','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Cambio de tarifa',$promedio_cambiotarifa_espera->tiempo,$promedio_cambiotarifa->tiempo));
+                }
+                if (is_null($promedio_solicitud_espera->tiempo) && is_null($promedio_solicitud->tiempo)) 
+                {
+                    $sheet->appendRow(array('Solicitud de medidor','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Solicitud de medidor',$promedio_solicitud_espera->tiempo,$promedio_solicitud->tiempo));
+                }
+                if (is_null($promedio_otros_espera->tiempo) && is_null($promedio_otros->tiempo)) 
+                {
+                    $sheet->appendRow(array('Otros tramites','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Otros tramites',$promedio_otros_espera->tiempo,$promedio_otros->tiempo));
+                }
+
+
+                $sheet->appendRow(array('','  ',''));
+                $sheet->appendRow(array('Pagos','Promedio de tiempo de espera','Promedio de tiempo de atencion'));
+
+                if (is_null($promedio_pago_espera->tiempo) && is_null($promedio_pago_recibo->tiempo)) 
+                {
+                    $sheet->appendRow(array('Recibo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Recibo',$promedio_pago_espera->tiempo,$promedio_pago_recibo->tiempo));
+                }
+                if (is_null($promedio_pago_convenio_espera->tiempo) && is_null($promedio_pago_convenio->tiempo)) 
+                {
+                    $sheet->appendRow(array('Convenio','0.00','0.00'));
+                }
+                else
+                {                    
+                    $sheet->appendRow(array('Convenio',$promedio_pago_convenio_espera->tiempo,$promedio_pago_convenio->tiempo));
+                }    
+                if (is_null($promedio_pago_carta_espera->tiempo) && is_null($promedio_pago_carta->tiempo)) 
+                {
+                    $sheet->appendRow(array('Carta de no adeudo','0.00','0.00'));
+                }
+                else
+                {
+                    $sheet->appendRow(array('Carta de no adeudo',$promedio_pago_carta_espera->tiempo,$promedio_pago_carta->tiempo));
+                }    
+
+
+
+
                 
                 $sheet->appendRow(array('','  ',''));
                 $sheet->appendRow(array('Promedio Tramites por agentes'));

@@ -852,13 +852,9 @@ $(document).ready(function() {
 			chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
     	});
 
-
-
-
-
-    	var options_aclaraciones_mes_id = {
+		var options_aclaraciones_mes_id = {
     	chart:{
-    			renderTo: 'atencionaclaracionesid',
+    			renderTo: 'atencionaclaracionesid'
 
 			}, 
 		    title: {
@@ -1130,7 +1126,6 @@ $(document).ready(function() {
 			chart = new Highcharts.Chart(options_aclaraciones_mes_espera_id);
     	});
     	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_otros/"+id, function(data) {
-        	 console.log(data);
         	 $.each(data, function(index, data)
              {
              	options_aclaraciones_mes_espera_id.series[7].data.push(data.numero);

@@ -3,6 +3,177 @@ $(document).ready(function() {
     var fecha = $('#fecha').val();
     var fecha_dos = $('#fecha_dos').val();
     //console.log(id);
+
+    var optionsasunto_totales = {
+        chart: {
+            renderTo: 'totales',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Turnos Totales',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficatotales", function(json) {
+        optionsasunto_totales.series[0].data = json;
+        chart = new Highcharts.Chart(optionsasunto_totales);
+    });
+
+     var optionsasunto_totales_id = {
+        chart: {
+            renderTo: 'totalesid',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Turnos Totales',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficatotalesid/"+id, function(json) {
+        optionsasunto_totales_id.series[0].data = json;
+        chart = new Highcharts.Chart(optionsasunto_totales_id);
+    });
+
+    var optionsasunto_totales_fecha = {
+        chart: {
+            renderTo: 'totalesfecha',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Turnos Totales',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficatotalesfecha/"+fecha+'/'+fecha_dos, function(json) {
+        optionsasunto_totales_fecha.series[0].data = json;
+        chart = new Highcharts.Chart(optionsasunto_totales_fecha);
+    });
+
+    var optionsasunto_totales_fecha_id = {
+        chart: {
+            renderTo: 'totalesfechaid',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Turnos Totales',
+            x: -20 //center
+        },
+        tooltip: {
+            
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'%';
+            }
+        },
+        plotOptions: {
+            pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                color: '#000000',
+                connectorColor: '#000000',
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b><br><b>'+Math.round(this.percentage*100)/100 + '% </b>';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: []
+        }]
+    }
+    $.getJSON("http://localhost/turnomatic/public/graficas/graficatotalesidfecha/"+id+'/'+fecha+'/'+fecha_dos, function(json) {
+        optionsasunto_totales_fecha_id.series[0].data = json;
+        chart = new Highcharts.Chart(optionsasunto_totales_fecha_id);
+    });
+
+
+
     var optionsasunto = {
         chart: {
             renderTo: 'subasunto',
@@ -180,7 +351,7 @@ $(document).ready(function() {
             plotShadow: false
         },
         title: {
-            text: 'Realizados prueba',
+            text: 'Realizados',
             x: -20 //center
         },
         tooltip: {
@@ -974,8 +1145,8 @@ $(document).ready(function() {
         optionsaclaracionesa.series[0].data = json;
         chart = new Highcharts.Chart(optionsaclaracionesa);
     });
-
-    var optionsaclaracionesa = {
+    
+    var optionsaclaracionesa_id = {
         chart: {
             renderTo: 'aclaracionesabandonadosid',
             plotBackgroundColor: null,
@@ -1014,8 +1185,8 @@ $(document).ready(function() {
         }]
     }
     $.getJSON("http://localhost/turnomatic/public/graficas/graficaaclaracionesabandonados/"+id, function(json) {
-        optionsaclaracionesa.series[0].data = json;
-        chart = new Highcharts.Chart(optionsaclaracionesa);
+        optionsaclaracionesa_id.series[0].data = json;
+        chart = new Highcharts.Chart(optionsaclaracionesa_id);
     });
 
     var optionsubasuntosucursalfecha = {
