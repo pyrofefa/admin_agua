@@ -8,9 +8,10 @@
     {!! Html::style('assets/css/bootstrap.css') !!}
     {!! Html::style('assets/css/style.css') !!}
     {!! Html::style('assets/css/jquery-ui.min.css') !!}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    {!! Html::style('assets/css/bootstrap-select.min.css') !!}
+    {!! Html::style('assets/css/jquery-ui.css') !!}
+
+    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
     <!--<script src="http://localhost:8080/socket.io/socket.io.js"></script>-->
     <!-- Fonts -->
     <!--<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>-->
@@ -78,16 +79,12 @@
 </html>
 <!-- Scripts -->
     {!! Html::script('assets/js/jquery-3.1.1.min.js') !!}
-    {!! Html::script('https://code.jquery.com/ui/1.12.1/jquery-ui.js') !!}
+    {!! Html::script('assets/js/jquery-ui.js') !!}
 	{!! Html::script('assets/js/bootstrap.min.js') !!}
-	{!! Html::script('assets/js/highcharts.js') !!}
  	{!! Html::script('assets/js/angular.min.js') !!}
 	{!! Html::script('assets/js/angular-resource.min.js') !!}
-	{!! Html::script('assets/js/main.js') !!}
- 	{!! Html::script('https://code.highcharts.com/modules/data.js')!!}
+	<!--{!! Html::script('assets/js/main.js') !!}-->
    	{!! Html::script('assets/js/jquery-ui.min.js')!!}
    	{!! Html::script('assets/js/datetimepicket.js')!!}
-  	{!! Html::script('assets/js/exporting.js') !!}
-  	{!! Html::script('assets/js/graficalineal.js')!!}
-  	{!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js') !!}
+  	{!! Html::script('assets/js/bootstrap-select.min.js') !!}
 	@yield('javascript')

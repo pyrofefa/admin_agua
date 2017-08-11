@@ -15,9 +15,10 @@ class GraficaAclaraciones extends Controller
         ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
-                 ->where('tikets.asunto','=','Alto consumo (con y sin medidor)');
+                 ->where('tikets.asunto','=','Alto consumo (con y sin medidor)')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
             })            
-        ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -33,8 +34,10 @@ class GraficaAclaraciones extends Controller
         ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
-                 ->where('tikets.asunto','=','Reconexión de servicio');
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
+                 ->where('tikets.asunto','=','Reconexion de servicio')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -50,8 +53,10 @@ class GraficaAclaraciones extends Controller
         ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
-                 ->where('tikets.asunto','=','Error en lectura');
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
+                 ->where('tikets.asunto','=','Error en lectura')
+                ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })            
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -67,9 +72,10 @@ class GraficaAclaraciones extends Controller
         ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
-                 ->where('tikets.asunto','=','No toma lectura');
-                
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
+                 ->where('tikets.asunto','=','No toma lectura')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);  
+            })         
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -85,9 +91,10 @@ class GraficaAclaraciones extends Controller
         ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
-                 ->where('tikets.asunto','=','No entrega de recibo');
- 
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
+                 ->where('tikets.asunto','=','No entrega de recibo')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })            
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -103,9 +110,10 @@ class GraficaAclaraciones extends Controller
         ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
-                 ->where('tikets.asunto','=','Cambio de tarifa');
-
-        })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
+                 ->where('tikets.asunto','=','Cambio de tarifa')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })             
          ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -121,10 +129,10 @@ class GraficaAclaraciones extends Controller
         ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))                  
                 ->where('tikets.estado', '=', 1)
-                 ->where('tikets.asunto','=','Solicitud de medidor');
- 
-             })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
-            
+                 ->where('tikets.asunto','=','Solicitud de medidor')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -141,8 +149,9 @@ class GraficaAclaraciones extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.asunto','=','Otros tramites')
-                 ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'");
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })           
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -150,6 +159,61 @@ class GraficaAclaraciones extends Controller
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
+     public function grafica_alta_fecha($fecha, $fecha_dos)
+    {
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, COUNT(tikets.turno) as numero')
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Alta estimacion de consumo')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })           
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+     public function grafica_propuestas_fecha($fecha, $fecha_dos)
+    {
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, COUNT(tikets.turno) as numero')
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Propuestas de pago')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })           
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+     public function grafica_aviso_fecha($fecha, $fecha_dos)
+    {
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, COUNT(tikets.turno) as numero')
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Aviso de incidencia')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })           
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+
     public function grafica_altoconsumo_id_fecha($id, $fecha, $fecha_dos)
     {
 
@@ -159,9 +223,10 @@ class GraficaAclaraciones extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.asunto','=','Alto consumo (con y sin medidor)')
-                 ->where('id_sucursal','=',$id);
- 
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
+                 ->where('id_sucursal','=',$id)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })            
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -178,9 +243,10 @@ class GraficaAclaraciones extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.asunto','=','Reconexión de servicio')
-                 ->where('id_sucursal','=',$id);
+                 ->where('id_sucursal','=',$id)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
             })            
-        ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -197,9 +263,10 @@ class GraficaAclaraciones extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.asunto','=','Error en lectura')
-                 ->where('id_sucursal','=',$id);
+                 ->where('id_sucursal','=',$id)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
             })            
-        ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -216,9 +283,10 @@ class GraficaAclaraciones extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.asunto','=','No toma lectura')
-                 ->where('id_sucursal','=',$id);
+                 ->where('id_sucursal','=',$id)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
             })            
-        ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -235,9 +303,10 @@ class GraficaAclaraciones extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.asunto','=','No entrega de recibo')
-                 ->where('id_sucursal','=',$id);
+                 ->where('id_sucursal','=',$id)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
             })            
-        ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -246,6 +315,70 @@ class GraficaAclaraciones extends Controller
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
+    public function grafica_alta_id_fecha($id, $fecha, $fecha_dos)
+    {
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, COUNT(tikets.turno) as numero')
+        ->leftjoin('tikets', function ($join) use($id, $fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Alta estimación de consumo')
+                 ->where('id_sucursal','=',$id)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })            
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_propuestas_id_fecha($id, $fecha, $fecha_dos)
+    {
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, COUNT(tikets.turno) as numero')
+        ->leftjoin('tikets', function ($join) use($id, $fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Propuestas de pago')
+                 ->where('id_sucursal','=',$id)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })            
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_aviso_id_fecha($id, $fecha, $fecha_dos)
+    {
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, COUNT(tikets.turno) as numero')
+        ->leftjoin('tikets', function ($join) use($id, $fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Aviso de incidencia')
+                 ->where('id_sucursal','=',$id)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })            
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+
+
+
+
     public function grafica_cambiodetarifa_id_fecha($id, $fecha, $fecha_dos)
     {
         $tiket = DB::table('horas')
@@ -254,9 +387,10 @@ class GraficaAclaraciones extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.asunto','=','Cambio de tarifa')
-                 ->where('id_sucursal','=',$id);
+                 ->where('id_sucursal','=',$id)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
             })            
-        ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -273,9 +407,10 @@ class GraficaAclaraciones extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.asunto','=','Solicitud de medidor')
-                 ->where('id_sucursal','=',$id);
+                 ->where('id_sucursal','=',$id)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
             })            
-        ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -292,9 +427,10 @@ class GraficaAclaraciones extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.asunto','=','Otros tramites')
-                 ->where('id_sucursal','=',$id);
+                 ->where('id_sucursal','=',$id)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
             })            
-        ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -437,6 +573,60 @@ class GraficaAclaraciones extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.asunto','=','Otros tramites')
+                 ->where(DB::raw('Date(tikets.created_at)'), '=', date('Y-m-d'));
+            })
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_altaestimacion()
+    {
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, COUNT(tikets.turno) as numero')
+        ->leftjoin('tikets', function ($join) {
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Alta estimación de consumo')
+                 ->where(DB::raw('Date(tikets.created_at)'), '=', date('Y-m-d'));
+            })
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_propuestas()
+    {
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, COUNT(tikets.turno) as numero')
+        ->leftjoin('tikets', function ($join) {
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Propuestas de pago')
+                 ->where(DB::raw('Date(tikets.created_at)'), '=', date('Y-m-d'));
+            })
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+
+        //dd($tiket); 
+        $json = json_encode($tiket,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function grafica_aviso()
+    {
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, COUNT(tikets.turno) as numero')
+        ->leftjoin('tikets', function ($join) {
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Aviso de incidencia')
                  ->where(DB::raw('Date(tikets.created_at)'), '=', date('Y-m-d'));
             })
         ->groupBy('horas.hora')
@@ -618,7 +808,9 @@ class GraficaAclaraciones extends Controller
             })
         ->groupBy('meses.mes')
         ->orderBy('meses.numero','ASC')
-        ->get();    
+        ->get();   
+
+        dd($promedio_atendido); 
 
         $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
         return $json;
@@ -749,6 +941,62 @@ class GraficaAclaraciones extends Controller
         $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
         return $json;
     }
+    public function promedio_atendido_altaestimacion()
+    {
+        $promedio_atendido = DB::table('meses')
+        ->selectRaw('meses.mes as x, tikets.asunto, 
+            CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS numero')
+        ->leftjoin('tikets', function ($join) {
+            $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Alta estimación de consumo')
+                 ->where('fin', '<>', '00:00:00');
+            })
+        ->groupBy('meses.mes')
+        ->orderBy('meses.numero','ASC')
+        ->get();
+
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_propuestas()
+    {
+        $promedio_atendido = DB::table('meses')
+        ->selectRaw('meses.mes as x, tikets.asunto, 
+            CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS numero')
+        ->leftjoin('tikets', function ($join) {
+            $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Propuestas de pago')
+                 ->where('fin', '<>', '00:00:00');
+            })
+        ->groupBy('meses.mes')
+        ->orderBy('meses.numero','ASC')
+        ->get();
+
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_atendido_aviso()
+    {
+        $promedio_atendido = DB::table('meses')
+        ->selectRaw('meses.mes as x, tikets.asunto, 
+            CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS numero')
+        ->leftjoin('tikets', function ($join) {
+            $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Aviso de incidencia')
+                 ->where('fin', '<>', '00:00:00');
+            })
+        ->groupBy('meses.mes')
+        ->orderBy('meses.numero','ASC')
+        ->get();
+
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+
+
     public function promedio_espera_altoconsumo()
     {
         $promedio_atendido = DB::table('meses')
@@ -877,6 +1125,57 @@ class GraficaAclaraciones extends Controller
             $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.asunto','=','Otros tramites');
+            })
+        ->groupBy('meses.mes')
+        ->orderBy('meses.numero','ASC')
+        ->get();
+
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_altaestimacion()
+    {
+        $promedio_atendido = DB::table('meses')
+        ->selectRaw('meses.mes as x, tikets.asunto, 
+            CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS numero')
+        ->leftjoin('tikets', function ($join) {
+            $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Alta estimacion de consumo');
+            })
+        ->groupBy('meses.mes')
+        ->orderBy('meses.numero','ASC')
+        ->get();
+
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_propuestas()
+    {
+        $promedio_atendido = DB::table('meses')
+        ->selectRaw('meses.mes as x, tikets.asunto, 
+            CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS numero')
+        ->leftjoin('tikets', function ($join) {
+            $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Propuestas de pago');
+            })
+        ->groupBy('meses.mes')
+        ->orderBy('meses.numero','ASC')
+        ->get();
+
+        $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
+        return $json;
+    }
+    public function promedio_espera_aviso()
+    {
+        $promedio_atendido = DB::table('meses')
+        ->selectRaw('meses.mes as x, tikets.asunto, 
+            CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS numero')
+        ->leftjoin('tikets', function ($join) {
+            $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.asunto','=','Aviso de incidencia');
             })
         ->groupBy('meses.mes')
         ->orderBy('meses.numero','ASC')

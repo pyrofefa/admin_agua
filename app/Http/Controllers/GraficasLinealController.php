@@ -494,9 +494,11 @@ class GraficasLinealController extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Tramites')
-                 ->where('atendido', '<>', '00:00:00');
+                 ->where('atendido', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
 
-             })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")          
+             })         
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -513,9 +515,10 @@ class GraficasLinealController extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Aclaraciones y Otros')
-                 ->where('atendido', '<>', '00:00:00');
-
-             })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")          
+                 ->where('atendido', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })         
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -532,9 +535,11 @@ class GraficasLinealController extends Controller
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Pago')
-                 ->where('atendido', '<>', '00:00:00');
+                 ->where('atendido', '<>', '00:00:00')
+                ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
 
-             })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")          
+             })          
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -608,77 +613,118 @@ class GraficasLinealController extends Controller
 
     public function lineal_subasunto_tramites_hora_fecha($fecha, $fecha_dos)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, subasunto as name, COUNT(turno) as numero')
-            ->where('estado',1)
-            ->where('subasunto','Tramites')
-            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
-            ->groupBy('subasunto')
-            ->groupBy('x')
-            ->orderBy('x','ASC')->get();   
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, count(turno) AS numero')
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.subasunto','=','Tramites')
+                 ->where('atendido', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })          
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+        
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_aclaraciones_hora_fecha($fecha, $fecha_dos)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, subasunto as name, COUNT(turno) as numero')
-            ->where('estado',1)
-            ->where('subasunto','Aclaraciones y Otros')
-            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
-            ->groupBy('subasunto')
-            ->groupBy('x')
-            ->orderBy('x','ASC')->get();   
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, count(turno) AS numero')
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.subasunto','=','Aclaraciones y Otros')
+                 ->where('atendido', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })          
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+        
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_pagos_hora_fecha($fecha, $fecha_dos)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, subasunto as name, COUNT(turno) as numero')
-            ->where('estado',1)
-            ->where('subasunto','Pago')
-            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
-            ->groupBy('subasunto')
-            ->groupBy('x')
-            ->orderBy('x','ASC')->get();   
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, count(turno) AS numero')
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 1)
+                 ->where('tikets.subasunto','=','Pago')
+                 ->where('atendido', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })          
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+        
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_tramites_hora_fecha_abandonados($fecha, $fecha_dos)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, subasunto as name, COUNT(turno) as numero')
-            ->where('estado',2)
-            ->where('subasunto','Tramites')
-            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
-            ->groupBy('subasunto')
-            ->groupBy('x')
-            ->orderBy('x','ASC')->get();   
+
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, count(turno) AS numero')
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 2)
+                 ->where('tikets.subasunto','=','Tramites')
+                 ->where('atendido', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })          
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_aclaraciones_hora_fecha_aban($fecha, $fecha_dos)
     {
-         $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, subasunto as name, COUNT(turno) as numero')
-            ->where('estado',2)
-            ->where('subasunto','Aclaraciones y Otros')
-            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
-            ->groupBy('subasunto')
-            ->groupBy('x')
-            ->orderBy('x','ASC')->get();   
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, count(turno) AS numero')
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 2)
+                 ->where('tikets.subasunto','=','Aclaraciones y Otros')
+                 ->where('atendido', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })          
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_pagos_hora_fecha_abandonado($fecha, $fecha_dos)
     {
-        $tiket = DB::table('tikets')->selectRaw('HOUR(llegada) as x, subasunto as name, COUNT(turno) as numero')
-            ->where('estado',2)
-            ->where('subasunto','Pago')
-            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
-            ->groupBy('subasunto')
-            ->groupBy('x')
-            ->orderBy('x','ASC')->get();   
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, count(turno) AS numero')
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 2)
+                 ->where('tikets.subasunto','=','Pago')
+                 ->where('atendido', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })          
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
@@ -732,48 +778,63 @@ class GraficasLinealController extends Controller
     }
     public function lineal_subasunto_tramites_hora_fecha_id_a($fecha, $fecha_dos, $id)
     {
-        $tiket = DB::table('tikets')
-            ->selectRaw('HOUR(llegada) as x, subasunto as name, COUNT(turno) as numero')
-            ->where('estado',2)
-            ->where('subasunto','Tramites')
-            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
-            ->where('id_sucursal',$id)
-            ->groupBy('subasunto')
-            ->groupBy('x')
-            ->orderBy('x','ASC')
-            ->get();   
+         $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, count(turno) AS numero')
+        ->leftjoin('tikets', function ($join) use($id, $fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 2)
+                 ->where('id_sucursal','=',$id)
+                 ->where('tikets.subasunto','=','Tramites')
+                 ->where('atendido', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })          
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+        
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_aclaraciones_hora_fecha_id_a($fecha, $fecha_dos, $id)
     {
-        $tiket = DB::table('tikets')
-            ->selectRaw('HOUR(llegada) as x, subasunto as name, COUNT(turno) as numero')
-            ->groupBy('subasunto')
-            ->groupBy('x')
-            ->where('estado',2)
-            ->where('subasunto','Aclaraciones y Otros')
-            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
-            ->where('id_sucursal',$id)
-            ->orderBy('x','ASC')
-            ->get();   
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, count(turno) AS numero')
+        ->leftjoin('tikets', function ($join) use($id, $fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 2)
+                 ->where('id_sucursal','=',$id)
+                 ->where('tikets.subasunto','=','Aclaraciones y Otros')
+                 ->where('atendido', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })          
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+        
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
     }
     public function lineal_subasunto_pagos_hora_fecha_id_a($fecha, $fecha_dos, $id)
     {
-        $tiket = DB::table('tikets')
-            ->selectRaw('HOUR(llegada) as x, subasunto as name, COUNT(turno) as numero')
-            ->groupBy('subasunto')
-            ->groupBy('x')
-            ->where('estado',2)
-            ->where('subasunto','Pago')
-            ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
-            ->where('id_sucursal',$id)
-            ->orderBy('x','ASC')
-            ->get();   
+        $tiket = DB::table('horas')
+        ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, count(turno) AS numero')
+        ->leftjoin('tikets', function ($join) use($id, $fecha, $fecha_dos){
+            $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
+                 ->where('tikets.estado', '=', 2)
+                 ->where('id_sucursal','=',$id)
+                 ->where('tikets.subasunto','=','Pago')
+                 ->where('atendido', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })          
+        ->groupBy('horas.hora')
+        ->orderBy('x','ASC')
+        ->get();
+        
         //dd($tiket); 
         $json = json_encode($tiket,JSON_NUMERIC_CHECK);
         return $json;
@@ -901,11 +962,12 @@ class GraficasLinealController extends Controller
     {
         $promedio_atendido = DB::table('horas')
         ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno) as DECIMAL(10,2))  AS numero')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos) {
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Pago')
-                 ->where(DB::raw('Date(tikets.created_at)'), '=', date('Y-m-d'));
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
             })
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
@@ -919,12 +981,14 @@ class GraficasLinealController extends Controller
     {
          $promedio_atendido = DB::table('horas')
         ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno) as DECIMAL(10,2))  AS numero')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos) {
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Tramites')
-                 ->where('tikets.fin','<>','00:00:00');
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
+                 ->where('tikets.fin','<>','00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })            
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -935,17 +999,19 @@ class GraficasLinealController extends Controller
     public function promedio_tiempo_atencion_acla_hora_fecha($fecha, $fecha_dos)
     {
          $promedio_atendido = DB::table('horas')
-        ->selectRaw('tikets.id,HOUR(horas.hora) as x, tikets.asunto as name, CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno) as DECIMAL(10,2))  AS numero')
-        ->leftjoin('tikets', function ($join) {
+        ->selectRaw('tikets.id,count(turno),HOUR(horas.hora) as x, tikets.asunto as name, CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno) as DECIMAL(10,2))  AS numero')
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos) {
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Aclaraciones y Otros')
-                 ->where('tikets.fin','<>','00:00:00');
-
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
+                 ->where('tikets.fin','<>','00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })          
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
+
 
         $json = json_encode($promedio_atendido,JSON_NUMERIC_CHECK);
         return $json;
@@ -954,13 +1020,14 @@ class GraficasLinealController extends Controller
     {
         $promedio_atendido = DB::table('horas')
         ->selectRaw('HOUR(horas.hora) as x, tikets.asunto as name, CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno) as DECIMAL(10,2))  AS numero')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($fecha, $fecha_dos) {
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Pago')
-                 ->where('tikets.fin','<>','00:00:00');
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
-
+                 ->where('tikets.fin','<>','00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })            
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -1275,13 +1342,15 @@ class GraficasLinealController extends Controller
         $promedio_atendido = DB::table('horas')
         ->selectRaw('HOUR(horas.hora) as x, tikets.asunto, 
             CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS numero')
-        ->leftjoin('tikets', function ($join) use($id) {
+        ->leftjoin('tikets', function ($join) use($id, $fecha, $fecha_dos) {
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)')) 
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Tramites')
                  ->where('id_sucursal','=',$id)
-                 ->where('fin', '<>', '00:00:00');
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
+                 ->where('fin', '<>', '00:00:00')
+                  ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -1294,13 +1363,15 @@ class GraficasLinealController extends Controller
         $promedio_atendido = DB::table('horas')
         ->selectRaw('HOUR(horas.hora) as x, tikets.asunto, 
             CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS numero')
-        ->leftjoin('tikets', function ($join) use($id) {
+        ->leftjoin('tikets', function ($join) use($id, $fecha, $fecha_dos) {
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)')) 
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Aclaraciones y Otros')
                  ->where('id_sucursal','=',$id)
-                 ->where('fin', '<>', '00:00:00');
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
+                 ->where('fin', '<>', '00:00:00')
+                  ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })           
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();
@@ -1313,13 +1384,15 @@ class GraficasLinealController extends Controller
         $promedio_atendido = DB::table('horas')
         ->selectRaw('HOUR(horas.hora) as x, tikets.asunto, 
             CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS numero')
-        ->leftjoin('tikets', function ($join) use($id) {
+        ->leftjoin('tikets', function ($join) use($id, $fecha, $fecha_dos) {
             $join->on(DB::raw('Hour(tikets.llegada)'),'=', DB::raw('Hour(horas.hora)')) 
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Pago')
                  ->where('id_sucursal','=',$id)
-                 ->where('fin', '<>', '00:00:00');
-            })->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
+                 ->where('fin', '<>', '00:00:00')
+                 ->where(DB::raw('DATE(tikets.created_at)'),'>=',$fecha)
+                 ->where(DB::raw('DATE(tikets.created_at)'),'<=',$fecha_dos);
+            })            
         ->groupBy('horas.hora')
         ->orderBy('x','ASC')
         ->get();

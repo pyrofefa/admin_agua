@@ -125,8 +125,11 @@ class apiController extends Controller
         $tiket = Tiket::find($id);
         $tiket->fk_caja = $request->fk_caja;
         $tiket->atendido = $date->toTimeString();
-        //$tiket->atendido_en_segundos = strtotime($date->now()->format('h:i:s'));
         $tiket->save();
+        
+        $prueba = Carbon::parse($tiket->llegada);
+        $prueba_dos = Carbon::parse($tiket->atendido);
+        $diferencia = $prueba->diffInHours($prueba_dos);
         
         if ($tiket->atendido > $tiket->llegada) 
         {
@@ -140,16 +143,14 @@ class apiController extends Controller
             $tiket->estado = '5';
             $tiket->save();
         }
-
-        //$tiket -> update($request->all());
         return response()->json($tiket);
     }
     //terminar turno
     public function actualizar_tiempo(Request $request, $id)
     {
+
         //dd($request->all());
         $date = Carbon::now('America/Hermosillo');
-        //dd($date);
         $tiket = Tiket::find($id);
         $tiket->tiempo = $request->tiempo;
         $tiket->asunto = $request->asunto;
@@ -161,36 +162,19 @@ class apiController extends Controller
         $prueba_dos = Carbon::parse($tiket->fin);
         $diferencia = $prueba->diffInHours($prueba_dos);
 
-        if ($diferencia > 1) 
+        if ($diferencia >= 1) 
         {
             $tiket->estado = '5';
             $tiket->save();
 
-            dd('se paso: '+ $diferencia +' horas');
         }
         else
         {
             $tiket->estado= '1';
             $tiket->save();
 
-            dd($diferencia);
         }
-
-        
-        /*if ($tiket->fin > $tiket->atendido) 
-        {
-            //dd('La fecha es mayor');
-            $tiket->estado = '1';
-            $tiket->save();
-        }
-        else
-        {
-            //dd('la fecha es menor');
-            $tiket->estado = '5';
-            $tiket->save();
-        }*/
-        $tiket -> update($request->all());
-        return response()->json($tiket);*/
+        return response()->json($tiket);
     }
      public function actualizar_tiempo_abandonado(Request $request, $id)
     {
@@ -201,20 +185,25 @@ class apiController extends Controller
         $tiket->tiempo = $request->tiempo;
         $tiket->asunto = $request->asunto;
         $tiket->fin = $date->toTimeString();
+        $tiket->save();
+
         
-        if ($tiket->fin > $tiket->atendido) 
+        $prueba = Carbon::parse($tiket->atendido);
+        $prueba_dos = Carbon::parse($tiket->fin);
+        $diferencia = $prueba->diffInHours($prueba_dos);
+
+        if ($diferencia >= 1) 
         {
-            //dd('La fecha es mayor');
-            $tiket->estado = '2';
+            $tiket->estado = '5';
             $tiket->save();
+
         }
         else
         {
-            //dd('la fecha es menor');
-            $tiket->estado = '5';
+            $tiket->estado= '2';
             $tiket->save();
+
         }
-        //$tiket -> update($request->all());
         return response()->json($tiket);
     }
     public function mostrar_aclaraciones($id)

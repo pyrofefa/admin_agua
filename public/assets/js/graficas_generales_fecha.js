@@ -589,7 +589,13 @@ $(document).ready(function() {
 			},{
 		    	name: '2 o mas tramites',
 		        data: []
-			}
+			},{
+                name: 'Solicitud de tarifa social',
+                data: []
+            },{
+                name: 'Baja por impago',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/contrato/"+fecha+'/'+fecha_dos, function(data) {
@@ -646,6 +652,24 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_tramites_hora_fecha);
     	});
+        $.getJSON("http://localhost/turnomatic/public/graficas/tramites/solicitud/"+fecha+'/'+fecha_dos, function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_tramites_hora_fecha.series[6].data.push(data.numero);
+                //options_tramites_hora_fecha.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_tramites_hora_fecha);
+        });
+        $.getJSON("http://localhost/turnomatic/public/graficas/tramites/baja/"+fecha+'/'+fecha_dos, function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_tramites_hora_fecha.series[7].data.push(data.numero);
+                //options_tramites_hora_fecha.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_tramites_hora_fecha);
+        });
 
     	var options_aclaraciones_hora_fecha = {
     	chart:{
@@ -712,7 +736,16 @@ $(document).ready(function() {
 			},{
 		    	name: 'Otros tramites',
 		        data: []
-			}
+			},{
+                name: 'Alta estimación de consumo',
+                data: []
+            },{
+                name: 'Propuestas de pago',
+                data: []
+            },{
+                name: 'Aviso de incidencia',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/altoconsumo/"+fecha+'/'+fecha_dos, function(data) {
@@ -787,6 +820,33 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_aclaraciones_hora_fecha);
     	});
+        $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/alta_estimacion/"+fecha+'/'+fecha_dos, function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones_hora_fecha.series[8].data.push(data.numero);
+                //options_aclaraciones_hora_fecha.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones_hora_fecha);
+        });
+        $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/propuestas/"+fecha+'/'+fecha_dos, function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones_hora_fecha.series[9].data.push(data.numero);
+                //options_aclaraciones_hora_fecha.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones_hora_fecha);
+        });
+        $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/aviso/"+fecha+'/'+fecha_dos, function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones_hora_fecha.series[10].data.push(data.numero);
+                //options_aclaraciones_hora_fecha.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones_hora_fecha);
+        });
 
     	var options_pagos_hora_fecha = {
     	chart:{
@@ -838,7 +898,11 @@ $(document).ready(function() {
 		    },{
 		    	name: 'Carta de no adeudo',
 		        data: []
-			}]
+			},{
+                name: 'Pagos de facturas',
+                data: []
+            }
+            ]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/pago/recibo/"+fecha+'/'+fecha_dos, function(data) {
         	 //console.log(data);
@@ -867,6 +931,15 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_pagos_hora_fecha);
     	});
+        $.getJSON("http://localhost/turnomatic/public/graficas/pago/facturas/"+fecha+'/'+fecha_dos, function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_pagos_hora_fecha.series[3].data.push(data.numero);
+                //options_pagos_hora_fecha.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_pagos_hora_fecha);
+        });
 
     	var options_promedio_hora_fecha = {
     	chart:{

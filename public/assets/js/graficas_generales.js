@@ -597,7 +597,13 @@ $(document).ready(function() {
 			},{
 		    	name: '2 o mas tramites',
 		        data: []
-			}
+			},{
+                name: 'Solicitud de tarifa social',
+                data: []
+            },{
+                name: 'Baja por impago',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/contrato", function(data) {
@@ -654,6 +660,24 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_tramites_hora);
     	});
+        $.getJSON("http://localhost/turnomatic/public/graficas/tramites/tarifasocial", function(data) {
+             console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_tramites_hora.series[6].data.push(data.numero);
+                options_tramites_hora.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_tramites_hora);
+        });
+        $.getJSON("http://localhost/turnomatic/public/graficas/tramites/bajaporimpago", function(data) {
+             console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_tramites_hora.series[7].data.push(data.numero);
+                options_tramites_hora.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_tramites_hora);
+        });
 
     	var options_aclaraciones = {
     	chart:{
@@ -720,7 +744,16 @@ $(document).ready(function() {
 			},{
 		    	name: 'Otros tramites',
 		        data: []
-			}
+			},{
+                name: 'Alta estimación de consumo',
+                data: []
+            },{
+                name: 'Propuestas de pago',
+                data: []
+            },{
+                name: 'Aviso de incidencia',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/altoconsumo", function(data) {
@@ -795,6 +828,33 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_aclaraciones);
     	});
+                $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/altaestimacion", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones.series[8].data.push(data.numero);
+                options_aclaraciones.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones);
+        });
+            $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/propuestas", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones.series[9].data.push(data.numero);
+                options_aclaraciones.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones);
+        });
+        $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/aviso", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones.series[10].data.push(data.numero);
+                options_aclaraciones.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones);
+        });
 
 
     	var options_pagos_hora = {
@@ -847,7 +907,11 @@ $(document).ready(function() {
 		    },{
 		    	name: 'Carta de no adeudo',
 		        data: []
-			}]
+			},{
+                name: 'Pagos de facturas',
+                data: []
+            }
+            ]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/pago/recibo", function(data) {
         	 //console.log(data);
@@ -876,6 +940,15 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_pagos_hora);
     	});
+        $.getJSON("http://localhost/turnomatic/public/graficas/pago/facturas", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_pagos_hora.series[3].data.push(data.numero);
+                options_pagos_hora.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_pagos_hora);
+        });
 
     	var options_promedio_hora = {
     	chart:{
@@ -907,9 +980,11 @@ $(document).ready(function() {
 		        }]
 		    },
             tooltip: {
-                formatter: function() {
+                valueSuffix: ''
+
+                /*formatter: function() {
                     return '<b>'+ this.series.data.y +' </b>:';
-                }
+                }*/
             },
 		    legend: {
 		        layout: 'vertical',
@@ -941,7 +1016,7 @@ $(document).ready(function() {
 			chart = new Highcharts.Chart(options_promedio_hora);
     	});*/
     	$.getJSON("http://localhost/turnomatic/public/graficas/linealtiempoesperatramiteshora", function(data) {
-        	 console.log(data);
+        	 //console.log(data);
         	 $.each(data, function(index, data)
              {
              	options_promedio_hora.series[0].data.push(data.numero);
@@ -1450,7 +1525,13 @@ $(document).ready(function() {
 			},{
 		    	name: '2 o mas tramites',
 		        data: []
-			}
+			},{
+                name: 'Solicitud de tarifa social',
+                data: []
+            },{
+                name: 'Baja por impago',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/atencion_contrato", function(data) {
@@ -1507,6 +1588,24 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_tramites_mes);
     	});
+        $.getJSON("http://localhost/turnomatic/public/graficas/tramites/atencion_tarifasocial", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_tramites_mes.series[6].data.push(data.numero);
+                options_tramites_mes.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_tramites_mes);
+        });
+        $.getJSON("http://localhost/turnomatic/public/graficas/tramites/atencion_bajaporimpago", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_tramites_mes.series[7].data.push(data.numero);
+                options_tramites_mes.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_tramites_mes);
+        });
 
     	var options_tramites_espera_mes = {
     	chart:{
@@ -1567,7 +1666,13 @@ $(document).ready(function() {
 			},{
 		    	name: '2 o mas tramites',
 		        data: []
-			}
+			},{
+                name: 'Solicitud de tarifa social',
+                data: []
+            },{
+                name: 'Baja por impago',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/espera_contrato", function(data) {
@@ -1624,6 +1729,24 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_tramites_espera_mes);
     	});
+        $.getJSON("http://localhost/turnomatic/public/graficas/tramites/espera_tarifasocial", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_tramites_espera_mes.series[6].data.push(data.numero);
+                options_tramites_espera_mes.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_tramites_espera_mes);
+        });
+        $.getJSON("http://localhost/turnomatic/public/graficas/tramites/espera_bajaporimpago", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_tramites_espera_mes.series[7].data.push(data.numero);
+                options_tramites_espera_mes.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_tramites_espera_mes);
+        });
 
     	var options_aclaraciones_mes = {
     	chart:{
@@ -1631,7 +1754,7 @@ $(document).ready(function() {
 
 			}, 
 		    title: {
-		        text: 'Promedio tiempo de atencion aclaraciones por mes',
+		        text: 'Promedio tiempo de atencion aclaraciones por mes PRUEBA',
 		        x: -20 //center
 		    },
 		    subtitle: {
@@ -1690,7 +1813,16 @@ $(document).ready(function() {
 			},{
 		    	name: 'Otros tramites',
 		        data: []
-			}
+			},{
+                name: 'Alta estimación de consumo',
+                data: []
+            },{
+                name: 'Propuestas de pago',
+                data: []
+            },{
+                name: 'Aviso de incidencia',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_altoconsumo", function(data) {
@@ -1765,6 +1897,33 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_aclaraciones_mes);
     	});
+        $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_altaestimacion", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones_mes.series[8].data.push(data.numero);
+                options_aclaraciones_mes.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones_mes);
+        });
+        $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_propuestas", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones_mes.series[9].data.push(data.numero);
+                options_aclaraciones_mes.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones_mes);
+        });
+        $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_aviso", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones_mes.series[10].data.push(data.numero);
+                options_aclaraciones_mes.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones_mes);
+        });
 
 
 
@@ -1833,7 +1992,16 @@ $(document).ready(function() {
 			},{
 		    	name: 'Otros tramites',
 		        data: []
-			}
+			},{
+                name: 'Alta estimación de consumo',
+                data: []
+            },{
+                name: 'Propuestas de pago',
+                data: []
+            },{
+                name: 'Aviso de incidencia',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_altoconsumo", function(data) {
@@ -1908,4 +2076,31 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
     	});
+        $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_altaestimacion", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones_mes_espera.series[8].data.push(data.numero);
+                options_aclaraciones_mes_espera.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
+        });
+        $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_propuestas", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones_mes_espera.series[9].data.push(data.numero);
+                options_aclaraciones_mes_espera.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
+        });
+        $.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_aviso", function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_aclaraciones_mes_espera.series[10].data.push(data.numero);
+                options_aclaraciones_mes_espera.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_aclaraciones_mes_espera);
+        });
 });

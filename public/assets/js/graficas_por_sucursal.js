@@ -602,7 +602,13 @@ $(document).ready(function() {
 			},{
 		    	name: '2 o mas tramites',
 		        data: []
-			}
+			},{
+                name: 'Solicitud de tarifa social',
+                data: []
+            },{
+                name: 'Baja por impago',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/contrato/"+id, function(data) {
@@ -711,7 +717,11 @@ $(document).ready(function() {
 		    },{
 		    	name: 'Carta de no adeudo',
 		        data: []
-			}]
+			},{
+                name: 'Pagos de factiuras',
+                data: []
+            }
+            ]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/pago/recibo/"+id, function(data) {
         	 //console.log(data);
@@ -740,6 +750,16 @@ $(document).ready(function() {
 			});
 			chart = new Highcharts.Chart(options_pagos_hora_id);
     	});
+
+        $.getJSON("http://localhost/turnomatic/public/graficas/pago/facturas/"+id, function(data) {
+             //console.log(data);
+             $.each(data, function(index, data)
+             {
+                options_pagos_hora_id.series[3].data.push(data.numero);
+                options_pagos_hora_id.xAxis.categories.push(data.x);
+            });
+            chart = new Highcharts.Chart(options_pagos_hora_id);
+        });
 
 
     	var options_aclaraciones_hora_id = {
@@ -807,7 +827,16 @@ $(document).ready(function() {
 			},{
 		    	name: 'Otros tramites',
 		        data: []
-			}
+			},{
+                name: 'Alta estimación de consumo',
+                data: []
+            },{
+                name: 'Propuestas de pago',
+                data: []
+            },{
+                name: 'Aviso de incidencia',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/altoconsumo/"+id, function(data) {
@@ -1452,7 +1481,13 @@ $(document).ready(function() {
 			},{
 		    	name: '2 o mas tramites',
 		        data: []
-			}
+			},{
+                name: 'Solicitud de tarifa social',
+                data: []
+            },{
+                name: 'Baja por impago',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/atencion_contrato/"+id, function(data) {
@@ -1570,7 +1605,13 @@ $(document).ready(function() {
 			},{
 		    	name: '2 o mas tramites',
 		        data: []
-			}
+			},{
+                name: 'Solicitud de tarifa social',
+                data: []
+            },{
+                name: 'Baja por impago',
+                data: []
+            }
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/tramites/espera_contrato/"+id, function(data) {
@@ -1694,7 +1735,17 @@ $(document).ready(function() {
 			},{
 		    	name: 'Otros tramites',
 		        data: []
-			}
+			},{
+                name: 'Alta estimación de consumo',
+                data: []
+            },{
+                name: 'Propuestas de pago',
+                data: []
+            },{
+                name: 'Aviso de incidencia',
+                data: []
+            }
+
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/atencion_altoconsumo/"+id, function(data) {
@@ -1836,7 +1887,17 @@ $(document).ready(function() {
 			},{
 		    	name: 'Otros tramites',
 		        data: []
-			}
+			},{
+                name: 'Alta estimación de consumo',
+                data: []
+            },{
+                name: 'Propuestas de pago',
+                data: []
+            },{
+                name: 'Aviso de incidencia',
+                data: []
+            }
+
 			]
 		}
     	$.getJSON("http://localhost/turnomatic/public/graficas/aclaraciones/espera_altoconsumo/"+id, function(data) {

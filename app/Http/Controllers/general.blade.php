@@ -1,18 +1,8 @@
 @extends('plantillas.app')
 @section('content')
-@if(is_null($f))
-<div class="container">	
-	<div class="row">
-		<div class="col-md-12">
-			<p class="alert alert-danger">No existen registros con la fecha proporcionada</p>
-			<a href="javascript:history.back()"><span class="glyphicon glyphicon-arrow-left"></span> Volver</a>	
-		</div>
-	</div>
-</div>	
-@else
 <div class="row">
 	<div class="col-md-2">
-        <ul class="nav nav-pills nav-stacked admin-menu" style="position: fixed; width: 150px; height: 600px; overflow-y: scroll;">
+        <ul class="nav nav-pills nav-stacked admin-menu" style="position: fixed; width: 150px; height: 560px; overflow-y: scroll;">
             <li><a href="#inicio"><i></i>Inicio</a></li>
 			<li><a href="#turnos_totales"><i></i>Turnos totales</a></li>
             <li><a href="#turnos_realizados"><i></i>Turnos realizados</a></li>
@@ -24,26 +14,49 @@
             <li><a href="#promedio_tiempo"><i></i>Promedio de tiempo de espera y promedio de tiempo de atencion</a></li>
             <li><a href="#promedio_espera_hora"><i></i>Promedio de tiempo de espera hora</a></li>
             <li><a href="#promedio_atencion_hora"><i></i>Promedio de tiempo de atencion hora</a></li>
+            <li><a href="#turnos_mes"><i></i>Turnos por mes</a></li>
+            <li><a href="#promedio_espera_mes"><i></i>Promedio de tiempo de espera mes</a></li>
+            <li><a href="#promedio_atencion_mes"><i></i>Promedio de tiempo de atencion por mes</a></li>
+            <li><a href="#operaciones_por_fecha"><i></i>Operaciones por fecha</a></li>
+            <li><a href="#promedio_tramites_mes"><i></i>Promedio de tiempo tramites por meses</a></li>
+            <li><a href="#promedio_aclaraciones_mes" ><i></i>Promedio de tiempo aclaraciones por meses</a></li>
         </ul>
     </div>
     <div class="col-md-6">
-    	{!! Form::hidden('fecha',$fecha,['class'=>'form-control' , 'id' => 'fecha']) !!}<br>
-		{!! Form::hidden('fecha_dos',$fecha_dos,['class'=>'form-control' , 'id' => 'fecha_dos']) !!}<br>
-		<div class="container">
-		<div class="row" id="inicio">
+    	<div class="container">
+			 <div class="row" id="inicio">
 				<div class="col-md-12">
-					<h1 style="text-align: center">General del dia: {{ $fecha }} al dia: {{ $fecha_dos }}  </h1>
+					<h1 style="text-align: center">General al dia: {{$carbon}}  </h1>
 				</div>
 			</div>
+			
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<a href="../excelfecha/{{ $fecha }}/{{ $fecha_dos }}">
-						<button type="button" class="btn btn-success">
-		  					<span class="glyphicon glyphicon-save"> Exportar</span>
-						</button>
-					</a><br><br>
+						<a href="excel">
+							<button type="button" class="btn btn-success">
+		  						<span class="glyphicon glyphicon-save"> Exportar</span>
+							</button>
+						</a>
 					<div class="row">
 						<div class="col-md-4">
+						<br><br>
+		            	{!! Form::open((array( 'url' => 'home/general/fecha', 'method' => 'GET' ))) !!}
+		     			    <div class="form-group" >
+								{!! Form::text('fecha',null,['class' => 'form-control datepicket', 'placeholder' => 'Buscar fecha...','id' => 'fecha']) !!}
+		    				</div>
+		    				<div class="form-group">
+		    					{!! Form::text('fecha_dos',null,['class' => 'form-control datepicket', 'placeholder' => 'Buscar fecha...','id' => 'fecha_dos']) !!}
+		    				</div>
+							<div class="form-group">
+								<span class="input-group-btn" style="text-align: right;">
+		    						<button class="btn btn-default" type="submit">
+		    							<span class="glyphicon glyphicon-search"></span>
+		    						</button>
+		    					</span> 
+							</div>
+		    			</div>
+		    			{!! Form::close() !!}
+		  				<div class="col-md-4">
 							<h5> Turnos atendidos: {{ $atendidos }}</h5>
 							<h5> Turnos en espera: {{ $espera }}</h5>
 							<h5> Turnos abandonados: {{ $abandonados }}</h5>	
@@ -230,12 +243,12 @@
 				</div>
 			</div>
 			<br>
-			<div class="panel panel-default">
+			<div class="panel panel-default" id="turnos_totales">
 				<div class="panel-body">
-					<h4 style="text-align: center;">Turnos totales <br>{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
-					<div class="row" id="turnos_totales">
+					<h4 style="text-align: center;"> Turnos Totales <br>{{$carbon}}</h4>
+					<div class="row">
 						<div class="col-md-12">
-							<div id="totalesfecha"></div>
+							<div id="totales"></div>
 						</div>
 					</div>
 				</div>
@@ -243,13 +256,13 @@
 			<br>	
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
+					<h4 style="text-align: center;">{{$carbon}}</h4>
 					<div class="row">
 						<div class="col-md-6">
-							<div id="subasuntofecha"></div>
+							<div id="subasunto"></div>
 						</div>
 						<div class="col-md-6">
-							<div id="subasuntoabandonadofecha"></div>
+							<div id="subasuntoabandonado"></div>
 						</div>
 					</div>
 				</div>
@@ -257,18 +270,18 @@
 			<br>
 			<div class="panel panel-default">
 				<div class="panel-body" id="turnos_realizados">
-					<h3 style="text-align: center;">Realizados</h3>
-					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
+					<h4 style="text-align: center;">Realizados</h4>
+					<h4 style="text-align: center;">{{$carbon}}</h4>
 					<br><br>
 					<div class="row">
 						<div class="col-md-6">
-							<div id="tramitesfecha"></div>
+							<div id="tramites"></div>
 						</div>
 						<div class="col-md-6">
-							<div id="aclaracionesfecha"></div>
+							<div id="aclaraciones"></div>
 						</div>
 						<div class="col-md-6">
-							<div id="pagosfecha"></div>
+							<div id="pagos"></div>
 						</div>
 					</div>
 				</div>
@@ -276,65 +289,66 @@
 			<br><br>
 			<div class="panel panel-default">
 				<div class="panel-body" id="turnos_abandonados">
-					<h3 style="text-align: center;">Abandonados</h3>
-					<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
+					<h4 style="text-align: center;">Abandonados</h4>
+					<h4 style="text-align: center;">{{$carbon}}</h4>
 					<br><br>
 					<div class="row">
 						<div class="col-md-6">
-							<div id="tramitesbandonadosfecha"></div>
+							<div id="tramitesbandonados"></div>
 						</div>
 						<div class="col-md-6">
-							<div id="aclaracionesabandonadosfecha"></div>
+							<div id="aclaracionesabandonados"></div>
 						</div>
 						<div class="col-md-6">
-							<div id="pagosabandonadosfecha"></div>
+							<div id="pagosabandonados"></div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 			<div class="panel panel-default">
-				<div class="panel-body">
+				<div class="panel-body" id="operaciones_hora">
 					<div class="row">
-						<div class="col-md-12"  id="operaciones_hora">
-							<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
-							<div id="linealhorafecha"></div>
+						<div class="col-md-12">
+							<h4 style="text-align: center;">{{$carbon}}</h4>
+							<div id="linealhora"></div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
-							<div id="linealhorafechaabandonados"></div>
+							<h4 style="text-align: center;">{{$carbon}}</h4>
+							<div id="linealabandonadoshora"></div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="row">
-						<div class="col-md-12" id="tramites_hora">
-							<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
-							<div id="tramiteshorafecha"></div>
+					<div class="row" id="tramites_hora">
+						<div class="col-md-12">
+							<h4 style="text-align: center;">{{$carbon}}</h4>
+							<div id="tramiteshora"></div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12" id="aclaraciones_hora">
-							<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
-							<div id="aclaracioneshorafecha"></div>
+					<div class="row" id="aclaraciones_hora">
+						<div class="col-md-12">
+							<h4 style="text-align: center;">{{$carbon}}</h4>
+							<div id="aclaracioneshora"></div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12" id="pagos_hora">
-							<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
-							<div id="pagoshorafecha"></div>
+					<div class="row" id="pagos_hora">
+						<div class="col-md-12">
+							<h4 style="text-align: center;">{{$carbon}}</h4>
+							<div id="pagoshora"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="panel panel-default">
+			<div class="panel panel-default" id="promedio_tiempo">
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-md-12" id="promedio_tiempo">
-							<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
+						<div class="col-md-12">
+							<h4 style="text-align: center;">{{$carbon}}</h4>
 							<table id="datatable" class="table table-bordered">
 				    			<thead>
 				        			<tr>
@@ -353,6 +367,7 @@
 							        <tr>
 							            <th>Tramites</th>
 							            @if(is_null($promedio_tramites->tiempo))
+							            	<td>0</td>
 							            	<td>0.00</td>
 							            @else
 							            	<td>{{$tramites}}</td>
@@ -367,6 +382,7 @@
 							        <tr>
 							            <th>Aclaraciones</th>
 							            @if(is_null($promedio_aclaraciones->tiempo))
+							            	<td>0</td>
 							            	<td>0.00</td>
 							            @else
 							            	<td>{{$aclaraciones}}</td>	
@@ -381,6 +397,7 @@
 							        <tr>
 							            <th>Pago</th>
 							            @if(is_null($promedio_pago->tiempo))
+							            	<td>0</td>
 							            	<td>0.00</td>
 							            @else
 							            	<td>{{$pago}}</td>	
@@ -407,8 +424,7 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12">
-							<h4 style="text-align: center;">Tramites</h4>
-							<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
+							<h4 style="text-align: center;">Tramites {{$carbon}}</h4>
 							<table id="datatabletramites" class="table table-bordered">
 				    			<thead>
 				        			<tr>
@@ -459,7 +475,6 @@
 							            	<td>{{ $promedio_cambio_espera->tiempo }}</td>
 							            @endif
 							            @if(is_null($promedio_cambio->tiempo))
-							            	<td>0</td>
 											<td>0.00</td>
 							            @else	
 							            	<td>{{ $promedio_cambio->tiempo }}</td>
@@ -495,7 +510,7 @@
 							            	<td>{{ $promedio_factibilidad->tiempo }}</td>
 							        	@endif
 							        </tr>
-							         <tr>
+							        <tr>
 							            <th>2 o mas tramites</th>
 							            @if(is_null($promedio_dosomas_espera->tiempo))
 							            	<td>0</td>
@@ -505,7 +520,6 @@
 							            	<td>{{ $promedio_dosomas_espera->tiempo }}</td>
 							            @endif
 							            @if(is_null($promedio_dosomas->tiempo))
-							            	<td>0</td>
 											<td>0.00</td>
 							            @else		
 							            	<td>{{ $promedio_dosomas->tiempo }}</td>
@@ -526,14 +540,14 @@
 							            	<td>{{ $promedio_solicitud_tarifa->tiempo }}</td>
 							        	@endif
 							        </tr>
-		 					        <tr>
+		 					         <tr>
 							            <th>Baja por impago</th>
-							            @if(is_null($promedio_baja_espera->tiempo))
+							            @if(is_null($promedio_solicitud_tarifa_espera->tiempo))
 							            	<td>0</td>
 											<td>0.00</td>
 							            @else
-							            	<td>{{$baja_impago}}</td>	
-							            	<td>{{ $promedio_baja_espera->tiempo }}</td>
+							            	<td>{{$solicitud_tarifa}}</td>	
+							            	<td>{{ $promedio_solicitud_tarifa_espera->tiempo }}</td>
 							            @endif
 							            @if(is_null($promedio_baja->tiempo))
 											<td>0.00</td>
@@ -541,7 +555,6 @@
 							            	<td>{{$promedio_baja->tiempo}}</td>
 							        	@endif
 							        </tr>
-							        
 				    			</tbody>
 							</table>
 						</div>
@@ -557,9 +570,8 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12">
-							<h4 style="text-align: center;">Aclaraciones</h4>
-							<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
-							<table id="datatableaclaraciones" class="table table-bordered">
+							<h4 style="text-align: center;">Aclaraciones {{$carbon}} HOLA MUNDO</h4>
+		 					<table id="datatableaclaraciones" class="table table-bordered">
 				    			<thead>
 				        			<tr>
 							            <th></th>
@@ -675,7 +687,7 @@
 							            	<td>{{ $promedio_solicitud->tiempo }}</td>
 							        	@endif
 							        </tr>
-							         <tr>
+							        <tr>
 							            <th>Otros tramites</th>
 							            @if(is_null($promedio_otros_espera->tiempo))
 							            	<td>0</td>
@@ -735,8 +747,7 @@
 							            	<td>{{$promedio_aviso->tiempo}}</td>
 							        	@endif
 							        </tr>
-							        
-				    			</tbody>
+		 					    </tbody>
 							</table>
 						</div>
 					</div>
@@ -751,8 +762,8 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12">
-							<h4 style="text-align: center;">Pagos</h4>
-							<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4><table id="datatablepago" class="table table-bordered">
+							<h4 style="text-align: center;">Pagos {{$carbon}}</h4>
+							<table id="datatablepago" class="table table-bordered">
 				    			<thead>
 				        			<tr>
 							            <th></th>
@@ -771,10 +782,10 @@
 							            	<td>{{ $pago_recibo }}</td>	
 							            	<td>{{ $promedio_pago_espera->tiempo }}</td>
 							            @endif
-							            @if(is_null($promedio_pago->tiempo))
+							            @if(is_null($promedio_pago_recibo->tiempo))
 							            	<td>0.00</td>
 							            @else	
-							            	<td>{{ $promedio_pago->tiempo }}</td>
+							            	<td>{{ $promedio_pago_recibo->tiempo }}</td>
 							        	@endif
 							        </tr>
 							        <tr>
@@ -807,7 +818,7 @@
 							            	<td>{{ $promedio_pago_carta->tiempo }}</td>
 							        	@endif
 							        </tr>
-							        <tr>
+							         <tr>
 							            <th>Pagos de facturas</th>
 							            @if(is_null($promedio_pago_facturas_espera->tiempo))
 							            	<td>0</td>
@@ -822,6 +833,7 @@
 							            	<td>{{ $promedio_pago_facturas->tiempo }}</td>
 							        	@endif
 							        </tr>
+							        
 							   </tbody>
 							</table>
 						</div>
@@ -835,44 +847,470 @@
 			</div>
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<!--<div class="row">
+					<div class="row" id="promedio_espera_hora">
 						<div class="col-md-12">
-							<div id="linealpromedio"></div>
-						</div>
-					</div>-->
-					<div class="row">
-						<div class="col-md-12" id="promedio_espera_hora">
-							<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
-							<div id="linealpromediohorafecha"></div>
+							<h4 style="text-align: center;">{{$carbon}}</h4>
+							<div id="linealpromediohora"></div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<!--<div class="row">
+					<div class="row" id="promedio_atencion_hora">
 						<div class="col-md-12">
-							<div id="linealpromedioatencion"></div>
-						</div>
-					</div>-->
-					<div class="row">
-						<div class="col-md-12" id="promedio_atencion_hora">
-							<h4 style="text-align: center;">{{ $fecha }} al dia: {{ $fecha_dos }}</h4>
-							<div id="linealpromediohoraatencionfecha"></div>
+							<h4 style="text-align: center;">{{$carbon}}</h4>
+							<div id="linealpromediohoraatencion"></div>
 						</div>
 					</div>
 				</div>
-			</div>								
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-12">
+					<h1 style="text-align: center">Reporte General Global</h1>
+				</div>
+			</div>
+			<br>
+			<br><br>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" id="turnos_mes">
+						<div class="col-md-12">
+							<table class="table table-bordered">
+								<tr>
+									<td><strong>Asunto</strong></td>
+									<td><strong>Mes</strong></td>
+									<td><strong></strong></td>
+								</tr>
+								<tr>
+									<td><strong></strong></td>
+		 							@foreach($aclaraciones_mes as $pm)
+ 										<td>{{$pm->mes}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Aclaraciones</td>
+									@foreach($aclaraciones_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Tramites</td>
+									@foreach($tramites_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Pagos</td>
+									@foreach($pagos_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+							</table>
+							<br><br><br>
+							<table class="table table-bordered">
+								<tr>
+									<td><strong>Tramites</strong></td>
+									<td><strong>Mes</strong></td>
+ 								</tr>
+								<tr>
+									<td><strong></strong></td>
+		 							@foreach($contrato_mes as $pm)
+			 							<td>{{$pm->mes}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Contrato</td>
+									@foreach($contrato_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Convenio</td>
+									@foreach($convenio_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Cambio de nombre</td>
+									@foreach($cambio_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Carta de no adeudo</td>
+									@foreach($carta_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Factibilidad de servicio</td>
+									@foreach($factibilidad_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>2 o mas tramites</td>
+									@foreach($dosomas_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Solicitud de tarifa social</td>
+									@foreach($dosomas_mes as $pm)
+									<td>Falta</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Baja por impago</td>
+									@foreach($dosomas_mes as $pm)
+									<td>Falta</td>
+									@endforeach
+								</tr>
+							</table>
+								<br><br><br>
+								<table class="table table-bordered">
+								<tr>
+									<td><strong>Aclaraciones</strong></td>
+									<td><strong>Mes</strong></td>
+									<td><strong></strong></td>
+								</tr>
+								<tr>
+									<td><strong></strong></td>
+		 							@foreach($alto_mes as $pm)
+			 							<td>{{$pm->mes}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Alto consumo con o sin medidor</td>
+									@foreach($alto_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Reconexion de servicios</td>
+									@foreach($reconexion_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Error en lectura</td>
+									@foreach($error_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>No toma lectura</td>
+									@foreach($notoma_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>No entrega de recibo</td>
+									@foreach($noentrega_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Cambio de tarifa</td>
+									@foreach($cambiotarifa_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Solicitud de medidor</td>
+									@foreach($solicitud_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Otros tramites</td>
+									@foreach($otro_mes as $pm)
+									<td>{{$pm->numero}}</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Alta estimación de consumo</td>
+									@foreach($otro_mes as $pm)
+									<td>Fallas</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Propuestas de pago</td>
+									@foreach($otro_mes as $pm)
+									<td>Fallas</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td>Aviso de incidencia</td>
+									@foreach($otro_mes as $pm)
+									<td>Fallas</td>
+									@endforeach
+								</tr>
+							</table>
+							<br><br><br>
+							<table class="table table-bordered">
+									<tr>
+										<td><strong>Pagos</strong></td>
+										<td><strong>Mes</strong></td>
+										<td><strong></strong></td>
+									</tr>
+									<tr>
+										<td><strong></strong></td>
+			 							@foreach($pago_mes as $pm)
+				 							<td>{{$pm->mes}}</td>
+									@endforeach
+									</tr>
+									<tr>
+										<td>Pago de recibo</td>
+										@foreach($pago_mes as $pm)
+										<td>{{$pm->numero}}</td>
+										@endforeach
+									</tr>
+									<tr>
+										<td>Pago de convenio</td>
+										@foreach($pago_mes_convenio as $pm)
+										<td>{{$pm->numero}}</td>
+										@endforeach
+									</tr>
+									<tr>
+										<td>Pago carta de no adeudo</td>
+										@foreach($pago_mes_carta as $pm)
+										<td>{{$pm->numero}}</td>
+										@endforeach
+									</tr>
+									<tr>
+										<td>Pagos de facturas</td>
+										@foreach($pago_mes_carta as $pm)
+										<td>FALTA</td>
+										@endforeach
+									</tr>
+								</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12" id="promedio_espera_mes">
+						<h3 style="text-align: center;">Promedio de tiempo de espera mes</h3><br>
+					
+						<table class="table table-bordered">
+							<tr>
+								<td width="100px"></td>
+								@foreach($promedio_tramites_mes as $prom)
+									<td><strong>{{$prom->mes}}</strong></td>										
+								@endforeach
+							</tr>
+							<tr>
+								<td><strong>Tramites</strong></td>
+								@foreach($promedio_tramites_mes as $prom)
+									<td>{{$prom->tiempo}} ({{$prom->numero}})</td>
+								@endforeach
+							</tr>
+		  					<tr>
+								<td><strong>Aclaraciones</strong></td>
+								@foreach($promedio_aclaraciones_mes as $prom)
+									<td>{{$prom->tiempo}} ({{$prom->numero}})</td>
+								@endforeach
+							</tr>
+		  					<tr>
+								<td><strong>Pago</strong></td>
+								@foreach($promedio_pago_mes as $prom)
+									<td>{{$prom->tiempo}} ({{$prom->numero}})</td>
+								@endforeach
+							</tr>
+						</table>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12" id="promedio_atencion_mes">
+							<h3 style="text-align: center;">Promedio de tiempo de atencion</h3><br>
+							<table class="table table-bordered">
+								<tr>
+									<td width="100px"></td>
+									@foreach($promedio_tramitesa_mes as $prom)
+										@if($prom->mes=='1')
+											<td><strong>Enero</strong></td>
+										@elseif($prom->mes=='2')
+											<td><strong>Febrero</strong></td>
+										@elseif($prom->mes=='3')
+											<td><strong>Marzo</strong></td>
+										@elseif($prom->mes=='4')
+											<td><strong>Abril</strong></td>
+										@elseif($prom->mes=='5')
+											<td><strong>Mayo</strong></td>
+										@elseif($prom->mes=='6')
+											<td><strong>Junio</strong></td>
+										@elseif($prom->mes=='7')
+											<td><strong>Julio</strong></td>
+										@elseif($prom->mes=='8')
+											<td><strong>Agosto</strong></td>
+										@elseif($prom->mes=='9')
+											<td><strong>Septiembre</strong></td>
+										@elseif($prom->mes=='10')
+											<td><strong>Octubre</strong></td>
+										@elseif($prom->mes=='11')
+											<td><strong>Noviembre</strong></td>
+										@elseif($prom->mes=='12')
+											<td><strong>Diciembre</strong></td>										
+										@endif	
+									@endforeach
+								</tr>
+								<tr>
+									<td><strong>Tramites</strong></td>
+									@foreach($promedio_tramitesa_mes as $prom)
+										<td>{{$prom->tiempo}} ({{$prom->numero}})</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td width="100px"></td>
+									@foreach($promedio_aclaracionesa_mes as $prom)
+										@if($prom->mes=='1')
+											<td><strong>Enero</strong></td>
+										@elseif($prom->mes=='2')
+											<td><strong>Febrero</strong></td>
+										@elseif($prom->mes=='3')
+											<td><strong>Marzo</strong></td>
+										@elseif($prom->mes=='4')
+											<td><strong>Abril</strong></td>
+										@elseif($prom->mes=='5')
+											<td><strong>Mayo</strong></td>
+										@elseif($prom->mes=='6')
+											<td><strong>Junio</strong></td>
+										@elseif($prom->mes=='7')
+											<td><strong>Julio</strong></td>
+										@elseif($prom->mes=='8')
+											<td><strong>Agosto</strong></td>
+										@elseif($prom->mes=='9')
+											<td><strong>Septiembre</strong></td>
+										@elseif($prom->mes=='10')
+											<td><strong>Octubre</strong></td>
+										@elseif($prom->mes=='11')
+											<td><strong>Noviembre</strong></td>
+										@elseif($prom->mes=='12')
+											<td><strong>Diciembre</strong></td>										
+										@endif	
+									@endforeach
+								</tr>
+								<tr>
+									<td><strong>Aclaraciones</strong></td>
+									@foreach($promedio_aclaracionesa_mes as $prom)
+										<td>{{$prom->tiempo}} ({{$prom->numero}})</td>
+									@endforeach
+								</tr>
+								<tr>
+									<td width="100px"></td>
+									@foreach($promedio_pagoa_mes as $prom)
+										@if($prom->mes=='1')
+											<td><strong>Enero</strong></td>
+										@elseif($prom->mes=='2')
+											<td><strong>Febrero</strong></td>
+										@elseif($prom->mes=='3')
+											<td><strong>Marzo</strong></td>
+										@elseif($prom->mes=='4')
+											<td><strong>Abril</strong></td>
+										@elseif($prom->mes=='5')
+											<td><strong>Mayo</strong></td>
+										@elseif($prom->mes=='6')
+											<td><strong>Junio</strong></td>
+										@elseif($prom->mes=='7')
+											<td><strong>Julio</strong></td>
+										@elseif($prom->mes=='8')
+											<td><strong>Agosto</strong></td>
+										@elseif($prom->mes=='9')
+											<td><strong>Septiembre</strong></td>
+										@elseif($prom->mes=='10')
+											<td><strong>Octubre</strong></td>
+										@elseif($prom->mes=='11')
+											<td><strong>Noviembre</strong></td>
+										@elseif($prom->mes=='12')
+											<td><strong>Diciembre</strong></td>										
+										@endif	
+									@endforeach
+								</tr>
+								<tr>
+									<td><strong>Pago</strong></td>
+									@foreach($promedio_pagoa_mes as $prom)
+										<td>{{$prom->tiempo}} ({{$prom->numero}})</td>
+									@endforeach
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div class="panel panel-default" id="operaciones_por_fecha">
+				<div class="panel-body">
+		 			<div class="row">
+						<div class="col-md-12">
+		 					<div id="lineal"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+		 					<div id="linealabandonados"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div id="linealpromedioatencion"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div id="linealpromedio"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default" id="promedio_tramites_mes">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div id="atenciontramites"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div id="esperatramites"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default" id="promedio_aclaraciones_mes">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div id="atencionaclaraciones"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div id="esperaaclaraciones"></div>
+						</div>
+					</div>
+				</div>
+			</div>																					
 		</div>
-	</div>	
-</div>	
+    </div>
+</div>
 
-@endif
 @endsection
 @section('javascript')
 {!! Html::script('assets/js/highcharts.js') !!}
 {!! Html::script('assets/js/data.js') !!}
 {!! Html::script('assets/js/exporting.js') !!}
-{!! Html::script('assets/js/graficas_generales_fecha.js') !!}
+{!! Html::script('assets/js/graficas_generales.js') !!}
 {!! Html::script('assets/js/graficalineal.js')!!}
 @stop
+
+<!--<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="assets/js/exporting.js"></script>-->
