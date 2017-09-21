@@ -148,12 +148,12 @@ class apiController extends Controller
     //terminar turno
     public function actualizar_tiempo(Request $request, $id)
     {
-
         //dd($request->all());
         $date = Carbon::now('America/Hermosillo');
         $tiket = Tiket::find($id);
         $tiket->tiempo = $request->tiempo;
-        $tiket->asunto = $request->asunto;
+        $tiket->asunto = $request->subasunto;
+        $tiket->subasunto = $request->asunto;
         $tiket->fin = $date->toTimeString();
         $tiket->save();
         

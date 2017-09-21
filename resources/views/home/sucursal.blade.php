@@ -104,43 +104,35 @@
 							<tr width="50px">
 								<td width="1px;">Contrato</td>
 								<td>{{$contrato}}</td>
-								<td>{{$contrato_abandonado}}</td>
 							</tr>
 							<tr width="50px">
 								<td width="1px;">Convenio</td>
 								<td>{{$convenio}}</td>
-								<td>{{$convenio_abandonado}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Cambio de nombre</td>
 								<td>{{$cambio}}</td>
-								<td>{{$cambio_abandonado}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Carta de no Adeudo</td>
 								<td>{{$carta}}</td>
-								<td>{{$carta_abandonado}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Factibilidad</td>
 								<td>{{$factibilidad}}</td>
-								<td>{{$factibilidad_abandonado}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">2 o mas tramites</td>
 								<td>{{$dosomas}}</td>
-								<td>{{$dosomas_abandonado}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Solicitud de tarifa social</td>
 								<td>{{$solicitud_tarifa}}</td>
-								<td>{{$solicitud_tarifa_abandonado}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Baja por impago</td>
 								<td>{{$baja_impago}}</td>
-								<td>{{$baja_impago_abandonado}}</td>
-							</tr>
+ 							</tr>
 						</table>
 					</div>
 				</div>
@@ -156,23 +148,19 @@
 							<tr width="50px">
 								<td width="1px;">Recibo</td>
 								<td>{{$pago_recibo}}</td>
-								<td>{{$pago_recibo_abandonados}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Convenio</td>
 								<td>{{$pago_convenio}}</td>
-								<td>{{$pago_convenio_abandonados}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Carta de no Adeudo</td>
 								<td>{{$pago_carta}}</td>
-								<td>{{$pago_carta_abandonados}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Pagos de facturas</td>
 								<td>{{$pago_facturas}}</td>
-								<td>{{$pago_facturas_abandonados}}</td>
-							</tr>
+ 							</tr>
 						</table>
 					</div>
 				</div>
@@ -188,58 +176,47 @@
 							<tr width="50px">
 								<td width="1px;">Alto Consumo <br>(Con y sin medidor)</td>
 								<td>{{$alto}}</td>
-								<td>{{$alto_abandonado}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Reconexion de servicios</td>
 								<td>{{$reconexion}}</td>
-								<td>{{$reconexion_abandonado}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Error en lectura</td>
 								<td>{{$error}}</td>
-								<td>{{$error_abandonados}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">No toma de lectura</td>
 								<td>{{$notoma}}</td>
-								<td>{{$notoma_abandonados}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">No entrega de recibo</td>
 								<td>{{$noentrega}}</td>
-								<td>{{$noentrega_abandonados}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Cambio de tarifa</td>
 								<td>{{$cambiotarifa}}</td>
-								<td>{{$cambiodetarifa_abandonados}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Solicitud de medidor</td>
 								<td>{{$solicitud}}</td>
-								<td>{{$solicitud_abandonados}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px;">Otros tramites</td>
 								<td>{{$otros}}</td>
-								<td>{{$otros_abandonados}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px">Alta estimación de consumo</td>
 								<td>{{$alta_estimacion}}</td>
-								<td>{{$alta_estimacion_abandonados}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px">Propuestas de pago</td>
 								<td>{{$propuestas}}</td>
-								<td>{{$propuestas_abandonados}}</td>
-							</tr>
+ 							</tr>
 							<tr width="50px">
 								<td width="1px">Aviso de incidencia</td>
 								<td>{{$aviso}}</td>
-								<td>{{$aviso_abandonados}}</td>
-							</tr>
+ 							</tr>
 						</table>
 					</div>
 				</div>
@@ -675,11 +652,7 @@
 			        			</tr>
 			    			</thead>
 			    			<tbody>
-						        <!--<tr>
-						            <th>Global</th>
-						            <td>{{ $promedio }}</td>
-						            <td>{{ $promedio_atendido }}</td>
-						        </tr>-->
+						        
 						        <tr>
 						            <th>Tramites</th>
 						            @if(is_null($promedio_tramites->tiempo))

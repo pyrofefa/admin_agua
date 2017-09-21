@@ -14,10 +14,10 @@ use Carbon\Carbon;
 
 class HomeController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
         $this->middleware('cors');
-        $this->middleware('auth');
+        //$this->middleware('auth');
         Carbon::setLocale('es');
 
     }
@@ -27,157 +27,112 @@ class HomeController extends Controller
         $sucursal = Sucursal::all();
         return view('home.index',compact('sucursal'));
     }
-    //api
-    public function mostrar()
-    {
-        $turno=Tiket::where('estado', 0)->first();
-        return [$turno];
-    }
-    public function mostrar_pagos($id)
-    {
-        $turno=Tiket::where('estado', 0)->where('subasunto','Pago')->where('id_sucursal',$id)
-            ->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
-        //dd($turno);
-        return [$turno];
-    }
-    public function mostrar_aclaraciones($id)
-    {
-        $turno=Tiket::where('estado', 0)->whereRaw("(subasunto = 'Aclaraciones y Otros' or subasunto = 'Tramites')")
-            ->where('id_sucursal',$id)->whereRaw('Date(tikets.created_at) = CURDATE()')->first();
-        return [$turno];
-    }
-    public function update(Request $request, $id)
-    {
-        $caja=caja::find($id);
-        $caja->update($request->all());
-        return response()->json(['status'=>'ok','data'=>$caja], 200);
-    }
+
     public function sucursal($id)
     {
         $carbon =  Carbon::today()->format('d-m-Y');
-        $atendidos = DB::table('tikets')->select(DB::raw('*'))
+        $atendidos = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $espera = DB::table('tikets')->select(DB::raw('*'))->where('estado',0)->whereRaw('Date(created_at) = CURDATE()')
+
+        $espera = DB::table('tikets')->select(DB::raw('turno'))->where('estado',0)->whereRaw('Date(created_at) = CURDATE()')
             ->where('id_sucursal',$id)->count();
-        $abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)->where('id_sucursal',$id)
+        $abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)->where('id_sucursal',$id)
             ->whereRaw('Date(created_at) = CURDATE()')->count();
 
-        $aclaraciones=DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $aclaraciones=DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('subasunto','Aclaraciones y Otros')->whereRaw('Date(created_at) = CURDATE()')
                 ->where('id_sucursal',$id)->count();  
-        $aclaraciones_abandonadas = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $aclaraciones_abandonadas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('id_sucursal',$id)->where('subasunto','Aclaraciones y Otros')
                 ->whereRaw('Date(created_at) = CURDATE()')->count();
-        $tramites = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $tramites = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('subasunto','Trámites')->where('id_sucursal',$id)->whereRaw('Date(created_at) = CURDATE()')->count();
-        $tramites_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $tramites_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('subasunto','Trámites')->where('id_sucursal',$id)->whereRaw('Date(created_at) = CURDATE()')->count();
-        $pago = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('subasunto','Pago')->where('id_sucursal',$id)->whereRaw('Date(created_at) = CURDATE()')->count();
-        $pago_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $pago_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('subasunto','Pago')->where('id_sucursal',$id)->whereRaw('Date(created_at) = CURDATE()')->count();     
         
         //Tramites
-        $contrato = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $contrato = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Contrato')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $contrato_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Contrato')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $convenio = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+
+        $convenio = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Convenio')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $convenio_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Convenio')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $cambio = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $cambio = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Cambio de nombre')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $cambio_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Cambio de nombre')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $carta = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $carta = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Carta de adeudo')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $carta_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)->where('id_sucursal',$id)
-            ->where('asunto','Carta de adeudo')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $factibilidad = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $factibilidad = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Factibilidad')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $factibilidad_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Factibilidad')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $dosomas = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $dosomas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','2 ó más trámites')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $dosomas_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','2 ó más trámites')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $solicitud_tarifa = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $solicitud_tarifa = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Solicitud de tarifa social')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $solicitud_tarifa_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Solicitud de tarifa social')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $baja_impago = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $baja_impago = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Baja por impago')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $baja_impago_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Baja por impago')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
+        
 
 
         //Aclaraciones
-        $alto = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $alto = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Alto consumo (con y sin medidor)')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $alto_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Alto consumo (con y sin medidor)')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $reconexion = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+       
+        $reconexion = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Reconexión de servicio')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $reconexion_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Reconexión de servicio')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();   
-        $error = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+         
+        $error = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Error en lectura')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $error_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Error en lectura')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();  
-        $notoma = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $notoma = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','No toma lectura')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $notoma_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','No toma lectura')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $noentrega = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $noentrega = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','No entrega de recibo')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $noentrega_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','No entrega de recibo')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $cambiotarifa = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $cambiotarifa = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Cambio de tarifa')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $cambiodetarifa_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Cambio de tarifa')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count(); 
-        $solicitud = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $solicitud = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Solicitud de medidor')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $solicitud_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Solicitud de medidor')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();                
-        $otros = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+                        
+        $otros = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Otros trámites')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $otros_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Otros trámites')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();   
+           
 
         //Pagos
-        $pago_recibo = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago_recibo = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pago')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $pago_recibo_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('id_sucursal',$id)->where('estado',2)
-            ->where('asunto','Pago')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $pago_convenio = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $pago_convenio = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pago de convenio')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $pago_convenio_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Pago de convenio')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $pago_carta = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $pago_carta = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pago carta no adeudo')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $pago_carta_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Pago carta no adeudo')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
+        
 
 
         //nuevas
-        $alta_estimacion = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $alta_estimacion = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Alta estimación de consumo')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $alta_estimacion_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Alta estimación de consumo')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();                
-        $propuestas = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+                        
+        $propuestas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Propuestas de pago')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $propuestas_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Propuestas de pago')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();  
-        $aviso = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+ 
+        $aviso = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Aviso de incidencia')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count(); 
-        $aviso_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Aviso de incidencia')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
-        $pago_facturas = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        
+        $pago_facturas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pagos de facturas')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();     
-        $pago_facturas_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
-            ->where('asunto','Pagos de facturas')->whereRaw('Date(created_at) = CURDATE()')->where('id_sucursal',$id)->count();
+        
+
 
 
         //promedios
@@ -209,7 +164,6 @@ class HomeController extends Controller
             ->first(); 
 
 
-        $promedio = round(($promedio_tramites->tiempo + $promedio_aclaraciones->tiempo + $promedio_pago->tiempo ) / 3 );
     
         $promedio_tramitesa=DB::table('tikets')
             ->selectRaw('CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS tiempo')
@@ -239,7 +193,6 @@ class HomeController extends Controller
             ->where('id_sucursal',$id)
             ->first();
 
-        $promedio_atendido = round(($promedio_tramitesa->tiempo + $promedio_aclaracionesa->tiempo + $promedio_pagoa->tiempo ) / 3 );        
         
         $sucursal = Sucursal::where('id', $id)->first();
 
@@ -531,9 +484,10 @@ class HomeController extends Controller
         //Pagos por mes    
         $pago_mes = DB::table('meses')
         ->selectRaw('meses.mes as mes, COUNT(tikets.turno) AS numero')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($id) {
             $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
                  ->where('tikets.estado', '=', 1)
+                 ->where('id_sucursal','=',$id)
                  ->where('tikets.asunto','=','Pago');
             })
         ->groupBy('meses.mes')
@@ -542,9 +496,10 @@ class HomeController extends Controller
         
         $pago_mes_convenio = DB::table('meses')
         ->selectRaw('meses.mes as mes, COUNT(tikets.turno) AS numero')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($id) {
             $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
                  ->where('tikets.estado', '=', 1)
+                 ->where('id_sucursal','=',$id)
                  ->where('tikets.asunto','=','Pago de convenio');
             })
         ->groupBy('meses.mes')
@@ -553,9 +508,10 @@ class HomeController extends Controller
         
         $pago_mes_carta = DB::table('meses')
         ->selectRaw('meses.mes as mes, COUNT(tikets.turno) AS numero')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($id) {
             $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
                  ->where('tikets.estado', '=', 1)
+                 ->where('id_sucursal','=',$id)
                  ->where('tikets.asunto','=','Pago carta no adeudo');
             })
         ->groupBy('meses.mes')
@@ -564,9 +520,10 @@ class HomeController extends Controller
 
          $pago_mes_facturas = DB::table('meses')
         ->selectRaw('meses.mes as mes, COUNT(tikets.turno) AS numero')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($id) {
             $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
                  ->where('tikets.estado', '=', 1)
+                 ->where('id_sucursal','=',$id)
                  ->where('tikets.asunto','=','Pagos de facturas');
             })
         ->groupBy('meses.mes')
@@ -580,11 +537,14 @@ class HomeController extends Controller
             ->groupBy('mes')
             ->get();
         
+
+
         $promedio_tramites_mes = DB::table('meses')
         ->selectRaw('meses.mes as mes, Count(turno) as numero, CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($id) {
             $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
                  ->where('tikets.estado', '=', 1)
+                 ->where('tikets.id_sucursal','=',$id)
                  ->where('tikets.subasunto','=','Tramites')
                  ->where('tikets.atendido', '<>', '00:00:00')
                  ->where('tikets.llegada', '<>', '00:00:00');
@@ -593,26 +553,27 @@ class HomeController extends Controller
         ->orderBy('meses.numero','ASC')
         ->get();
         
-
         $promedio_aclaraciones_mes = DB::table('meses')
         ->selectRaw('meses.mes as mes, Count(turno) as numero, CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($id) {
             $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Aclaraciones y Otros')
+                 ->where('tikets.id_sucursal','=',$id)
                  ->where('tikets.atendido', '<>', '00:00:00')
                  ->where('tikets.llegada', '<>', '00:00:00');            
-        })
+            })
         ->groupBy('meses.mes')
         ->orderBy('meses.numero','ASC')
         ->get();
 
         $promedio_pago_mes = DB::table('meses')
         ->selectRaw('meses.mes as mes, Count(turno) as numero, CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($id) {
             $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
                  ->where('tikets.estado', '=', 1)
                  ->where('tikets.subasunto','=','Pago')
+                 ->where('tikets.id_sucursal','=',$id)
                  ->where('tikets.atendido', '<>', '00:00:00')
                  ->where('tikets.llegada', '<>', '00:00:00'); 
              })
@@ -623,9 +584,10 @@ class HomeController extends Controller
       
         $promedio_tramitesa_mes = DB::table('meses')
         ->selectRaw('meses.mes as mes, Count(turno) as numero, CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS tiempo')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($id) {
             $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
                  ->where('tikets.estado', '=', 1)
+                 ->where('tikets.id_sucursal','=',$id)
                  ->where('tikets.subasunto','=','Tramites')
                  ->where('tikets.fin', '<>', '00:00:00');
              })
@@ -635,9 +597,10 @@ class HomeController extends Controller
         
         $promedio_aclaracionesa_mes = DB::table('meses')
         ->selectRaw('meses.mes as mes, Count(turno) as numero, CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS tiempo')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($id) {
             $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
                  ->where('tikets.estado', '=', 1)
+                 ->where('tikets.id_sucursal','=',$id)
                  ->where('tikets.subasunto','=','Aclaraciones y Otros')
                  ->where('tikets.fin', '<>', '00:00:00');
              })
@@ -647,18 +610,20 @@ class HomeController extends Controller
         
         $promedio_pagoa_mes = DB::table('meses')
         ->selectRaw('meses.mes as mes, Count(turno) as numero, CAST(Sum(TIME_TO_SEC(TIMEDIFF(fin,atendido)) / 60) / COUNT(turno)  as DECIMAL(10,2))  AS tiempo')
-        ->leftjoin('tikets', function ($join) {
+        ->leftjoin('tikets', function ($join) use($id) {
             $join->on(DB::raw('MONTH(tikets.created_at)'),'=', DB::raw('meses.numero'))
                  ->where('tikets.estado', '=', 1)
+                 ->where('tikets.id_sucursal','=',$id)
                  ->where('tikets.subasunto','=','Pago')
                  ->where('tikets.fin', '<>', '00:00:00');
              })
         ->groupBy('meses.mes')
         ->orderBy('meses.numero','ASC')
         ->get();
+        
         $promedio_cajera = DB::table('users')
         ->selectRaw('users.name as caja, COUNT(tikets.turno) as numero, CAST(Sum(TIME_TO_SEC(TIMEDIFF(atendido,llegada)) / 60) / COUNT(turno)  as DECIMAL(10,2))  as tiempo')
-        ->leftjoin('tikets', function ($join){
+        ->leftjoin('tikets', function ($join) {
             $join->on('tikets.fk_caja','=','users.name')
                  ->where('tikets.estado', '=', 1)
                  ->where(DB::raw('Date(tikets.created_at)'), '=', date('Y-m-d'));
@@ -1508,144 +1473,147 @@ class HomeController extends Controller
             ->groupBy('caja')
             ->get();  
 
+                        //dd('final');
+
+
         return view('home.sucursal',compact('pago_mes_facturas','aviso_mes','propuestas_mes','alta_estimacion_mes','baja_por_impago_mes','solicitud_tarifa_mes','promedio_pago_facturas','promedio_pago_facturas_espera','promedio_aviso','promedio_aviso_espera','promedio_propuestas','promedio_propuestas_espera','promedio_altaestimacion','promedio_altaestimacion_espera','promedio_baja_espera','promedio_baja','promedio_solicitud_tarifa','promedio_solicitud_tarifa_espera','caja_pago_facturas','caja_aviso','caja_propuestas','caja_alta','caja_baja_impago','caja_tarifa_social','aviso_abandonados','aviso','propuestas_abandonados','propuestas','pago_facturas_abandonados','pago_facturas','alta_estimacion_abandonados','alta_estimacion','baja_impago_abandonado','baja_impago','solicitud_tarifa_abandonado','solicitud_tarifa','promedio_pagos','caja_recivo','caja_pago_carta','caja_pago_convenio','caja_otros','caja_solicitud','caja_cambiotarifa','caja_noentrega','caja_notoma','caja_error','caja_reconexion','caja_alto','caja_dosomas','caja_factibilidad','caja_carta','caja_cambio','caja_convenio','caja_contrato','alto_mes','reconexion_mes','error_mes','notoma_mes','noentrega_mes','cambiotarifa_mes','solicitud_mes','otro_mes','contrato_mes','convenio_mes','cambio_mes','carta_mes','factibilidad_mes','dosomas_mes','promedio_pago_carta','promedio_pago_convenio','promedio_pago','promedio_pago_espera','promedio_pago_convenio_espera','promedio_pago_carta_espera','promedio_alto','promedio_reconexion','promedio_error','promedio_notoma','promedio_noentega','promedio_cambiotarifa','promedio_solicitud','promedio_otros','promedio_otros_espera','promedio_solicitud_espera','promedio_cambiotarifa_espera','promedio_noentrega_espera','promedio_notoma_espera','promedio_error_espera','promedio_reconexion_espera','promedio_alto_espera','suma_promedio_cajera','pago_mes_carta','pago_mes_convenio','cajas_promedio','promedio_contrato_espera','promedio_convenio_espera','promedio_cambio_espera','promedio_carta_espera','promedio_factibilidad_espera','promedio_dosomas_espera','promedio_contrato','promedio_convenio','promedio_cambio','promedio_carta','promedio_factibilidad','promedio_dosomas','cajas_pago_sub','cajas_aclaraciones_sub','cajas_tramites_sub','promedio_atendido_cajera','promedio_tramitesa_cajera','promedio_aclaracionesa_cajera','promedio_pagoa_cajera','promedio_cajera','promedio_tramites_cajera','promedio_aclaraciones_cajera','promedio_pago_cajera','promedio_pagoa_mes','promedio_aclaracionesa_mes','promedio_tramitesa_mes','promedio_atendido_mes','promedio_pago_mes','promedio_aclaraciones_mes','promedio_tramites_mes','promedio_mes','pago_mes','aclaraciones_mes','tramites_mes','pagos_mes','asunto_mes','cajas_tramites','cajas_aclaraciones','cajas_pago','sucursal','carbon','atendidos','espera','promedio','promedio_tramites','promedio_aclaraciones','promedio_pago','promedio_atendido','promedio_tramitesa','promedio_aclaracionesa','promedio_pagoa','tramites','tramites_abandonados','contrato','contrato_abandonado','convenio','convenio_abandonado','cajas','cambio','cambio_abandonado','carta','carta_abandonado','factibilidad','factibilidad_abandonado','dosomas','dosomas_abandonado','aclaraciones','aclaraciones_abandonadas','pago','pago_abandonado','pago_recibo','pago_recibo_abandonados','pago_convenio','pago_convenio_abandonados','pago_carta','pago_carta_abandonados','abandonados','alto','alto_abandonado','reconexion','reconexion_abandonado','error','error_abandonados','notoma','notoma_abandonados','noentrega','noentrega_abandonados','cambiotarifa','cambiodetarifa_abandonados','solicitud','solicitud_abandonados','otros','otros_abandonados','sucursal'));
     }
     public function general()
     {
         //dd('entrando');
         $carbon =  Carbon::today()->format('d-m-Y');
-        $atendidos = DB::table('tikets')->select(DB::raw('*'))
+        $atendidos = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)->whereRaw('Date(created_at) = CURDATE()')->count();
-        $espera = DB::table('tikets')->select(DB::raw('*'))->where('estado',0)->whereRaw('Date(created_at) = CURDATE()')->count();
-        $abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $espera = DB::table('tikets')->select(DB::raw('turno'))->where('estado',0)->whereRaw('Date(created_at) = CURDATE()')->count();
+        $abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->whereRaw('Date(created_at) = CURDATE()')->count();
 
-        $aclaraciones=DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $aclaraciones=DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('subasunto','Aclaraciones y Otros')->whereRaw('Date(created_at) = CURDATE()')->count();  
-        $aclaraciones_abandonadas = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $aclaraciones_abandonadas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('subasunto','Aclaraciones y Otros')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $tramites = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $tramites = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('subasunto','Trámites')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $tramites_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $tramites_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('subasunto','Trámites')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $pago = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('subasunto','Pago')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $pago_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $pago_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('subasunto','Pago')->whereRaw('Date(created_at) = CURDATE()')->count();     
         
         //Tramites
         $contrato = DB::table('tikets')
-            ->select(DB::raw('*'))
+            ->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Contrato')
             ->whereRaw('Date(created_at) = CURDATE()')
             ->count();
         
         $contrato_abandonado = DB::table('tikets')
-            ->select(DB::raw('*'))
+            ->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Contrato')
             ->whereRaw('Date(created_at) = CURDATE()')
             ->count();
         
         $convenio = DB::table('tikets')
-            ->select(DB::raw('*'))
+            ->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Convenio')
             ->whereRaw('Date(created_at) = CURDATE()')
             ->count();
         
-        $convenio_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $convenio_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Convenio')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $cambio = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $cambio = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Cambio de nombre')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $cambio_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $cambio_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Cambio de nombre')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $carta = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $carta = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Carta de adeudo')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $carta_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $carta_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Carta de adeudo')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $factibilidad = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $factibilidad = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Factibilidad')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $factibilidad_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $factibilidad_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Factibilidad')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $dosomas = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $dosomas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','2 ó más trámites')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $dosomas_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $dosomas_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','2 ó más trámites')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $solicitud_tarifa = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $solicitud_tarifa = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Solicitud de tarifa social')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $solicitud_tarifa_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $solicitud_tarifa_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Solicitud de tarifa social')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $baja_impago = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $baja_impago = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Baja por impago')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $baja_impago_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $baja_impago_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Baja por impago')->whereRaw('Date(created_at) = CURDATE()')->count();
 
         //Aclaraciones
-        $alto = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $alto = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Alto consumo (con y sin medidor)')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $alto_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $alto_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Alto consumo (con y sin medidor)')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $reconexion = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $reconexion = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Reconexión de servicio')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $reconexion_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $reconexion_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Reconexión de servicio')->whereRaw('Date(created_at) = CURDATE()')->count();   
-        $error = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $error = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Error en lectura')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $error_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $error_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Error en lectura')->whereRaw('Date(created_at) = CURDATE()')->count();  
-        $notoma = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $notoma = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','No toma lectura')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $notoma_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $notoma_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','No toma lectura')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $noentrega = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $noentrega = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','No entrega de recibo')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $noentrega_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $noentrega_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','No entrega de recibo')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $cambiotarifa = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $cambiotarifa = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Cambio de tarifa')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $cambiodetarifa_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $cambiodetarifa_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Cambio de tarifa')->whereRaw('Date(created_at) = CURDATE()')->count(); 
-        $solicitud = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $solicitud = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Solicitud de medidor')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $solicitud_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $solicitud_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Solicitud de medidor')->whereRaw('Date(created_at) = CURDATE()')->count();                
-        $otros = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $otros = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Otros trámites')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $otros_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $otros_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Otros trámites')->whereRaw('Date(created_at) = CURDATE()')->count();  
 
         //nuevas
-        $alta_estimacion = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $alta_estimacion = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Alta estimación de consumo')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $alta_estimacion_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $alta_estimacion_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Alta estimación de consumo')->whereRaw('Date(created_at) = CURDATE()')->count();                
-        $propuestas = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $propuestas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Propuestas de pago')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $propuestas_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $propuestas_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Propuestas de pago')->whereRaw('Date(created_at) = CURDATE()')->count();  
-        $aviso = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $aviso = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Aviso de incidencia')->whereRaw('Date(created_at) = CURDATE()')->count(); 
-        $aviso_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $aviso_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Aviso de incidencia')->whereRaw('Date(created_at) = CURDATE()')->count();
 
         //Pagos
-        $pago_recibo = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago_recibo = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pago')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $pago_recibo_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $pago_recibo_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Pago')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $pago_convenio = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago_convenio = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pago de convenio')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $pago_convenio_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $pago_convenio_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Pago de convenio')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $pago_carta = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago_carta = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pago carta no adeudo')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $pago_carta_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $pago_carta_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Pago carta no adeudo')->whereRaw('Date(created_at) = CURDATE()')->count();
-        $pago_facturas = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago_facturas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pagos de facturas')->whereRaw('Date(created_at) = CURDATE()')->count();     
-        $pago_facturas_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $pago_facturas_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Pagos de facturas')->whereRaw('Date(created_at) = CURDATE()')->count();
 
         //promedios
@@ -2480,130 +2448,130 @@ class HomeController extends Controller
         //$f_dos = Tiket::whereDate('created_at','=',$fecha_dos)->first();
 
 
-        $atendidos = DB::table('tikets')->select(DB::raw('*'))
+        $atendidos = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $espera = DB::table('tikets')->select(DB::raw('*'))->where('estado',0)
+        $espera = DB::table('tikets')->select(DB::raw('turno'))->where('estado',0)
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
             
-        $aclaraciones=DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $aclaraciones=DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('subasunto','Aclaraciones y Otros')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();  
         
-        $aclaraciones_abandonadas = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $aclaraciones_abandonadas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('subasunto','Aclaraciones y Otros')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $tramites = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $tramites = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('subasunto','Trámites')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $tramites_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $tramites_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('subasunto','Trámites')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $pago = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('subasunto','Pago')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $pago_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $pago_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('subasunto','Pago')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
         
         //Tramites
-        $contrato = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $contrato = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Contrato')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $contrato_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $contrato_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Contrato')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $convenio = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $convenio = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Convenio')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $convenio_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $convenio_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Convenio')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $cambio = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $cambio = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Cambio de nombre')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $cambio_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $cambio_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Cambio de nombre')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $carta = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $carta = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Carta de adeudo')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $carta_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $carta_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Carta de adeudo')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $factibilidad = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $factibilidad = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Factibilidad')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $factibilidad_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $factibilidad_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Factibilidad')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $dosomas = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $dosomas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','2 ó más trámites')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $dosomas_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $dosomas_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','2 ó más trámites')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
 
         //Nuevas    
-        $solicitud_tarifa = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $solicitud_tarifa = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Solicitud de tarifa social')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $solicitud_tarifa_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $solicitud_tarifa_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Solicitud de tarifa social')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $baja_impago = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $baja_impago = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Baja por impago')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $baja_impago_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $baja_impago_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Baja por impago')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
 
 
         //Aclaraciones
-        $alto = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $alto = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Alto consumo (con y sin medidor)')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $alto_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $alto_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Alto consumo (con y sin medidor)')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $reconexion = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $reconexion = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Reconexión de servicio')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $reconexion_abandonado = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $reconexion_abandonado = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Reconexión de servicio')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();   
-        $error = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $error = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Error en lectura')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
-        $error_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $error_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Error en lectura')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();  
-        $notoma = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $notoma = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','No toma lectura')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
-        $notoma_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $notoma_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','No toma lectura')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $noentrega = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $noentrega = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','No entrega de recibo')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
-        $noentrega_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $noentrega_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','No entrega de recibo')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $cambiotarifa = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $cambiotarifa = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Cambio de tarifa')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
-        $cambiodetarifa_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $cambiodetarifa_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Cambio de tarifa')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count(); 
-        $solicitud = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $solicitud = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Solicitud de medidor')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
-        $solicitud_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $solicitud_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Solicitud de medidor')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();           
-        $otros = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $otros = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Otros trámites')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
-        $otros_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $otros_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Otros trámites')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();   
 
 
         //Nuevas
-        $alta_estimacion = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $alta_estimacion = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Alta estimación de consumo')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
-        $alta_estimacion_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $alta_estimacion_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Alta estimación de consumo')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();  
-        $propuestas = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $propuestas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Propuestas de pago')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
-        $propuestas_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $propuestas_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Propuestas de pago')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();  
-        $aviso = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $aviso = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Aviso de incidencia')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count(); 
-        $aviso_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $aviso_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Aviso de incidencia')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();    
 
         //Pagos
-        $pago_recibo = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago_recibo = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pago')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
-        $pago_recibo_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $pago_recibo_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Pago')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $pago_convenio = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago_convenio = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pago de convenio')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
-        $pago_convenio_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $pago_convenio_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Pago de convenio')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
-        $pago_carta = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago_carta = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pago carta no adeudo')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();     
-        $pago_carta_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $pago_carta_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Pago carta no adeudo')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();
         //Nuevas
-        $pago_facturas = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $pago_facturas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Pagos de facturas')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();    
-        $pago_facturas_abandonados = DB::table('tikets')->select(DB::raw('*'))->where('estado',2)
+        $pago_facturas_abandonados = DB::table('tikets')->select(DB::raw('turno'))->where('estado',2)
             ->where('asunto','Pagos de facturas')->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->count();    
 
 
@@ -3069,58 +3037,58 @@ class HomeController extends Controller
         
         $f = Tiket::whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")->first();
 
-        $atendidos = DB::table('tikets')->select(DB::raw('*'))
+        $atendidos = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
-        $espera = DB::table('tikets')->select(DB::raw('*'))
+        $espera = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',0)
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
-        $abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
 
-        $aclaraciones=DB::table('tikets')->select(DB::raw('*'))
+        $aclaraciones=DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('subasunto','Aclaraciones y Otros')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
-        $aclaraciones_abandonadas = DB::table('tikets')->select(DB::raw('*'))
+        $aclaraciones_abandonadas = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('subasunto','Aclaraciones y Otros')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $tramites = DB::table('tikets')->select(DB::raw('*'))
+        $tramites = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('subasunto','Tramites')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")            
             ->where('id_sucursal',$id)
             ->count();
         
-        $tramites_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $tramites_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('subasunto','Tramites')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $pago = DB::table('tikets')->select(DB::raw('*'))
+        $pago = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('subasunto','Pago')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $pago_abandonado = DB::table('tikets')->select(DB::raw('*'))
+        $pago_abandonado = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('subasunto','Pago')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -3128,83 +3096,83 @@ class HomeController extends Controller
             ->count();     
         
         //Tramites
-        $contrato = DB::table('tikets')->select(DB::raw('*'))
+        $contrato = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Contrato')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $contrato_abandonado = DB::table('tikets')->select(DB::raw('*'))
+        $contrato_abandonado = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Contrato')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $convenio = DB::table('tikets')->select(DB::raw('*'))
+        $convenio = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Convenio')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $convenio_abandonado = DB::table('tikets')->select(DB::raw('*'))
+        $convenio_abandonado = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Convenio')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $cambio = DB::table('tikets')->select(DB::raw('*'))
+        $cambio = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Cambio de nombre')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $cambio_abandonado = DB::table('tikets')->select(DB::raw('*'))
+        $cambio_abandonado = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Cambio de nombre')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $carta = DB::table('tikets')->select(DB::raw('*'))
+        $carta = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Carta de adeudo')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $carta_abandonado = DB::table('tikets')->select(DB::raw('*'))
+        $carta_abandonado = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Carta de adeudo')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $factibilidad = DB::table('tikets')->select(DB::raw('*'))
+        $factibilidad = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Factibilidad')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $factibilidad_abandonado = DB::table('tikets')->select(DB::raw('*'))
+        $factibilidad_abandonado = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Factibilidad')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
 
-        $dosomas = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $dosomas = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','2 ó más trámites')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
 
-        $dosomas_abandonado = DB::table('tikets')->select(DB::raw('*'))
+        $dosomas_abandonado = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','2 ó más trámites')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -3212,28 +3180,28 @@ class HomeController extends Controller
             ->count();
 
          //Nuevas    
-        $solicitud_tarifa = DB::table('tikets')->select(DB::raw('*'))
+        $solicitud_tarifa = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Solicitud de tarifa social')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $solicitud_tarifa_abandonado = DB::table('tikets')->select(DB::raw('*'))
+        $solicitud_tarifa_abandonado = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Solicitud de tarifa social')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $baja_impago = DB::table('tikets')->select(DB::raw('*'))
+        $baja_impago = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Baja por impago')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $baja_impago_abandonado = DB::table('tikets')->select(DB::raw('*'))
+        $baja_impago_abandonado = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Baja por impago')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -3241,111 +3209,111 @@ class HomeController extends Controller
             ->count();
 
         //Aclaraciones
-        $alto = DB::table('tikets')->select(DB::raw('*'))
+        $alto = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Alto consumo (con y sin medidor)')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
 
-        $alto_abandonado = DB::table('tikets')->select(DB::raw('*'))
+        $alto_abandonado = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Alto consumo (con y sin medidor)')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
 
-        $reconexion = DB::table('tikets')->select(DB::raw('*'))
+        $reconexion = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Reconexión de servicio')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
 
-        $reconexion_abandonado = DB::table('tikets')->select(DB::raw('*'))
+        $reconexion_abandonado = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Reconexión de servicio')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count(); 
 
-        $error = DB::table('tikets')->select(DB::raw('*'))
+        $error = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Error en lectura')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count(); 
 
-        $error_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $error_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Error en lectura')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count(); 
 
-        $notoma = DB::table('tikets')->select(DB::raw('*'))
+        $notoma = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','No toma lectura')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count(); 
 
-        $notoma_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $notoma_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','No toma lectura')
             ->whereDate('created_at','=',$fecha)
             ->where('id_sucursal',$id)
             ->count();
 
-        $noentrega = DB::table('tikets')->select(DB::raw('*'))
+        $noentrega = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','No entrega de recibo')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count(); 
 
-        $noentrega_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $noentrega_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','No entrega de recibo')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
 
-        $cambiotarifa = DB::table('tikets')->select(DB::raw('*'))->where('estado',1)
+        $cambiotarifa = DB::table('tikets')->select(DB::raw('turno'))->where('estado',1)
             ->where('asunto','Cambio de tarifa')
             ->whereDate('created_at','=',$fecha)
             ->where('id_sucursal',$id)
             ->count();  
         
-        $cambiodetarifa_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $cambiodetarifa_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Cambio de tarifa')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count(); 
         
-        $solicitud = DB::table('tikets')->select(DB::raw('*'))
+        $solicitud = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Solicitud de medidor')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();  
         
-        $solicitud_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $solicitud_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Solicitud de medidor')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();   
         
-        $otros = DB::table('tikets')->select(DB::raw('*'))
+        $otros = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Otros tramites')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $otros_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $otros_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Otros tramites')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -3353,41 +3321,41 @@ class HomeController extends Controller
             ->count();  
 
         //Nuevas
-        $alta_estimacion = DB::table('tikets')->select(DB::raw('*'))
+        $alta_estimacion = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Alta estimación de consumo')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->count();     
         
-        $alta_estimacion_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $alta_estimacion_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Alta estimación de consumo')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();  
         
-        $propuestas = DB::table('tikets')->select(DB::raw('*'))
+        $propuestas = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Propuestas de pago')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();     
         
-        $propuestas_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $propuestas_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Propuestas de pago')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();  
         
-        $aviso = DB::table('tikets')->select(DB::raw('*'))
+        $aviso = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Aviso de incidencia')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count(); 
         
-        $aviso_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $aviso_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Aviso de incidencia')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
@@ -3395,56 +3363,56 @@ class HomeController extends Controller
             ->count();    
 
         //Pagos
-        $pago_recibo = DB::table('tikets')->select(DB::raw('*'))
+        $pago_recibo = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Pago')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();   
         
-        $pago_recibo_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $pago_recibo_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Pago')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $pago_convenio = DB::table('tikets')->select(DB::raw('*'))
+        $pago_convenio = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Pago de convenio')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();    
         
-        $pago_convenio_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $pago_convenio_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Pago de convenio')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
         
-        $pago_carta = DB::table('tikets')->select(DB::raw('*'))
+        $pago_carta = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Pago carta no adeudo')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();     
         
-        $pago_carta_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $pago_carta_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Pago carta no adeudo')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();
 
-        $pago_facturas = DB::table('tikets')->select(DB::raw('*'))
+        $pago_facturas = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',1)
             ->where('asunto','Pagos de facturas')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
             ->where('id_sucursal',$id)
             ->count();    
         
-        $pago_facturas_abandonados = DB::table('tikets')->select(DB::raw('*'))
+        $pago_facturas_abandonados = DB::table('tikets')->select(DB::raw('turno'))
             ->where('estado',2)
             ->where('asunto','Pagos de facturas')
             ->whereRaw("DATE(created_at) BETWEEN '$fecha' AND '$fecha_dos'")
